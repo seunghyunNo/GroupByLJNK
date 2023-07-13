@@ -1,4 +1,4 @@
 package com.project.service;
 
-public class AttachmentService {
+public interface AttachmentService {
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.repository.fileBoardRepository">
+    <insert id="write" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
+     parameterType="com.project.domain.Board">
+        INSERT INTO t_board (content,user_id)
+        VALUES (#{content},#{user.id}
+    </insert>
+
+    <sql id="SELECT_BASE">
+        SELECT
+            b.id,
+            b.regdate,
+            b.count,
+            b.content,
+            u.id
+            u.username
+        FROM t_board b ,t_user u
+        WHERE b.user_id = u.id
+    </sql>
+
+    <resultMap id="mapUser" type="com.project.domain.User">
+        <result column="u.id" property="id"/>
+        <result column="u.username" property="username"/>
+    </resultMap>
+
+    <resultMap id="mapBoard" type="com.project.domain.Board">
+        <result column="b.id" property="id"/>
+        <result column="b.regdate" property="regdate"/>
+        <result column="b.count" property="count"/>
+        <result column="b.content" property="content"/>
+        <collection property="user" resultMap="mapUser"/>
+    </resultMap>
+
+    <select id="list" resultMap="mapBoard">
+        <include refid="SELECT_BASE"/>
+        ORDER BY b.id DESC
+    </select>
+
+    <update id="downloadCnt" flushCache="true">
+        UPDATE t_board
+        SET count = #{count}
+        WHERE id = #{id}
+    </update>
+
+    <update id="update" flushCache="true" parameterType="com.project.domain.Board">
+        UPDATE t_board
+        SET content = #{content}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" flushCache="true" parameterType="com.project.domain.Board">
+        DELETE FROM t_board WHERE id = #{id}
+    </delete>
+
+    <select id="selectByPage" resultType="com.project.domain.Board">
+        <include refid="SELECT_BASE"/>
+        ORDER BY id DESC
+        LIMIT #{from}, #{row}
+    </select>
+
+
+</mapper>

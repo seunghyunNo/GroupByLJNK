@@ -10,12 +10,10 @@ public interface fileBoardRepository {
 
     int downloadCnt(Long id);
 
-    int recommendCnt(Long id);
-
     int update(Board board);
 
     int delete(Board board);
 
-    List<Board> selectBypage(int from,int row);
+    List<Board> selectByPage(int from,int row);
 
 }
