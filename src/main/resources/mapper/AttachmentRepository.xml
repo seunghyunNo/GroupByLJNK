@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.domain.Attachment">
+    <insert id="insert" flushCache="true" parameterType="arrayList">
+        INSERT INTO t_attachment(sourcename,filename,board_id)
+        VALUES
+            <foreach collection="param1" item="e" separator=",">
+                (#{e.sourcename},#{e.filename},#{e.board_id}
+            </foreach>
+    </insert>
+
+    <insert id="saveFile" flushCache="true" parameterType="com.project.domain.Attachment">
+        INSERT INTO t_attachment(sourcename,filename,board_id)
+        VALUES
+        (#{sourcename}, #{filename}, #{board_id})
+    </insert>
+
+    <sql id="SELECT_BASE_FILE">
+        SELECT id, sourcename, filename, board_id
+        FROM t_attachment
+    </sql>
+
+</mapper>
