@@ -2,17 +2,15 @@ package com.project.repository;
 
 import com.project.domain.Board;
 
-<<<<<<< HEAD
-=======
-import java.time.LocalDate;
->>>>>>> 66bb5e6702fa07b4175871341d6cb3748a8dbd79
+
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface boardRepository {
 
     // 새글 작성
-    int write(Board board);
+    int save(Board board);
 
     // 전체 글 목록
     List<Board> list();
@@ -32,6 +30,9 @@ public interface boardRepository {
     // 특정 id 글 삭제
     int delete(Board board);
 
+
+    // 페이징
+    int countAll();
 
     // 게시글 출력 갯수
     List<Board> selectByPage(int from, int rows);

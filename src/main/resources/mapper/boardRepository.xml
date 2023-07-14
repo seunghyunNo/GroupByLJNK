@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.repository.boardRepository">
+    <insert id="save" flushCache="true"
+        parameterType="com.project.domain.Board"
+        useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into t_board
+            (user_id,title,content,game_id)
+        values
+        (#{user_id},#{title},#{content},{game_id})
+    </insert>
+
+    <select id="findById" resultType="com.project.domain.Board">
+        select
+            id,
+            regdate,
+            title,
+            content,
+            game_id,
+            is_file
+
+        from
+            t_board
+        where
+            id=#{id}
+    </select>
+
+<!-- 아직 수정중    -->
+
+</mapper>
