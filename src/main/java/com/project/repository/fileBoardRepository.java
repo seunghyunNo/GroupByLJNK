@@ -8,7 +8,7 @@ public interface fileBoardRepository {
     int write(Board board);
     List<Board> list();
 
-    int downloadCnt(Long id);
+    Board searchById(Long id);
 
     int update(Board board);
 

@@ -21,4 +21,37 @@
         FROM t_attachment
     </sql>
 
+    <select id="findByFileBoard" resultType="com.project.domain.Attachment">
+        <include refid="SELECT_BASE_FILE"/>
+        WHERE board_id = #{param1}
+    </select>
+
+    <select id="findByFileId" resultType="com.project.domain.Attachment">
+        <include refid="SELECT_BASE_FILE"/>
+        WHERE id = #{id}
+    </select>
+
+    <select id="findByFileIds" resultType="com.project.domain.Attachment"
+        parameterType="java.util.ArrayList">
+        <include refid="SELECT_BASE_FILE"/>
+        WHERE id IN
+            <foreach collection="param1" item="e" separator="," open="(" close=")">
+                #{e}
+            </foreach>
+        ORDER BY id ASC
+    </select>
+
+    <delete id="deleteByFileId" flushCache="true"
+            parameterType="com.project.domain.Attachment">
+        DELETE FROM t_attachment
+        WHERE id IN
+            <foreach collection="param1" item="e" separator=",">
+                #{e}
+            </foreach>
+    </delete>
+
+    <delete id="delete" flushCache="true" parameterType="com.project.domain.Attachment">
+        DELETE FROM t_attachment
+        WHERE id = #{id}
+    </delete>
 </mapper>
