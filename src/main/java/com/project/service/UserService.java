@@ -16,8 +16,8 @@ public interface UserService {
     boolean isExist(String username);
 
     // 신규 회원 가입
-    int join(User user);
+    int signup(User user);
 
-    // id(pk)로 authority(들) 가져오기
+    // 로그인 유저의 Id(pk)로 해당 유저의 authority(들) 가져오기
     List<Authority> findAuthorityById(Long id);
 }

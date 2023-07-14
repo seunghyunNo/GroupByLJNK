@@ -13,8 +13,6 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         System.out.println("로그아웃 성공 : CustomLogoutSuccessHandler() 호출");
 
-        request.getSession().invalidate();  // 이제야 Session 을 invalidate
-
         String redirectUrl = "/user/login?logoutHandler";
 
         // ret_url 이 있는 경우 logout 하고 해당 url 로 redirect

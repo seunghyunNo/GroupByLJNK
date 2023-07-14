@@ -2,9 +2,11 @@ package com.project.service;
 
 import com.project.domain.Authority;
 import com.project.domain.User;
+import com.project.repository.AuthorityRepository;
 import com.project.repository.UserRepository;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +16,15 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
+    private AuthorityRepository authorityRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
     public UserServiceImpl(SqlSession session){
         userRepository = session.getMapper(UserRepository.class);
+        authorityRepository = session.getMapper(AuthorityRepository.class);
     }
 
     @Override
@@ -35,12 +43,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int join(User user) {
-        return userRepository.join(user);
+    public int signup(User user) {
+        // password 암호화 하여 저장
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.signup(user);
+
+        // 회원가입시 기본 MEMBER 권한 등록
+        // DB에서 ROLE_MEMBER 의 name 과 id 값을 authority 에 저장
+        Authority authority = authorityRepository.findByName("ROLE_MEMBER");
+        // user 에서 id(PK) 값 저장
+        Long user_id = user.getId();
+        // authority 에서 ROLE_MEMBER 의 id 값 저장
+        Long authority_id = authority.getId();
+        // t_user_authorities DB에 유저 id 와 ROLE_MEMBER id 등록
+        authorityRepository.addAuthority(user_id, authority_id);
+
+        // 등록 완료 후 1 리턴
+        return 1;
     }
 
     @Override
     public List<Authority> findAuthorityById(Long id) {
-        return null;
+        // id 값으로 해당 유저의 Authority 를 List 에 담아 return
+        return authorityRepository.findAuthorityById(id);
     }
 }

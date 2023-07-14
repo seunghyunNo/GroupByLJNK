@@ -19,16 +19,9 @@
             username = #{param1}
     </select>
 
-    <insert id="join" flushCache="true" parameterType="com.project.domain.User"
+    <insert id="signup" flushCache="true" parameterType="com.project.domain.User"
             keyProperty="id" useGeneratedKeys="true" keyColumn="id">
         INSERT INTO t_user(username, password, email)
-        VALUE(#{username}, #{password}, #{name})
+        VALUE(#{username}, #{password}, #{email})
     </insert>
-
-    <select id="findAuthorityById" parameterType="com.project.domain.Authority">
-        SELECT id "id"
-            , name "name"
-        FROM t_authority
-        WHERE id = #{param1}
-    </select>
 </mapper>

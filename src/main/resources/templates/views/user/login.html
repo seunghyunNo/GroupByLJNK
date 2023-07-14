@@ -7,13 +7,17 @@
     <title>로그인페이지</title>
 </head>
 <body>
+<th:block th:insert="~{/header::header}"></th:block>
 
-    <div class="container text-center">
-        <form th:action="@{/user/login}" method="post">
+    <div class="container text-center mt-5">
+        <form th:action="@{/user/login}" method="POST">
             <h1>로그인</h1>
-            <input type="text" class="form-control" name="username" placeholder="ID">
+            <!-- 로그인 실패시 기존에 사용했던 username 가져오기 -->
+            <input type="text" class="form-control" name="username" placeholder="ID" th:value="${username}">
             <input type="password" class="form-control" name="password" placeholder="PASSWORD">
-            <button class="btn btn-primary">로그인</button>
+            <!-- 로그인 실패시 에러메시지 표시 -->
+            <div class="col-12 text-danger mt-3" th:text="${errMessage}"></div>
+            <button class="btn btn-primary mt-3">로그인</button>
         </form>
     </div>
 

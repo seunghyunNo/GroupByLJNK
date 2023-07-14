@@ -9,7 +9,7 @@ public interface UserRepository {
 
     User findByUsername(String username);
 
-    int join(User user);
+    int signup(User user);
 
-    List<Authority> findAuthorityById(Long id);
+
 }

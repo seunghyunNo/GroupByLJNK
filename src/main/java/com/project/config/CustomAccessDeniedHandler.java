@@ -8,11 +8,11 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 import java.io.IOException;
 
-public class CustomAccessDenieHandler implements AccessDeniedHandler {
+public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        System.out.println("접근 권한 오류 : CustomAccessDenieHandler");
+        System.out.println("접근 권한 오류 : CustomAccessDeniedHandler");
 
         response.sendRedirect("/user/rejectAuth");
     }
