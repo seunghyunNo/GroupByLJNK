@@ -16,8 +16,4 @@ public class HomeController {
 	public void home(Model model){
 	}
 	
-	@RequestMapping("/apitest")
-	public void test1(){
-
-	}
 }
