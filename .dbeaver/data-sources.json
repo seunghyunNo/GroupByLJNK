@@ -17,13 +17,13 @@
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
-					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2"
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
 				},
 				"provider-properties": {
 					"@dbeaver-serverTimezone@": "Africa/Abidjan"
 				},
-				"auth-model": "native",
-				"handlers": {}
+				"auth-model": "native"
 			}
 		}
 	},
@@ -35,10 +35,7 @@
 			"auto-commit": true,
 			"confirm-execute": false,
 			"confirm-data-change": false,
-			"smart-commit": false,
-			"smart-commit-recover": true,
-			"auto-close-transactions": true,
-			"close-transactions-period": 1800
+			"auto-close-transactions": false
 		}
 	}
 }

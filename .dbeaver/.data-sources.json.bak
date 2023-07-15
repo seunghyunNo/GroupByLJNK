@@ -19,7 +19,11 @@
 					"rewriteBatchedStatements": "true",
 					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2"
 				},
-				"auth-model": "native"
+				"provider-properties": {
+					"@dbeaver-serverTimezone@": "Africa/Abidjan"
+				},
+				"auth-model": "native",
+				"handlers": {}
 			}
 		}
 	},

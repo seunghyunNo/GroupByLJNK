@@ -23,7 +23,7 @@ import java.util.Map;
 @Service
 public class fileBoardServiceImpl implements fileBoardService  {
 
-    private fileBoardRepository fileRepository;
+    private fileBoardRepository fileBoardRepository;
     private AttachmentRepository attachmentRepository;
 
 
@@ -32,7 +32,7 @@ public class fileBoardServiceImpl implements fileBoardService  {
 
     @Autowired
     public fileBoardServiceImpl(SqlSession sqlSession) {
-        fileRepository = sqlSession.getMapper(fileBoardRepository.class);
+        fileBoardRepository = sqlSession.getMapper(fileBoardRepository.class);
         attachmentRepository = sqlSession.getMapper(AttachmentRepository.class);
     }
 
@@ -40,7 +40,7 @@ public class fileBoardServiceImpl implements fileBoardService  {
     public int write(Board board, Map<String, MultipartFile> files) {
         // 작성자 TODO
 
-        int result = fileRepository.write(board);
+        int result = fileBoardRepository.write(board);
         insertFiles(files, board.getId());
 
         return result;
@@ -116,7 +116,7 @@ public class fileBoardServiceImpl implements fileBoardService  {
 
     @Override
     public List<Board> list() {
-        return fileRepository.list();
+        return fileBoardRepository.list();
     }
 
     @Override
@@ -129,7 +129,7 @@ public class fileBoardServiceImpl implements fileBoardService  {
 
     @Override
     public int update(Map<String, MultipartFile> files, Board board, Long[] deleteFiles) {
-        int result = fileRepository.update(board);
+        int result = fileBoardRepository.update(board);
 
         insertFiles(files, board.getId());
 
@@ -165,7 +165,7 @@ public class fileBoardServiceImpl implements fileBoardService  {
     public int delete(Long id) {
         int result = 0;
 
-        Board board = fileRepository.searchById(id);
+        Board board = fileBoardRepository.searchById(id);
 
         if(board != null)
         {
@@ -178,7 +178,7 @@ public class fileBoardServiceImpl implements fileBoardService  {
                     deleteFile(file);
                 }
             }
-            result = fileRepository.delete(board);
+            result = fileBoardRepository.delete(board);
         }
 
         return result;

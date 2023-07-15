@@ -6,7 +6,7 @@
         INSERT INTO t_attachment(sourcename,filename,board_id)
         VALUES
             <foreach collection="param1" item="e" separator=",">
-                (#{e.sourcename},#{e.filename},#{e.board_id}
+                (#{e.sourcename},#{e.filename},#{e.board_id})
             </foreach>
     </insert>
 
