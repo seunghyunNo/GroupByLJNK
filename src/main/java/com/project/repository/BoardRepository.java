@@ -7,7 +7,7 @@ import com.project.domain.Board;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface boardRepository {
+public interface BoardRepository {
 
     // 새글 작성
     int save(Board board);

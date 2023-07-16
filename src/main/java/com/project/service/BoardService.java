@@ -1,21 +1,20 @@
 package com.project.service;
 
 import com.project.domain.Board;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 public interface BoardService {
     int write(Board board);
 
+
+
     @Transactional
     Board detail(Long id);
 
-    List<Board> list();
+        //list 해결 해야됨
+//    List<Board> list();
+//
+//    List<Board> list(Integer page, Model model);
 
     Board selectById(Long id);
 
