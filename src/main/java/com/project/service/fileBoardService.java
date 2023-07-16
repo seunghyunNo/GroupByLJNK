@@ -14,6 +14,8 @@ public interface fileBoardService {
 
     List<Board> list(Model model, Integer page);
 
+    Board findById(Long id);
+
     int update(Map<String,MultipartFile> files, Board board,Long[] deletefiles);
 
     int delete(Long id);

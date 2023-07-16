@@ -1,11 +1,10 @@
 package com.project.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,4 +21,8 @@ public class Board {
 
     private String game_id;         // NN
     private Long user_id;   // FK   // NN
+
+    @ToString.Exclude
+    @Builder.Default
+    private List<Attachment> files = new ArrayList<>();
 }

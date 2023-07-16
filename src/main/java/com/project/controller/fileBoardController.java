@@ -31,4 +31,11 @@ public class fileBoardController {
 
         return "fileboard/writeCheck";
     }
+
+    @GetMapping("/update")
+    public String update(Long id, Model model)
+    {
+        model.addAttribute("fileboard",fileBoardService.findById(id));
+        return "fileboard/update";
+    }
 }

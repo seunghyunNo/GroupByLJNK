@@ -48,6 +48,7 @@ public class fileBoardServiceImpl implements fileBoardService  {
 
     public void insertFiles(Map<String,MultipartFile> files, Long id)
     {
+        Board board = null;
         if(files != null)
         {
             for(var entry: files.entrySet())
@@ -62,6 +63,8 @@ public class fileBoardServiceImpl implements fileBoardService  {
                 if(file != null)
                 {
                     file.setBoard_id(id);
+                    board.setId(file.getBoard_id());
+                    board.setIs_file(true);
                     attachmentRepository.saveFile(file);
                 }
             }
@@ -125,6 +128,18 @@ public class fileBoardServiceImpl implements fileBoardService  {
         // TODO
 
         return null;
+    }
+
+    @Override
+    public Board findById(Long id) {
+        Board board = fileBoardRepository.searchById(id);
+        if(board != null)
+        {
+            List<Attachment> files = attachmentRepository.findByFileBoard(board.getId());
+            board.setFiles(files);
+        }
+
+        return board;
     }
 
     @Override

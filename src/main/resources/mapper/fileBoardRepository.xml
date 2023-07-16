@@ -14,7 +14,7 @@
             b.regdate,
             b.count,
             b.content,
-            u.id
+            u.id,
             u.username
         FROM t_board b ,t_user u
         WHERE b.user_id = u.id
