@@ -23,6 +23,9 @@ public class Board {
     private Long user_id;   // FK   // NN
 
     @ToString.Exclude
+    private User user;
+
+    @ToString.Exclude
     @Builder.Default
     private List<Attachment> files = new ArrayList<>();
 }

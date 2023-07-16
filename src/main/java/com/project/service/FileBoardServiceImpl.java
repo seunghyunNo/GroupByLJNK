@@ -3,13 +3,15 @@ package com.project.service;
 import com.project.domain.Attachment;
 import com.project.domain.Board;
 import com.project.repository.AttachmentRepository;
-import com.project.repository.fileBoardRepository;
+import com.project.repository.FileBoardRepository;
+import jakarta.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -21,18 +23,24 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
 @Service
-public class fileBoardServiceImpl implements fileBoardService  {
+public class FileBoardServiceImpl implements FileBoardService {
 
-    private fileBoardRepository fileBoardRepository;
+    private FileBoardRepository fileBoardRepository;
     private AttachmentRepository attachmentRepository;
 
 
     @Value("{app.upload.path}")
     private String uploadDirectory;
 
+    @Value("${app.pagination.write_pages}")
+    private int WRITE_PAGES;
+
+    @Value("${app.pagination.page_rows}")
+    private int PAGE_ROWS;
+
     @Autowired
-    public fileBoardServiceImpl(SqlSession sqlSession) {
-        fileBoardRepository = sqlSession.getMapper(fileBoardRepository.class);
+    public FileBoardServiceImpl(SqlSession sqlSession) {
+        fileBoardRepository = sqlSession.getMapper(FileBoardRepository.class);
         attachmentRepository = sqlSession.getMapper(AttachmentRepository.class);
     }
 
@@ -124,6 +132,11 @@ public class fileBoardServiceImpl implements fileBoardService  {
 
     @Override
     public List<Board> list(Model model, Integer page) {
+
+        if(page == null || page < 1)
+        {
+            page = 1;
+        }
 
         // TODO
 

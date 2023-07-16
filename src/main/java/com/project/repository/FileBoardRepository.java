@@ -4,7 +4,7 @@ import com.project.domain.Board;
 
 import java.util.List;
 
-public interface fileBoardRepository {
+public interface FileBoardRepository {
     int write(Board board);
     List<Board> list();
 
