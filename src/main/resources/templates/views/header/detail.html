@@ -24,13 +24,20 @@
         </div>
     </div>
 </div>
-<nav class="navbar navbar-light bg-light">
-    <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link active" href="@{'/reivew/' + ${appId}}">게임 리뷰</a></li>
-        <li class="nav-item"><a class="nav-link active" href="@{'/board/list/' + ${appId}}">게시판</a></li>
-        <li class="nav-item"><a class="nav-link active" href="@{'/fileboard/list/' + ${appId}}">자료실</a></li>
-    </ul>
-
-</nav>
+<nav class="navbar navbar-expand-md navbar-light bg-light mt-2">
+    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{'/review/' + ${appId}}">게임 리뷰</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{'/board/list/' + ${appId}}">게시판</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{'/fileboard/list/' + ${appId}}">자료실</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </th:block>
 </html>

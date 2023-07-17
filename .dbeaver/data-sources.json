@@ -1,7 +1,7 @@
 {
 	"folders": {},
 	"connections": {
-		"mysql8-1894af8fa9a-1dabc18ca54149f0": {
+		"mysql8-1896356e1e9-5cecce3589ca2564": {
 			"provider": "mysql",
 			"driver": "mysql8",
 			"name": "steamdb",
@@ -17,13 +17,10 @@
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
-					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2"
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "true"
 				},
-				"provider-properties": {
-					"@dbeaver-serverTimezone@": "Africa/Abidjan"
-				},
-				"auth-model": "native",
-				"handlers": {}
+				"auth-model": "native"
 			}
 		}
 	},
