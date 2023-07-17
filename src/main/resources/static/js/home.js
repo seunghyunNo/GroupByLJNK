@@ -2,7 +2,6 @@ var api_key = "FB50E2191E8E06A7CA8BCC63648DEB93";
 
 $(function(){
 	loadGameList();
-	addAppUrl();
 });
 
 function loadGameList(){
@@ -28,10 +27,14 @@ function parseJSON(data){
 		appId = element.appid;
 		if(element.name.trim() != ''){
 			result.push(`
-			<div class="col-3 mb-3">
-				<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/hero_capsule.jpg"
-					class="img-thumbnail" alt="thumnail">
-				<a href="/review/${appId}">${element.name}</a>
+			<div class="col-3 mb-3 card">
+				<img class="img-thumbnail"
+					src="https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/hero_capsule.jpg"
+					alt="thumnail">
+				<div class="row justify-content-between">
+					<a class="col-auto" href="/review/${appId}">${element.name}</a>
+					<i class="col-2 bi bi-box2-heart fs-3"></i>
+				</div>
 			</div>
 			`);
 		}

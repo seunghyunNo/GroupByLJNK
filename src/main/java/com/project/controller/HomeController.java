@@ -29,6 +29,7 @@ public class HomeController {
 	@RequestMapping("/review/{appId}")
 	public String review(@PathVariable String appId, Model model){
 		model.addAttribute("appId", appId);
+		
 		var serviceResult = apiService.getData(appId);
 		LinkedHashMap<?,?> body = (LinkedHashMap) ((LinkedHashMap) serviceResult.getBody()).get(appId);
 		String status = serviceResult.getStatusCode().toString();
