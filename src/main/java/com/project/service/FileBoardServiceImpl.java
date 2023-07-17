@@ -4,6 +4,7 @@ import com.project.domain.Attachment;
 import com.project.domain.Board;
 import com.project.repository.AttachmentRepository;
 import com.project.repository.FileBoardRepository;
+import com.project.util.Util;
 import jakarta.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -138,9 +141,39 @@ public class FileBoardServiceImpl implements FileBoardService {
             page = 1;
         }
 
-        // TODO
+        HttpSession session = Util.getSession();
+        Integer writePage = (Integer) session.getAttribute("writePage");
+        Integer pageRows = (Integer) session.getAttribute("pageRows");
+        if(writePage == null)
+        {
+            writePage = WRITE_PAGES;
+        }
+        if(pageRows == null)
+        {
+            pageRows = PAGE_ROWS;
+        }
 
-        return null;
+        session.setAttribute("page",page);
+
+        long count = fileBoardRepository.countAll();
+
+        int totalPage = (int)Math.ceil(count/(double)pageRows);
+
+        if(page > totalPage)
+        {
+            page = totalPage;
+        }
+
+        int fromRow = (page - 1) * pageRows;
+
+        int start = (((page -1)/ writePage)*writePage)+1;
+        int end = start + writePage - 1;
+        if(end >= totalPage) end = totalPage;
+
+        List<Board> list = fileBoardRepository.selectByPage(fromRow,pageRows);
+        model.addAttribute("list",list);
+
+        return list;
     }
 
     @Override

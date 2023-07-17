@@ -18,11 +18,8 @@ public class Board {
     private String content;         // NN
     private Boolean is_file;        // NN
 
-
     private String game_id;         // NN
-    private Long user_id;   // FK   // NN
 
-    @ToString.Exclude
     private User user;
 
     @ToString.Exclude

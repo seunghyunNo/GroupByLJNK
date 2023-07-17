@@ -14,7 +14,30 @@
 </head>
 <body>
     <div class="container mt-3">
-        <table class="tavle table-hover">
+        <div class="row">
+            <div class="col-2">
+                <a class="btn btn-outline-dark" th:href="@{/fileboard/write}" >작성</a>
+            </div>
+        </div>
+
+        <div class="mb-3 mt-3 clearfix">
+            <span class="float-start me-2">총 [[${count}]]개</span>
+            <span class="float-start">page [[${page}]]/[[${totalPage}]]</span>
+            <span class="float-end">
+        <form name="frmPageRows">
+            <input type="hidden" name="page" th:value="${page}">
+            <select class="form-select" name="pageRows">
+                <option value="10" th:selected="${pageRows==10}">10</option>
+                <option value="15" th:selected="${pageRows==15}">15</option>
+                <option value="20" th:selected="${pageRows==20}">20</option>
+                <option value="50" th:selected="${pageRows==50}">50</option>
+            </select>
+        </form>
+            </span>
+        </div>
+
+
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>작성자</th>
@@ -23,19 +46,26 @@
                     <th>작성 시간</th>
                     <th>다운로드 수</th>
                     <th>추천 수</th>
+                    <th>#</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="board : ${list}">
-                    <td th:text="${board.user.username}">작성자</td>
-                    <td th:text="${board.content}">게임 설명</td>
-                    <td th:text="${board.content}">첨부 파일</td> // TODO
-                    <td th:text="${board.regdate}">작성 시간</td>
-                    <td th:text="${board.regdate}">다운로드 수</td> // TODO
-                    <td th:text="${board.regdate}">추천 수</td> // TODO
+                <tr th:each="fileboard : ${list}">
+<!--                    <td th:text="${board.user.username}">작성자</td>-->
+                    <td th:text="${fileboard.content}">게임 설명</td>
+                    <td> <li class="list-group-item" th:each="attachment : ${board.files}">
+                        <a th:href="@{/fileboard/download(id=${attachment.id})}" id="downCnt">[[${attachment.sourcename}]]</a>
+                    </li></td> // TODO
+                    <td th:text="${fileboard.regdate}">작성 시간</td>
+                    <td th:text="${fileboard.count}">다운로드 수</td> // TODO
+                    <td>추천 수</td>
+                    <td><button type="button" id="btnRec" class="btn btn-outline-dark">추천</button></td>
                 </tr>
             </tbody>
         </table>
+
+
     </div>
+
 </body>
 </html>

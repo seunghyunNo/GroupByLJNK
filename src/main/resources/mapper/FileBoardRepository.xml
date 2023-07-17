@@ -16,7 +16,7 @@
             b.content,
             u.id,
             u.username
-        FROM t_board b ,t_user u
+        FROM t_board b,t_user u
         WHERE b.user_id = u.id
     </sql>
 
@@ -55,8 +55,12 @@
 
     <select id="selectByPage" resultType="com.project.domain.Board">
         <include refid="SELECT_BASE"/>
-        ORDER BY id DESC
+        ORDER BY b.id DESC
         LIMIT #{from}, #{row}
+    </select>
+
+    <select id="countAll" resultType="int">
+        SELECT COUNT(*) FROM t_board
     </select>
 
 </mapper>

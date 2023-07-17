@@ -16,4 +16,6 @@ public interface FileBoardRepository {
 
     List<Board> selectByPage(int from,int row);
 
+    int countAll();
+
 }

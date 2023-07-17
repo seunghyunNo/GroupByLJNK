@@ -16,7 +16,7 @@
 <form action="@{/fileboard/update}" method="post" enctype="multipart/form-data">
   <div class="my-3">
     <label for="content">게임 설명:</label>
-    <textarea class="form-control" rows="5" id="content" placeholder="설명을 입력하세요" name="content" th:utext="${content} ? ${content} : ${board.content}"></textarea>
+    <textarea class="form-control" rows="5" id="content" placeholder="설명을 입력하세요" name="content" th:utext="${content}"></textarea>
   </div>
 
   <div class="container mt-3 mb-3 border rounded" >

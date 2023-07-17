@@ -31,16 +31,16 @@ public class FileBoardController {
         return "fileboard/writeCheck";
     }
 
-    @GetMapping("/list/{appId}")
+    @GetMapping("/list")
     public void list(Integer page,Model model)
     {
         model.addAttribute("list",fileBoardService.list(model,page));
     }
 
-    @GetMapping("/update")
+    @GetMapping("/update/{id}")
     public String update(Long id, Model model)
     {
-        model.addAttribute("fileboard",fileBoardService.findById(id));
+        model.addAttribute("board",fileBoardService.findById(id));
         return "fileboard/update";
     }
 
