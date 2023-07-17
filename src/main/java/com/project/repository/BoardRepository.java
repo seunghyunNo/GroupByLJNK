@@ -7,10 +7,10 @@ import com.project.domain.Board;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface boardRepository {
+public interface BoardRepository {
 
     // 새글 작성
-    int save(Board board);
+    int write(Board board);
 
     // 전체 글 목록
     List<Board> list();
@@ -32,7 +32,7 @@ public interface boardRepository {
 
 
     // 페이징
-    int countAll();
+    List<Board> countAll();
 
     // 게시글 출력 갯수
     List<Board> selectByPage(int from, int rows);

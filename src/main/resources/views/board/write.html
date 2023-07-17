@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>write</title>
+</head>
+<body>
+    <form th:action="@{/board/write}" method="post" enctype="multipart/form-data">
+        <div>
+            <span>제목</span>
+            <input type="text" placeholder="제목을 입력하세요" name="title" th:value="${title}">
+            <!-- 주의 문구 -->
+<!--          <span th:if="${error_title}" th:utext="${error_title}"></span>-->
+            <div>
+                <!-- textarea 적용해야한다-->
+                <textarea row="5" placeholder="내용을 입력하세요" th:utext="${content}"></textarea>
+
+            </div>
+        </div>
+    </form>
+</body>
+</html>

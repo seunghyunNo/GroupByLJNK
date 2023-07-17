@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:if="${board}">
+<head>
+    <meta charset="UTF-8">
+    <title>detail</title>
+
+    <!--수정 필요할 수도 있음-->
+    <script th:inline="javascript">
+      const logged_id = [[${logged_user_id}]];
+    </script>
+</head>
+<body>
+    <div>
+        <section>
+            <form name="frmDelete" th:action="@{/board/delete}" method="post">
+                <input type="hidden" name="id" th:value="${board.id}">
+            </form>
+
+            <div>
+                <span>제목</span>
+                <div th:text="${board.title}"></div>
+            </div>
+
+            <div>
+                <span>내용</span>
+                <div th:utext="${board.content}"></div>
+            </div>
+
+            <!-- 하단 -->
+            <div>
+
+                <a th:href="@{'/board/update/'+ ${board.id}}" th:if="${logged_user.id == board.id}">수정</a>
+                <a th:href="@{/board/list(page=${session.page)}/}">목록</a>
+                <!--수정 필요할 수도 있음 -->
+                <button th:if="${logged_user_id == board.user_id}">삭제</button>
+
+                <!--권한 설정-->
+                <a th:href="@{/board/write}">작성</a>
+            </div>
+
+            <!--댓글 -->
+            <th:block th:insert="~{board/comment::comment}"></th:block>
+
+        </section>
+    </div>
+</body>
+</th:block>
+</html>

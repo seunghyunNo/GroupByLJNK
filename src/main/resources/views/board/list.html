@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+</head>
+
+
+
+<!--작성-->
+    <div>
+        <div>
+            <a th:href="@{/board/write}">작성</a>
+        </div>
+    </div>
+
+
+<!-- 게시물 개수 조절-->
+<body>
+    <div>
+        <form name="frmPageRows">
+            <input type="hidden" name="page" th:value="${page}">
+            <select name="pageRows">
+                <option value="10" th:selected="${pageRows==10}">10</option>
+                <option value="10" th:selected="${pageRows==15}">15</option>
+                <option value="10" th:selected="${pageRows==20}">20</option>
+                <option value="10" th:selected="${pageRows==30}">30</option>
+            </select>
+        </form>
+    </div>
+    <!--게시물 목록 -->
+    <table>
+        <thead>
+        <tr>
+            <th>작성자</th>
+            <th>제목</th>
+            <th>작성일</th>
+            <th>추천수</th>
+            <th>조회수</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="board : ${list}">
+                <td th:text="${board.user_id}"></td>
+                <td><a th:href="@{'/board/detail/'+${board.id}}" th:text="${board.title}"/></td>
+                <td th:text="${board.regdate}"></td>
+                <td th:text="${board.count}">추천수</td>
+                <td th:text="${board.count}">조회수</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</body>
+</html>

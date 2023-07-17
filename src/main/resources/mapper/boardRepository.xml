@@ -3,17 +3,56 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.repository.boardRepository">
-    <insert id="save" flushCache="true"
-        parameterType="com.project.domain.Board"
-        useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+<mapper namespace="com.project.repository.BoardRepository">
+    <insert id="write" flushCache="true"
+            parameterType="com.project.domain.Board"
+            useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into t_board
             (user_id,title,content,game_id)
         values
-        (#{user_id},#{title},#{content},{game_id})
+            (#{user_id},#{title},#{content},{game_id})
     </insert>
 
     <select id="findById" resultType="com.project.domain.Board">
+        select
+        id,
+        regdate,
+        title,
+        content,
+        game_id,
+        is_file
+
+        from
+            t_board
+        where
+            id=#{id}
+    </select>
+
+    <select id="findAll" resultType="com.project.domain.Board">
+        select
+        id,
+        regdate,
+        title,
+        content,
+        game_id,
+        is_file
+
+        from
+        t_board
+        order by id desc
+    </select>
+    <update id="update" flushCache="true" parameterType="com.project.domain.Board">
+        update t_board
+        set title=#{title}, content=#{content}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" flushCache="true" parameterType="com.project.domain.Board">
+        delete from t_board where id = #{id}
+
+    </delete>
+
+    <select id="selectByPage" resultType="com.project.domain.Board">
         select
             id,
             regdate,
@@ -24,10 +63,8 @@
 
         from
             t_board
-        where
-            id=#{id}
+        order by id desc
+            LIMIT #{from}, #{rows}
     </select>
-
-<!-- 아직 수정중    -->
 
 </mapper>
