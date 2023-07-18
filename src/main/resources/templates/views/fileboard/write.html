@@ -13,7 +13,8 @@
     <title>자료게시판 작성페이지</title>
 </head>
 <body>
-    <form action="@{/fileboard/write}" method="post" enctype="multipart/form-data">
+<div class="container mt-3">
+    <form th:action="@{/fileboard/write}" method="post" enctype="multipart/form-data">
         <div class="my-3">
             <label for="content">게임 설명:</label>
             <textarea class="form-control" rows="5" id="content" placeholder="설명을 입력하세요" name="content" th:utext="${content}"></textarea>
@@ -32,5 +33,6 @@
         <button type="submit" class="btn btn-outline-dark">작성완료</button>
         <a class="btn btn-outline-dark" th:href="@{/fileboard/list(page=${session.page})}">목록</a>
     </form>
+</div>
 </body>
 </html>

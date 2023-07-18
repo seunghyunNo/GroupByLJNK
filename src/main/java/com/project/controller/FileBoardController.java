@@ -6,9 +6,7 @@ import com.project.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
@@ -24,10 +22,12 @@ public class FileBoardController {
     public void write(){}
 
     @PostMapping("/write")
-    public String writeCheck(Map<String, MultipartFile> files, Board board, Model model){
+    public String writeCheck(
+            Map<String, MultipartFile> files,
+            Board board, Model model){
 
-        int result =fileBoardService.write(board,files);
-        model.addAttribute("result",result);
+        int write =fileBoardService.write(board,files);
+        model.addAttribute("result",write);
 
         return "fileboard/writeCheck";
     }
