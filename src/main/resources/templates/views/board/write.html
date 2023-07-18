@@ -11,12 +11,16 @@
             <input type="text" placeholder="제목을 입력하세요" name="title" th:value="${title}">
             <!-- 주의 문구 -->
 <!--          <span th:if="${error_title}" th:utext="${error_title}"></span>-->
+        </div>
             <div>
                 <!-- textarea 적용해야한다-->
                 <textarea row="5" placeholder="내용을 입력하세요" th:utext="${content}"></textarea>
 
             </div>
         </div>
+
+            <button type="submit">작성완료</button>
+            <a th:href="@{/board/list(page=${session.page}}">목록</a>
     </form>
 </body>
 </html>
