@@ -15,7 +15,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/board")
-public class boardController {
+public class BoardController {
 
 
     @Autowired

@@ -14,7 +14,7 @@
             (#{user_id},#{title},#{content},#{game_id},#{count})
     </insert>
 
-    <select id="findById" resultMap="mapPost">
+    <select id="findById">
         select
             id,
             regdate,
