@@ -36,4 +36,4 @@ out/
 ### VS Code ###
 .vscode/
 /.dbeaver/
-/application.yml
+application.yml
