@@ -1,7 +1,7 @@
 {
 	"folders": {},
 	"connections": {
-		"mysql8-1894af8fa9a-1dabc18ca54149f0": {
+		"mysql8-1894f1e6fb3-1b84b58d4d2c23a8": {
 			"provider": "mysql",
 			"driver": "mysql8",
 			"name": "steamdb",
@@ -14,16 +14,7 @@
 				"configurationType": "MANUAL",
 				"home": "C:\\Program Files\\MySQL\\MySQL Server 8.0",
 				"type": "dev",
-				"properties": {
-					"connectTimeout": "20000",
-					"rewriteBatchedStatements": "true",
-					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2"
-				},
-				"provider-properties": {
-					"@dbeaver-serverTimezone@": "Africa/Abidjan"
-				},
-				"auth-model": "native",
-				"handlers": {}
+				"auth-model": "native"
 			}
 		}
 	},
@@ -35,10 +26,7 @@
 			"auto-commit": true,
 			"confirm-execute": false,
 			"confirm-data-change": false,
-			"smart-commit": false,
-			"smart-commit-recover": true,
-			"auto-close-transactions": true,
-			"close-transactions-period": 1800
+			"auto-close-transactions": false
 		}
 	}
 }
