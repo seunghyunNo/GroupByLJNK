@@ -5,6 +5,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.util.regex.Pattern;
+
 public class UserValidator implements Validator {
 
     @Override
@@ -18,7 +20,7 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User)target;
 
-        // 유효성검사 errorMessage
+        // username, password, email 빈칸이면 errorMessage 등록
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "아이디은 필수입니다.");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "비밀번호는 필수입니다.");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "이메일은 필수입니다.");
@@ -28,6 +30,13 @@ public class UserValidator implements Validator {
             errors.rejectValue("re_password", "비밀번호와 비밀번호확인은 같아야 합니다.");
         }
 
+        // email 주소 주어진 형식과 맞지 않으면 errorMessage 등록
+        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+
+        if(pattern.matcher(user.getEmail()).matches()){
+            errors.rejectValue("email", "유효한 이메일 주소를 입력하세요");
+        }
 
     }
 }

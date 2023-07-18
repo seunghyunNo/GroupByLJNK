@@ -21,12 +21,12 @@ INSERT INTO t_authority (name) VALUES
 ;
 
 INSERT INTO t_user (username, password, email) VALUES
- ('user1', '1234', 'user1@naver.com'),
- ('user2', '1234', 'user2@naver.com'),
- ('admin1', '1234', 'admin1@naver.com')
--- ('USER1', '$2a$10$6gVaMy7.lbezp8bGRlV2fOArmA3WAk2EHxSKxncnzs28/m3DXPyA2', 'user1@naver.com'),
--- ('USER2', '$2a$10$7LTnvLaczZbEL0gabgqgfezQPr.xOtTab2NAF/Yt4FrvTSi0Y29Xa', 'user2@naver.com'),
--- ('ADMIN1', '$2a$10$53OEi/JukSMPr3z5RQBFH.z0TCYSUDPtxf1/8caRyRVdDNdHA9QHi', 'admin1@naver.com')
+--  ('user1', '1234', 'user1@naver.com'),
+--  ('user2', '1234', 'user2@naver.com'),
+--  ('admin1', '1234', 'admin1@naver.com')
+('USER1', '$2a$10$6gVaMy7.lbezp8bGRlV2fOArmA3WAk2EHxSKxncnzs28/m3DXPyA2', 'user1@naver.com'),
+('USER2', '$2a$10$7LTnvLaczZbEL0gabgqgfezQPr.xOtTab2NAF/Yt4FrvTSi0Y29Xa', 'user2@naver.com'),
+('ADMIN1', '$2a$10$53OEi/JukSMPr3z5RQBFH.z0TCYSUDPtxf1/8caRyRVdDNdHA9QHi', 'admin1@naver.com')
 ;
 
 INSERT INTO t_user_authorities VALUES

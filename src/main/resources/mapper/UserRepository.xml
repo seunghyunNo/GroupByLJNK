@@ -19,9 +19,28 @@
             username = #{param1}
     </select>
 
+    <select id="findByEmail" resultType="com.project.domain.User">
+        <include refid="SELECT_BASE"/>
+        WHERE
+            email = #{param1}
+    </select>
+
     <insert id="signup" flushCache="true" parameterType="com.project.domain.User"
             keyProperty="id" useGeneratedKeys="true" keyColumn="id">
         INSERT INTO t_user(username, password, email)
         VALUE(#{username}, #{password}, #{email})
     </insert>
+
+    <select id="userCheck" parameterType="String" resultType="int">
+        SELECT count(*)
+        FROM t_user
+        WHERE username = #{param1}
+    </select>
+
+    <select id="mailCheck" parameterType="String" resultType="int">
+        SELECT count(*)
+        FROM t_user
+        WHERE email = #{param1}
+    </select>
+
 </mapper>

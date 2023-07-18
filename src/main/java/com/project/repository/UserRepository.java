@@ -9,7 +9,13 @@ public interface UserRepository {
 
     User findByUsername(String username);
 
+    User findByEmail(String email);
+
     int signup(User user);
+
+    int userCheck(String username);
+
+    int mailCheck(String email);
 
 
 }

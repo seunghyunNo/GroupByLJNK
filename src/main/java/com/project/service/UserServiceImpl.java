@@ -33,10 +33,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByEmail(String email) { return userRepository.findByEmail(email); }
+
+    @Override
     public boolean isExist(String username) {
 
         // user 에 찾아온 user 정보 담기
         User user = findByUsername(username);
+
+        // user 가 비어있지않으면 true 비어있으면 false 리턴
+        return (user != null)? true : false;
+    }
+
+    @Override
+    public boolean isEmailExist(String email) {
+
+        // user 에 email 로 찾아온 user 정보 담기
+        User user = findByEmail(email);
 
         // user 가 비어있지않으면 true 비어있으면 false 리턴
         return (user != null)? true : false;
@@ -60,6 +73,16 @@ public class UserServiceImpl implements UserService {
 
         // 등록 완료 후 1 리턴
         return 1;
+    }
+
+    @Override
+    public int nameCheck(String username) {
+        return userRepository.userCheck(username);
+    }
+
+    @Override
+    public int mailCheck(String email) {
+        return userRepository.mailCheck(email);
     }
 
     @Override
