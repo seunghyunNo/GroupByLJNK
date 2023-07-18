@@ -1,4 +1,8 @@
 package com.project.service;
 
-public class AttachmentService {
+import com.project.domain.Attachment;
+
+public interface AttachmentService {
+    Attachment findByFileId(Long id);
+
 }
