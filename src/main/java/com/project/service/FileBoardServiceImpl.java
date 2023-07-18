@@ -32,6 +32,7 @@ public class FileBoardServiceImpl implements FileBoardService {
     private AttachmentRepository attachmentRepository;
 
 
+
     @Value("{app.upload.path}")
     private String uploadDirectory;
 

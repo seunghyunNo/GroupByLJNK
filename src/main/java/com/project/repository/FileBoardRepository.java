@@ -10,6 +10,7 @@ public interface FileBoardRepository {
 
     Board searchById(Long id);
 
+
     int update(Board board);
 
     int delete(Board board);

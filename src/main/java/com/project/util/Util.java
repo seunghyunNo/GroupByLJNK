@@ -14,6 +14,7 @@ public class Util {
     }
 
     public static HttpSession getSession()
+
     {
         return getRequest().getSession();
     }

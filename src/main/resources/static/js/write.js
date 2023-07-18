@@ -10,6 +10,7 @@ $(function(){
 
     })
 
+
     $("#content").summernote({
         height:100
     });

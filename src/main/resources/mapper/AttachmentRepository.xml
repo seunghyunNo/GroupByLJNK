@@ -10,6 +10,7 @@
             </foreach>
     </insert>
 
+
     <insert id="saveFile" flushCache="true" parameterType="com.project.domain.Attachment">
         INSERT INTO t_attachment(sourcename,filename,board_id)
         VALUES

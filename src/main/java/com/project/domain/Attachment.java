@@ -14,5 +14,6 @@ public class Attachment {
     private String sourcename;      //NN
     private String filename;        //NN
 
+
     private Long board_id;          //NN
 }

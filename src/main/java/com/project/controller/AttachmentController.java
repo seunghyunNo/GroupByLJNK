@@ -46,6 +46,7 @@ public class AttachmentController {
         String sourceName = file.getSourcename();
         String fileName = file.getFilename();
 
+
         String path = new File(uploadDirectory+ File.separator+fileName).getAbsolutePath();
 
         try {

@@ -4,4 +4,5 @@ import com.project.domain.Attachment;
 
 public interface AttachmentService {
     Attachment findByFileId(Long id);
+
 }

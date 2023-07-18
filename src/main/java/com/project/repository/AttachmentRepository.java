@@ -10,6 +10,7 @@ public interface AttachmentRepository {
 
     Integer saveFile(Attachment file);
 
+
     List<Attachment> findByFileBoard(Long boardId);
 
     Attachment findByFileId(Long id);

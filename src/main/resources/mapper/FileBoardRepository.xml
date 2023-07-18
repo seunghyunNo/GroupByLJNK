@@ -20,6 +20,7 @@
         WHERE b.user_id = u.id
     </sql>
 
+
     <resultMap id="mapUser" type="com.project.domain.User">
         <result column="u.id" property="id"/>
         <result column="u.username" property="username"/>

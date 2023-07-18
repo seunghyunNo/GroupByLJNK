@@ -14,6 +14,7 @@ public class Recommend {
     @ToString.Exclude
     private User user;
 
+
     @ToString.Exclude
     private Board board;
 }

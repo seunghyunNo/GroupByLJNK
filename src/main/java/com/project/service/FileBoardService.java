@@ -12,6 +12,7 @@ public interface FileBoardService {
 
     List<Board> list();
 
+
     List<Board> list(Model model, Integer page);
 
     Board findById(Long id);

@@ -18,6 +18,7 @@ public class FileBoardController {
     @Autowired
     private FileBoardService fileBoardService;
 
+
     @GetMapping("/write")
     public void write(){}
 

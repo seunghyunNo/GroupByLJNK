@@ -9,6 +9,7 @@ $(function(){
         index++;
     })
 
+
     $("[fileid-delete]").click(function(){
         let fileId = $(this).attr("fileid-delete");
         deleteByIdFiles(fileId);
