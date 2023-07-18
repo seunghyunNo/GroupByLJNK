@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.repository.AuthorityRepository">
+
+    <select id="findByName" resultType="com.project.domain.Authority">
+        SELECT id "id", name "name"
+        FROM t_authority
+        WHERE name = #{param1}
+    </select>
+
+    <insert id="addAuthority" flushCache="true">
+        INSERT INTO t_user_authorities(user_id, authority_id)
+        VALUES(#{param1}, #{param2})
+    </insert>
+
+    <select id="findAuthorityById" resultType="com.project.domain.Authority">
+        SELECT a.id "id" , a.name "name"
+        FROM t_authority a, t_user_authorities u
+        WHERE u.user_id = #{param1} AND a.id = u.authority_id
+    </select>
+</mapper>
