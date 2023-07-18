@@ -142,8 +142,8 @@ public class FileBoardServiceImpl implements FileBoardService {
         }
 
         HttpSession session = Util.getSession();
-        Integer writePage = (Integer) session.getAttribute("writePage");
-        Integer pageRows = (Integer) session.getAttribute("pageRows");
+        Integer writePage = (Integer)session.getAttribute("writePage");
+        Integer pageRows = (Integer)session.getAttribute("pageRows");
         if(writePage == null)
         {
             writePage = WRITE_PAGES;
@@ -169,6 +169,16 @@ public class FileBoardServiceImpl implements FileBoardService {
         int start = (((page -1)/ writePage)*writePage)+1;
         int end = start + writePage - 1;
         if(end >= totalPage) end = totalPage;
+
+        model.addAttribute("count",count);
+        model.addAttribute("page",page);
+        model.addAttribute("totalPage",totalPage);
+        model.addAttribute("pageRows",pageRows);
+
+        model.addAttribute("url",Util.getRequest().getRequestURI());
+        model.addAttribute("writePage",writePage);
+        model.addAttribute("start",start);
+        model.addAttribute("end",end);
 
         List<Board> list = fileBoardRepository.selectByPage(fromRow,pageRows);
         model.addAttribute("list",list);

@@ -2,6 +2,7 @@ package com.project.controller;
 
 import com.project.domain.Board;
 import com.project.service.FileBoardService;
+import com.project.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +50,13 @@ public class FileBoardController {
     {
         model.addAttribute("result",fileBoardService.update(files,board,deleteFile));
         return "fileboard/updateCheck";
+    }
+
+    @PostMapping("/pageRows")
+    public String pageRows(Integer page,Integer pageRows)
+    {
+        Util.getSession().setAttribute("pageRows",pageRows);
+        return "redirect:/fileboard/list?page="+page;
     }
 
 

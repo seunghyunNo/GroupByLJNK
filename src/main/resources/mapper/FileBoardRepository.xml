@@ -56,7 +56,7 @@
     <select id="selectByPage" resultType="com.project.domain.Board">
         <include refid="SELECT_BASE"/>
         ORDER BY b.id DESC
-        LIMIT #{from}, #{row}
+        LIMIT #{param1}, #{param2}
     </select>
 
     <select id="countAll" resultType="int">

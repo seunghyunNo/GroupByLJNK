@@ -36,7 +36,6 @@
             </span>
         </div>
 
-
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -52,20 +51,23 @@
             <tbody>
                 <tr th:each="fileboard : ${list}">
 <!--                    <td th:text="${board.user.username}">작성자</td>-->
+                    <td>user</td>
                     <td th:text="${fileboard.content}">게임 설명</td>
-                    <td> <li class="list-group-item" th:each="attachment : ${board.files}">
-                        <a th:href="@{/fileboard/download(id=${attachment.id})}" id="downCnt">[[${attachment.sourcename}]]</a>
-                    </li></td> // TODO
+                    <td> <li class="list-group-item">   <!-- th:each="attachment : ${board.files}" -->
+                        <a th:href="@{/fileboard/download}" id="downCnt">다운로드</a>
+                        <!-- (id=${attachment.id}) -->
+                    </li></td>
                     <td th:text="${fileboard.regdate}">작성 시간</td>
-                    <td th:text="${fileboard.count}">다운로드 수</td> // TODO
+                    <td th:text="${fileboard.count}">다운로드 수</td>
                     <td>추천 수</td>
                     <td><button type="button" id="btnRec" class="btn btn-outline-dark">추천</button></td>
                 </tr>
             </tbody>
         </table>
 
-
     </div>
+
+<th:block th:insert="~{fileboard/pagination::pagination}"></th:block>
 
 </body>
 </html>
