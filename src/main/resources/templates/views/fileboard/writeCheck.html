@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<script th:if="${result > 0}" th:inline="javascript">
+    alert("게시글 등록 성공");
+    location.href ="list";
+</script>
+
+<script th:unless="${result > 0}">
+    alert("게시글 등록 실패");
+    history.back();
+</script>
+
+
+</html>

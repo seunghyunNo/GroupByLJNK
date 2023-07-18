@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.repository.WishListRepository">
+	<insert id="addWishList" flushCache="true">
+		INSERT INTO t_wishlist(user_id, game_id)
+		VALUE(#{param1}, #{param2})
+	</insert>
+	
+	<delete id="removeWishList" flushCache="true">
+		DELETE FROM t_wishlist
+		WHERE
+			(user_id = #{param1}) AND (game_id = #{param2})
+	</delete>
+	
+	<select id="existWishList" resultType="int">
+		SELECT COUNT(user_id)
+		FROM t_wishlist
+		WHERE
+			(user_id = #{param1}) AND (game_id = #{param2})
+	</select>
+</mapper>
