@@ -33,6 +33,8 @@ $(document).ready(function() {
 
 
    $('#authButton').click(function() {
+
+
        // 입력한 메일
        const email = $("#email").val().trim();
 
@@ -42,13 +44,11 @@ $(document).ready(function() {
            alert("이메일을 입력해주세요.");
            $("#email").focus();
            return;
-       }
-       if (!emailRegex.test(email)) {
+       } else if (!emailRegex.test(email)) {
            alert('유효한 이메일 주소를 입력하세요.');
            emailInput.focus();
            return;
        }
-
 
        // 메일 중복 확인
        $.ajax({
@@ -63,10 +63,13 @@ $(document).ready(function() {
                    $("#email").focus();
                    return;
                } else{
+
+                   // 알림창 호출
+                   alert("인증번호를 보냈습니다.");
+                   $('#code_feedback').html('');
+
                    // 전달할 parameter 준비
-                   const data = {
-                       "email": email
-                   };
+                   const data = { "email": email };
 
                    // 메일 검증
                    $.ajax({
@@ -83,10 +86,8 @@ $(document).ready(function() {
                                      console.error(error);
                        }
                    });
-                   // "codeDiv"를 2초후에 보이도록 설정
-                   //(현재 ajax 가 POST 후 authCodeInput 까지 Value 값이 들어가는데 시간차이가 있는걸로 확인됨 )
 
-                       $('#codeDiv').show();
+                   $('#codeDiv').show();
 
                }
           },

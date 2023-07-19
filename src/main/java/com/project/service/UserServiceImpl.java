@@ -86,6 +86,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String findUsername(String email) {
+        return userRepository.findUsername(email);
+    }
+
+    @Override
+    public int findPw(String username, String email) {
+        return userRepository.findPw(username, email);
+    }
+
+    @Override
+    public int updatePw(User user) {
+        // password 암호화 하여 저장
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        return userRepository.updatePw(user);
+    }
+
+    @Override
     public List<Authority> findAuthorityById(Long id) {
         // id 값으로 해당 유저의 Authority 를 List 에 담아 return
         return authorityRepository.findAuthorityById(id);

@@ -17,5 +17,9 @@ public interface UserRepository {
 
     int mailCheck(String email);
 
+    String findUsername(String email);
 
+    int findPw(String username, String email);
+
+    int updatePw(User user);
 }

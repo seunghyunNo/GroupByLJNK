@@ -61,7 +61,7 @@ public class UserController {
 
         // 이미 등록된 이메일이 등록되면 errMessage 등록
         if(!result.hasFieldErrors("email") && userService.isEmailExist(user.getEmail())){
-            result.rejectValue("username", "이미 존재하는 이메일 입니다.");
+            result.rejectValue("email", "이미 존재하는 이메일 입니다.");
         }
 
         // 에러가 있다면 username 과 email 을 가지고 redirect
@@ -78,10 +78,10 @@ public class UserController {
         }
 
         // error 없으면 회원 등록
-        String page = "/user/sighupOk";
+        String page = "/user/signupOk";
         int cnt = userService.signup(user);
         model.addAttribute("result", cnt);
-        return "/user/signupOk";
+        return page;
     }
 
     @PostMapping("/signup/nameCheck")
@@ -93,6 +93,46 @@ public class UserController {
     @PostMapping("/signup/mailCheck")
     public @ResponseBody int mailCheck(@RequestParam("email") String email){
         return userService.mailCheck(email);
+    }
+
+    @GetMapping("/findUsername")
+    public void findUsername(){}
+
+    @PostMapping("/findUsername")
+    public @ResponseBody String findUsernameOk(@RequestParam("email") String email){
+        return userService.findUsername(email);
+    }
+
+    @GetMapping("/findPw")
+    public void findPw(){}
+
+    @PostMapping("/findPw")
+    public @ResponseBody int findPwOk(@RequestParam("username") String username, @RequestParam("email") String email){
+        return userService.findPw(username, email);
+    }
+
+    @PostMapping("/updatePw")
+    public String updatePw(
+            @Valid User user
+            , BindingResult result
+            , Model model
+            , RedirectAttributes redirectAttributes){
+        // 에러가 있다면 username 과 email 을 가지고 redirect
+        if(result.hasErrors()){
+
+            List<FieldError> errorList = result.getFieldErrors();
+            for(FieldError error : errorList){
+                redirectAttributes.addFlashAttribute("error", error.getCode());;
+                break;
+            }
+            return "redirect:/user/findPw";
+        }
+
+        // error 없으면 비밀번호 수정
+        String page = "/user/updatePw";
+        int cnt = userService.updatePw(user);
+        model.addAttribute("result", cnt);
+        return page;
     }
 
     @InitBinder

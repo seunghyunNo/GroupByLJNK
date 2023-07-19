@@ -43,4 +43,21 @@
         WHERE email = #{param1}
     </select>
 
+    <select id="findUsername" parameterType="String" resultType="String">
+        SELECT username
+        FROM t_user
+        WHERE email = #{param1}
+    </select>
+
+    <select id="findPw" parameterType="String" resultType="int">
+        SELECT count(*)
+        FROM t_user
+        WHERE username = #{param1} AND email = #{param2}
+    </select>
+
+    <update id="updatePw" flushCache="true" parameterType="com.project.domain.User">
+        UPDATE t_user
+        SET password = #{password}
+        WHERE email = #{email} AND username = #{username}
+    </update>
 </mapper>

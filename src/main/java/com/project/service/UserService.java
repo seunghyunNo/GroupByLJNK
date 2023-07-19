@@ -28,6 +28,12 @@ public interface UserService {
 
     int mailCheck(String email);
 
+    String findUsername(String email);
+
+    int findPw(String username, String email);
+
+    int updatePw(User user);
+
 
     // 로그인 유저의 Id(pk)로 해당 유저의 authority(들) 가져오기
     List<Authority> findAuthorityById(Long id);
