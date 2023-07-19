@@ -2,6 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <!--summernote -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script th:src="@{/js/write.js}"></script>
     <title>write</title>
 </head>
 <body>
@@ -13,8 +17,8 @@
 <!--          <span th:if="${error_title}" th:utext="${error_title}"></span>-->
         </div>
             <div>
-                <!-- textarea 적용해야한다-->
-                <textarea row="5" placeholder="내용을 입력하세요" th:utext="${content}"></textarea>
+
+                <textarea id="content" name="content" row="5" placeholder="내용을 입력하세요" th:utext="${content}"></textarea>
 
             </div>
         </div>

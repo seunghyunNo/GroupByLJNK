@@ -2,6 +2,7 @@ package com.project.service;
 
 import com.project.domain.Board;
 import com.project.repository.BoardRepository;
+import com.project.repository.UserRepository;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,13 @@ public class BoardServiceImpl implements BoardService {
 
 
     private BoardRepository boardRepository;
-
+    private UserRepository userRepository;
 
     @Autowired
     public BoardServiceImpl(SqlSession sqlSession){
+
         boardRepository=sqlSession.getMapper(BoardRepository.class);
+        userRepository = sqlSession.getMapper(UserRepository.class);
     }
 
 

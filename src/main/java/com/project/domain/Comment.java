@@ -2,7 +2,6 @@ package com.project.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -27,11 +26,9 @@ public class Comment {
     private LocalDateTime regDate;
 
 
-    // 댓글 작성자(FK)와 어느글의 댓글(FK) 필요
     @ToString.Exclude
-    private Board user_id;
+    private User user;  // 댓글 작성자(FK)
 
-//    @JsonIgnore
-//    private Long id;
-
+    @JsonIgnore
+    private Long board_id;   //어느글의 댓글(FK) 필요
 }
