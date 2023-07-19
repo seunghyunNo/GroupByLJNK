@@ -4,6 +4,7 @@ import com.project.domain.Attachment;
 import com.project.domain.Board;
 import com.project.repository.AttachmentRepository;
 import com.project.repository.FileBoardRepository;
+import com.project.repository.UserRepository;
 import com.project.util.Util;
 import jakarta.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
@@ -31,6 +32,8 @@ public class FileBoardServiceImpl implements FileBoardService {
     private FileBoardRepository fileBoardRepository;
     private AttachmentRepository attachmentRepository;
 
+    private UserRepository userRepository;
+
 
 
     @Value("{app.upload.path}")
@@ -46,6 +49,7 @@ public class FileBoardServiceImpl implements FileBoardService {
     public FileBoardServiceImpl(SqlSession sqlSession) {
         fileBoardRepository = sqlSession.getMapper(FileBoardRepository.class);
         attachmentRepository = sqlSession.getMapper(AttachmentRepository.class);
+        userRepository = sqlSession.getMapper(UserRepository.class);
     }
 
     @Override
@@ -183,7 +187,7 @@ public class FileBoardServiceImpl implements FileBoardService {
 
         List<Board> list = fileBoardRepository.selectByPage(fromRow,pageRows);
         model.addAttribute("list",list);
-
+        System.out.println(list);
         return list;
     }
 

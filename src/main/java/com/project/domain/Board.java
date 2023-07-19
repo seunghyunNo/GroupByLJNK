@@ -20,7 +20,7 @@ public class Board {
 
     private String game_id;         // NN
 
-    private User user;
+    private User user_id;
 
 
     @ToString.Exclude

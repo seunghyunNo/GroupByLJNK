@@ -54,7 +54,7 @@
         DELETE FROM t_board WHERE id = #{id}
     </delete>
 
-    <select id="selectByPage" resultType="com.project.domain.Board">
+    <select id="selectByPage" resultMap="mapBoard">
         <include refid="SELECT_BASE"/>
         ORDER BY b.id DESC
         LIMIT #{param1}, #{param2}
