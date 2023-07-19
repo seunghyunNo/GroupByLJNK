@@ -1,6 +1,7 @@
 package com.project.controller;
 
 import com.project.domain.Board;
+import com.project.service.ApiServiceImpl;
 import com.project.service.FileBoardService;
 import com.project.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Controller
@@ -17,6 +19,9 @@ public class FileBoardController {
 
     @Autowired
     private FileBoardService fileBoardService;
+
+    @Autowired
+    private ApiServiceImpl apiService;
 
 
     @GetMapping("/write")
@@ -33,10 +38,17 @@ public class FileBoardController {
         return "fileboard/writeCheck";
     }
 
-    @GetMapping("/list")
-    public void list(Integer page,Model model)
+    @GetMapping("/list/{appId}")
+    public String list(Integer page,Model model,@PathVariable String appId)
     {
+        model.addAttribute("appId", appId);
+
+        var serviceResult = apiService.getData(appId);
+        LinkedHashMap<?,?> body = (LinkedHashMap) ((LinkedHashMap) serviceResult.getBody()).get(appId);
+
         model.addAttribute("list",fileBoardService.list(model,page));
+
+        return "fileboard/list";
     }
 
     @GetMapping("/update/{id}")

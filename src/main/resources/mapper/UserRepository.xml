@@ -28,7 +28,7 @@
     <insert id="signup" flushCache="true" parameterType="com.project.domain.User"
             keyProperty="id" useGeneratedKeys="true" keyColumn="id">
         INSERT INTO t_user(username, password, email)
-        VALUE(#{username}, #{password}, #{email})
+        VALUES(#{username}, #{password}, #{email})
     </insert>
 
     <select id="userCheck" parameterType="String" resultType="int">

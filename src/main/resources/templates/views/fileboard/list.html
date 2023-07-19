@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script th:src="@{/js/list.js}"></script>
     <title>자료게시판</title>
+
 </head>
 <body>
     <div class="container mt-3">
@@ -50,9 +51,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="fileboard : ${list}">
-                    <td th:text="${fileboard.user.username}">작성자</td>
-
+                <tr th:each="fileboard : ${list}" >
+                    <td th:text="${fileboard.user.username}" id="username">작성자</td>
                     <td th:text="${fileboard.content}">게임 설명</td>
                     <td> <li class="list-group-item">   <!-- th:each="attachment : ${board.files}" -->
                         <a th:href="@{/fileboard/download}" id="downCnt">다운로드</a>
@@ -60,7 +60,7 @@
                     </li></td>
                     <td th:text="${fileboard.regdate}">작성 시간</td>
                     <td th:text="${fileboard.count}">다운로드 수</td>
-                    <td>추천 수</td>
+<!--                    <td id="recCnt" th:value="${recommend.board.count}"></td>-->
                     <td><button type="button" id="btnRec" class="btn btn-outline-dark">추천</button></td>
                 </tr>
             </tbody>
