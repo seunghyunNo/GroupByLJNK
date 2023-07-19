@@ -2,6 +2,7 @@ package com.project.service;
 
 import com.project.domain.Attachment;
 import com.project.domain.Board;
+import com.project.domain.User;
 import com.project.repository.AttachmentRepository;
 import com.project.repository.FileBoardRepository;
 import com.project.repository.UserRepository;
@@ -54,7 +55,10 @@ public class FileBoardServiceImpl implements FileBoardService {
 
     @Override
     public int write(Board board, Map<String, MultipartFile> files) {
-        // 작성자 TODO
+        User user = Util.getLoggedUser();
+
+        user = userRepository.findByUsername(user.getUsername());
+        board.setUser(user);
 
         int result = fileBoardRepository.write(board);
         insertFiles(files, board.getId());

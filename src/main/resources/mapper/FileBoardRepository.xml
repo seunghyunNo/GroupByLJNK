@@ -10,27 +10,27 @@
 
     <sql id="SELECT_BASE">
         SELECT
-            b.id,
-            b.regdate,
-            b.count,
-            b.content,
-            u.id,
-            u.username
+            b.id "b_id",
+            b.regdate "b_regdate",
+            b.count "b_count",
+            b.content "b_content",
+            u.id "u_id",
+            u.username "u_username"
         FROM t_board b,t_user u
         WHERE b.user_id = u.id
     </sql>
 
 
     <resultMap id="mapUser" type="com.project.domain.User">
-        <result column="u.id" property="id"/>
-        <result column="u.username" property="username"/>
+        <result column="u_id" property="id"/>
+        <result column="u_username" property="username"/>
     </resultMap>
 
     <resultMap id="mapBoard" type="com.project.domain.Board">
-        <result column="b.id" property="id"/>
-        <result column="b.regdate" property="regdate"/>
-        <result column="b.count" property="count"/>
-        <result column="b.content" property="content"/>
+        <result column="b_id" property="id"/>
+        <result column="b_regdate" property="regdate"/>
+        <result column="b_count" property="count"/>
+        <result column="b_content" property="content"/>
         <collection property="user" resultMap="mapUser"/>
     </resultMap>
 
@@ -39,7 +39,7 @@
         ORDER BY b.id DESC
     </select>
 
-    <select id="searchById" >
+    <select id="searchById" resultMap="mapBoard" >
         <include refid="SELECT_BASE"/>
         AND b.id = #{id}
     </select>

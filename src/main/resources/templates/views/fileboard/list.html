@@ -51,7 +51,8 @@
             </thead>
             <tbody>
                 <tr th:each="fileboard : ${list}">
-<!--                    <td th:text="${fileboard.user_id.username}">작성자</td>-->
+                    <td th:text="${fileboard.user.username}">작성자</td>
+
                     <td th:text="${fileboard.content}">게임 설명</td>
                     <td> <li class="list-group-item">   <!-- th:each="attachment : ${board.files}" -->
                         <a th:href="@{/fileboard/download}" id="downCnt">다운로드</a>
