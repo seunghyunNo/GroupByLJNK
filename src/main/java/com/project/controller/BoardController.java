@@ -51,13 +51,16 @@ public class BoardController {
 
         }
 
-
+    @GetMapping("/list")
+    public void list(Integer page,Model model){
+        model.addAttribute("list",boardService.list(page,model));
+    }
 
 
 
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable Long id,Model model){
-//        model.addAttribute()
+    public String detail(@PathVariable long id,Model model){
+        model.addAttribute("board",boardService.detail(id));
         return "board/detail";
     }
 //

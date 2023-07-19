@@ -27,7 +27,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int write(Board board) {
-
         return boardRepository.write(board);
     }
 

@@ -1,8 +1,8 @@
 package com.project.service;
 
 import com.project.domain.Comment;
-import com.project.domain.CommentList;
-import com.project.domain.CommentResult;
+import com.project.domain.QryCommentList;
+import com.project.domain.QryResult;
 import com.project.repository.CommentRepository;
 import com.project.repository.UserRepository;
 import org.apache.ibatis.session.SqlSession;
@@ -26,8 +26,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentList list(Long id) {
-        CommentList list = new CommentList();
+    public QryCommentList list(Long id) {
+        QryCommentList list = new QryCommentList();
 
         List<Comment> comments = commentRepository.findByBoard(id);
 
@@ -39,12 +39,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentResult write(Long boardId, Long userId, String content) {
+    public QryResult write(Long boardId, Long userId, String content) {
         return null;
     }
 
     @Override
-    public CommentResult delete(Long id) {
+    public QryResult delete(Long id) {
         return null;
     }
 }

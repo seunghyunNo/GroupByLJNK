@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class CommentList extends CommentResult{
+public class QryCommentList extends QryResult {
 
     @JsonProperty("data")  //data 이름으로 변환
     List<Comment> list;

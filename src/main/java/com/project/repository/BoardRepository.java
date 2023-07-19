@@ -19,7 +19,7 @@ public interface BoardRepository {
     Board findById(Long id);
 
     // 작성일
-    LocalDateTime regDate(Long id);
+    LocalDateTime regdate(Long id);
 
     // 조회수
     int viewCnt(Long id);
