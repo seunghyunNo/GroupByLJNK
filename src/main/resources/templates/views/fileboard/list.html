@@ -21,7 +21,6 @@
             </div>
         </div>
 
-
         <div class="mb-3 mt-3 clearfix">
             <span class="float-start me-2">총 [[${count}]]개</span>
             <span class="float-start">page [[${page}]]/[[${totalPage}]]</span>
@@ -48,20 +47,22 @@
                     <th>다운로드 수</th>
                     <th>추천 수</th>
                     <th>#</th>
+                    <th>#</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="fileboard : ${list}" >
                     <td th:text="${fileboard.user.username}" id="username">작성자</td>
-                    <td th:text="${fileboard.content}">게임 설명</td>
-                    <td> <li class="list-group-item">   <!-- th:each="attachment : ${board.files}" -->
-                        <a th:href="@{/fileboard/download}" id="downCnt">다운로드</a>
+                    <td th:utext="${fileboard.content}">게임 설명</td>
+                    <td> <li class="list-group-item" th:each="attachment : ${fileboard.files}">   <!-- th:each="attachment : ${board.files}" -->
+                        <a th:href="@{/fileboard/download}(id=${attachment.id})" id="downCnt">다운로드</a>
                         <!-- (id=${attachment.id}) -->
                     </li></td>
                     <td th:text="${fileboard.regdate}">작성 시간</td>
                     <td th:text="${fileboard.count}">다운로드 수</td>
 <!--                    <td id="recCnt" th:value="${recommend.board.count}"></td>-->
                     <td><button type="button" id="btnRec" class="btn btn-outline-dark">추천</button></td>
+                    <a class="btn btn-outline-dark" th:href="@{'/fileboard/update' + ${board.id}}" >수정</a>
                 </tr>
             </tbody>
         </table>

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface AttachmentRepository {
-    int insert(List<Map<String,Object>> list, Long board_id);
+    int insert(List<Map<String,Object>> list, Long boardId);
 
     Integer saveFile(Attachment file);
 

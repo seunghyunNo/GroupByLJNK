@@ -30,14 +30,9 @@ import java.util.Map;
 @Service
 public class FileBoardServiceImpl implements FileBoardService {
 
-    private FileBoardRepository fileBoardRepository;
-    private AttachmentRepository attachmentRepository;
-
-    private UserRepository userRepository;
 
 
-
-    @Value("{app.upload.path}")
+    @Value("${app.upload.path}")
     private String uploadDirectory;
 
     @Value("${app.pagination.write_pages}")
@@ -45,6 +40,11 @@ public class FileBoardServiceImpl implements FileBoardService {
 
     @Value("${app.pagination.page_rows}")
     private int PAGE_ROWS;
+
+    private FileBoardRepository fileBoardRepository;
+    private AttachmentRepository attachmentRepository;
+
+    private UserRepository userRepository;
 
     @Autowired
     public FileBoardServiceImpl(SqlSession sqlSession) {
@@ -61,30 +61,29 @@ public class FileBoardServiceImpl implements FileBoardService {
         board.setUser(user);
 
         int result = fileBoardRepository.write(board);
-        insertFiles(files, board.getId());
+        insertFiles(files, board);
 
         return result;
     }
 
-    public void insertFiles(Map<String,MultipartFile> files, Long id)
+    public void insertFiles(Map<String,MultipartFile> files, Board board)
     {
-        Board board = null;
+
         if(files != null)
         {
             for(var entry: files.entrySet())
             {
-                if(!entry.getKey().startsWith("upload"))
+                if(!entry.getKey().startsWith("upfile"))
                 {
                     continue;
                 }
 
                 Attachment file = uploadFile(entry.getValue());
+                System.out.println(file);
 
                 if(file != null)
                 {
-                    file.setBoard_id(id);
-                    board.setId(file.getBoard_id());
-                    board.setIs_file(true);
+                    file.setBoard_id(board.getId());
                     attachmentRepository.saveFile(file);
                 }
             }
@@ -122,15 +121,16 @@ public class FileBoardServiceImpl implements FileBoardService {
             Path copyRoute = Paths.get(new File(uploadDirectory+File.separator+fileName).getAbsolutePath());
 
             try {
-                Files.copy(multipartFile.getInputStream(),
+                Files.copy(
+                        multipartFile.getInputStream(),
                         copyRoute, StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
 
             attachment = Attachment.builder()
-                    .sourcename(sourceName)
                     .filename(fileName)
+                    .sourcename(sourceName)
                     .build();
 
             return  attachment;
@@ -211,7 +211,7 @@ public class FileBoardServiceImpl implements FileBoardService {
     public int update(Map<String, MultipartFile> files, Board board, Long[] deleteFiles) {
         int result = fileBoardRepository.update(board);
 
-        insertFiles(files, board.getId());
+        insertFiles(files, board);
 
         if(deleteFiles != null)
         {

@@ -6,12 +6,13 @@
         INSERT INTO t_attachment(sourcename,filename,board_id)
         VALUES
             <foreach collection="param1" item="e" separator=",">
-                (#{e.sourcename},#{e.filename},#{e.board_id})
+                (#{e.sourcename},#{e.filename},#{param2})
             </foreach>
     </insert>
 
 
-    <insert id="saveFile" flushCache="true" parameterType="com.project.domain.Attachment">
+    <insert id="saveFile" flushCache="true"
+            parameterType="com.project.domain.Attachment">
         INSERT INTO t_attachment(sourcename,filename,board_id)
         VALUES
         (#{sourcename}, #{filename}, #{board_id})
@@ -25,6 +26,7 @@
     <select id="findByFileBoard" resultType="com.project.domain.Attachment">
         <include refid="SELECT_BASE_FILE"/>
         WHERE board_id = #{param1}
+        ORDER BY id ASC
     </select>
 
     <select id="findByFileId" resultType="com.project.domain.Attachment">
@@ -36,22 +38,22 @@
         parameterType="java.util.ArrayList">
         <include refid="SELECT_BASE_FILE"/>
         WHERE id IN
-            <foreach collection="param1" item="e" separator="," open="(" close=")">
+            <foreach collection="array" item="e" separator="," open="(" close=")">
                 #{e}
             </foreach>
         ORDER BY id ASC
     </select>
 
     <delete id="deleteByFileId" flushCache="true"
-            parameterType="com.project.domain.Attachment">
+            parameterType="java.util.ArrayList">
         DELETE FROM t_attachment
         WHERE id IN
-            <foreach collection="param1" item="e" separator=",">
+            <foreach collection="array" item="e" separator=",">
                 #{e}
             </foreach>
     </delete>
 
-    <delete id="delete" flushCache="true" parameterType="com.project.domain.Attachment">
+    <delete id="delete" flushCache="true">
         DELETE FROM t_attachment
         WHERE id = #{id}
     </delete>

@@ -4,8 +4,8 @@
 <mapper namespace="com.project.repository.FileBoardRepository">
     <insert id="write" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
      parameterType="com.project.domain.Board">
-        INSERT INTO t_board (content,user_id)
-        VALUES (#{content},#{user.id}
+        INSERT INTO t_board (title,content,user_id,game_id,is_file)
+        VALUES ("title",#{content},#{user.id},"gameId",true)
     </insert>
 
     <sql id="SELECT_BASE">
