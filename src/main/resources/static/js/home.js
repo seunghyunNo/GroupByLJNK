@@ -18,6 +18,7 @@ function loadGameList(){
 	});
 }
 
+// JSON 을 html로 뿌려주기
 function parseJSON(data){
 	const appDataList = JSON.parse(data).applist.apps.slice(0,99);
 	$appList = $("#appList").children()
@@ -32,7 +33,7 @@ function parseJSON(data){
 					src="https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/hero_capsule.jpg"
 					alt="thumnail">
 				<div class="row justify-content-between">
-					<a class="col-auto" href="/review/${appId}">${element.name}</a>
+					<a class="col-auto text-decoration-none" href="/review/${appId}">${element.name}</a>
 					<i class="col-2 bi bi-box2-heart fs-3"></i>
 				</div>
 			</div>

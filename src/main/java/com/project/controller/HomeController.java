@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 @Controller
@@ -38,6 +37,8 @@ public class HomeController {
 		if (body.get("success").toString().equals("true")) {
 			model.addAttribute("data", body.get("data"));
 		}
+		
+		model.addAttribute("src","https://cdn.akamai.steamstatic.com/steam/apps/" + appId + "/header.jpg");
 		
 		return "review";
 	}
