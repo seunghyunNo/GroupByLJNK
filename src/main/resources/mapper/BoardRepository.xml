@@ -9,27 +9,76 @@
         parameterType="com.project.domain.Board"
         useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into t_board
-            (user_id,title,content,game_id,count)
+            (user_id,title,content)
         values
-            (#{user_id},#{title},#{content},#{game_id},#{count})
+            (#{user_id},#{title},#{content})
     </insert>
 
-    <select id="findById">
-        select
-            id,
-            regdate,
-            title,
-            count,
-            content,
-            game_id,
-            is_file
+    <sql id="SELECT_BASE">
+        SELECT
+            b.id,
+            b.title,
+            b.regdate,
+            b.count,
+            b.content,
 
-        from
-            t_board
-        where
-            id=#{id}
+            u.id,
+            u.username,
+            u.password,
+
+        FROM t_board b,t_user
+        WHERE b.user_id = u.id
+    </sql>
+
+    <resultMap id="mapUser" type="com.project.domain.User">
+        <result column="u.id" property="id"/>
+        <result column="u.username" property="username"/>
+        <result column="u_password" property="password"/>
+    </resultMap>
+
+    <resultMap id="mapBoard" type="com.project.domain.Board">
+        <result column="b.id" property="id"/>
+        <result column="b.title" property="title"/>
+        <result column="b.content" property="content"/>
+        <result column="b.regdate" property="regdate"/>
+        <result column="b.count" property="count"/>
+        <collection property="user" resultMap="mapUser"/>
+    </resultMap>
+
+    <select id="list" resultMap="mapBoard">
+        <include refid="SELECT_BASE"/>
+            order by b.id DESC
     </select>
 
-<!-- 아직 수정중    -->
+    <select id="findById">
+        <include refid="SELECT_BASE"/>
+        and b.id=#{id}
+    </select>
+
+    <update id="update" flushCache="true" parameterType="com.project.domain.Board">
+        update t_board
+        set content = #{content}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" flushCache="true" parameterType="com.project.domain.Board">
+        delete from t_board where id= #{id}
+    </delete>
+
+    <select id="selectByPage" resultMap="com.project.domain.Board">
+        <include refid="SELECT_BASE"/>
+        order by b.id desc
+        limit #{param1},#{param2}
+    </select>
+
+    <select id="countAll" resultType="int">
+        select count(*) from t_board
+    </select>
+
+    <select id="selectFromRow" resultMap="mapBoard">
+        <include refid="SELECT_BASE"/>
+        order by b.id desc
+        limit #{param1},#{param2}
+    </select>
 
 </mapper>

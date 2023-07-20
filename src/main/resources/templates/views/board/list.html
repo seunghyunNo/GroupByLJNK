@@ -20,7 +20,9 @@
 
 <body style="margin-bottom:200px">
 
+
 <!--<th:block th:insert="~{header/header::detail}"></th:block>-->
+
 <!--작성-->
     <div class="container mt-3">
         <div>
@@ -37,8 +39,8 @@
                 <select class="form-select" name="pageRows">
                     <option value="10" th:selected="${pageRows==10}">10</option>
                     <option value="15" th:selected="${pageRows==15}">15</option>
-                    <option value="12" th:selected="${pageRows==20}">20</option>
-                    <option value="30" th:selected="${pageRows==30}">30</option>
+                    <option value="20" th:selected="${pageRows==20}">20</option>
+                    <option value="50" th:selected="${pageRows==50}">50</option>
                 </select>
             </form>
         </span>
@@ -68,7 +70,7 @@
     </table>
 
 
-    <th:block th:inser="~{board/pagination::pagination}"></th:block>
+<th:block th:insert="~{board/pagination::pagination}"></th:block>
 
 </body>
 </html>

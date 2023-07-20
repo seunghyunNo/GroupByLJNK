@@ -14,7 +14,7 @@
     <resultMap id="mapComment" type="com.project.domain.Comment">
         <result column="c_id" property="id"/>
         <result column="c_content" property="content"/>
-        <result column="c_regdate" property="regDate"/>
+        <result column="c_regdate" property="regdate"/>
         <result column="c_board_id" property="board_id"/>
         <collection property="user" resultMap="mapUser"/>
     </resultMap>

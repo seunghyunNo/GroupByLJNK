@@ -1,6 +1,7 @@
 package com.project.service;
 
 import com.project.domain.Board;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 

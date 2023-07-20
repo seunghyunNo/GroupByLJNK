@@ -1,11 +1,16 @@
 package com.project.service;
 
 import com.project.domain.Board;
+import com.project.domain.User;
 import com.project.repository.BoardRepository;
 import com.project.repository.UserRepository;
+import com.project.util.Util;
+import jakarta.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -17,6 +22,14 @@ public class BoardServiceImpl implements BoardService {
     private BoardRepository boardRepository;
     private UserRepository userRepository;
 
+
+    @Value("${app.pagination.write_pages}")
+    private int WRITE_PAGES;
+
+    @Value("${app.pagination.page_rows}")
+    private int PAGE_ROWS;
+
+
     @Autowired
     public BoardServiceImpl(SqlSession sqlSession){
 
@@ -24,15 +37,17 @@ public class BoardServiceImpl implements BoardService {
         userRepository = sqlSession.getMapper(UserRepository.class);
     }
 
-
+    // 글 작성
     @Override
     public int write(Board board) {
+
         return boardRepository.write(board);
     }
 
 
-
+    // 글 조회+ 조회수 증가
     @Override
+    @Transactional
     public Board detail(Long id) {
         boardRepository.viewCnt(id);
         Board board = boardRepository.findById(id);
@@ -43,12 +58,54 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<Board> list() {
 
-        return boardRepository.countAll();
+        return boardRepository.list();
     }
 
     @Override
     public List<Board> list(Integer page, Model model) {
-        return null;
+
+        if(page== null|| page<1){
+            page=1;
+        }
+        HttpSession session = Util.getSession();
+        Integer writePage = (Integer) session.getAttribute("writePage");
+        Integer pageRows = (Integer) session.getAttribute("pageRows");
+        if(writePage==null){
+            writePage=WRITE_PAGES;
+        }
+        if(pageRows==null){
+            pageRows=PAGE_ROWS;
+        }
+        session.setAttribute("page",page);
+
+        long count = boardRepository.countAll();
+        int totalPage=(int) Math.ceil(count/(double)pageRows);
+
+        if(page>totalPage){
+            page=totalPage;
+        }
+
+        int fromRow = (page-1)*pageRows;
+
+        int start= (((page-1)/ writePage)*writePage) + 1;
+        int end=start+writePage-1;
+        if(end >= totalPage)end=totalPage;
+
+        model.addAttribute("count",count);
+        model.addAttribute("page",page);
+        model.addAttribute("totalPage",totalPage);
+        model.addAttribute("pageRows",pageRows);
+
+        model.addAttribute("url",Util.getRequest().getRequestURI());
+        model.addAttribute("writePage",writePage);
+        model.addAttribute("start",start);
+        model.addAttribute("end",end);
+
+        List<Board> list = boardRepository.selectByPage(fromRow,pageRows);
+        model.addAttribute("list",list);
+
+
+        return list;
     }
 
     @Override

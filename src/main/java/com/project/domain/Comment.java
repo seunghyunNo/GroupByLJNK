@@ -24,7 +24,7 @@ public class Comment {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Seoul")
     @JsonProperty("regdate")
-    private LocalDateTime regDate;
+    private LocalDateTime regdate;
 
 
     @ToString.Exclude
