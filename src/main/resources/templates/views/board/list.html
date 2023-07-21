@@ -59,18 +59,18 @@
 
         <tbody>
             <tr th:each="board : ${list}">
-                <td th:text="${board.user.username}"></td>
-                <td><a th:href="@{'/board/detail'+ ${board.id}}" th:text="${board.title}">제목</a></td>
-                <td th:text="${#temporals.format(board.regdate,'yyyy-MM-dd HH:mm:ss')}"></td>
+<!--                <td th:text="${board.user.username}">ㅇㅇ</td>-->
+<!--                <td><a th:href="@{'/board/detail/'+ ${board.id}}" th:text="${board.title}">제목</a></td>-->
+<!--                <td th:text="${#temporals.format(board.regdate,'yyyy-MM-dd HH:mm:ss')}"></td>-->
 
-                <td th:text="${board.count}">추천수</td>
-                <td th:text="${board.count}">조회수</td>
+<!--                <td th:text="${board.count}">추천수</td>-->
+<!--                <td id="viewCnt" th:text="${board.count}">조회수</td>-->
             </tr>
         </tbody>
     </table>
 
 
-<th:block th:insert="~{board/pagination::pagination}"></th:block>
+<!--<th:block th:insert="~{board/pagination::pagination}"></th:block>-->
 
 </body>
 </html>

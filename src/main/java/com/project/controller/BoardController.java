@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,6 +41,7 @@ public class BoardController {
             ,RedirectAttributes redirectAttributes
 
     ){
+
         int write = boardService.write(board);
         model.addAttribute("result",write);
 
@@ -84,13 +86,21 @@ public class BoardController {
         return "board/list";
     }
 
+//    @GetMapping("/list")
+//    public void list(Integer page,Model model){
+//        model.addAttribute("list",boardService.list(page, model));
+//    }
 
 
-    @GetMapping("/detail/{id}")
-    public String detail(@PathVariable long id,Model model){
-        model.addAttribute("board",boardService.detail(id));
-        return "board/detail";
-    }
+
+
+//    @GetMapping("/detail/{appId}")
+//    public String detail(@PathVariable long id,Model model){
+//        model.addAttribute("board",boardService.detail(id));
+//        return "board/detail";
+//    }
+
+
 //
     @GetMapping("/update/{id}")
     public String update(Long id,Model model){
@@ -99,10 +109,20 @@ public class BoardController {
     }
 
     @PostMapping("/update")
-    public String updateOk(Board board
+    public String updateOk(
+            @Valid Board board
             ,BindingResult result
             ,Model model
             ,RedirectAttributes redirectAttributes){
+        if(result.hasErrors()){
+            redirectAttributes.addFlashAttribute("content",board.getContent());
+            List<FieldError> errorList = result.getFieldErrors();
+            for(FieldError error : errorList){
+                System.out.println(error.getField()+":"+error.getCode());
+                redirectAttributes.addAttribute("error_"+error.getField(),error.getCode());
+            }
+            return "redirect:board/update/" +board.getId();
+        }
         model.addAttribute("board",boardService.update(board));
         return "board/updateOk";
     }
@@ -119,4 +139,8 @@ public class BoardController {
         return "redirect:/board/list?page="+page;
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        binder.setValidator(new BoardValidator());
+    }
 }

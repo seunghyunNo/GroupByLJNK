@@ -11,6 +11,7 @@
         <result column="u_password" property="password"/>
         <result column="u_email" property="email"/>
     </resultMap>
+
     <resultMap id="mapComment" type="com.project.domain.Comment">
         <result column="c_id" property="id"/>
         <result column="c_content" property="content"/>
