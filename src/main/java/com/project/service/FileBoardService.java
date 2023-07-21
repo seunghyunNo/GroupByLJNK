@@ -1,6 +1,7 @@
 package com.project.service;
 
 import com.project.domain.Board;
+import com.project.domain.Recommend;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,4 +21,7 @@ public interface FileBoardService {
     int update(Map<String,MultipartFile> files, Board board,Long[] deletefiles);
 
     int delete(Long id);
+
+    int recCnt(int cnt);
+
 }

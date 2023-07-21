@@ -2,16 +2,21 @@ package com.project.service;
 
 import com.project.domain.Attachment;
 import com.project.domain.Board;
+import com.project.domain.Recommend;
 import com.project.domain.User;
 import com.project.repository.AttachmentRepository;
 import com.project.repository.FileBoardRepository;
+import com.project.repository.RecommendRepository;
 import com.project.repository.UserRepository;
 import com.project.util.Util;
 import jakarta.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -25,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 @Service
@@ -43,14 +49,17 @@ public class FileBoardServiceImpl implements FileBoardService {
 
     private FileBoardRepository fileBoardRepository;
     private AttachmentRepository attachmentRepository;
+    private RecommendRepository recommendRepository;
 
     private UserRepository userRepository;
+
 
     @Autowired
     public FileBoardServiceImpl(SqlSession sqlSession) {
         fileBoardRepository = sqlSession.getMapper(FileBoardRepository.class);
         attachmentRepository = sqlSession.getMapper(AttachmentRepository.class);
         userRepository = sqlSession.getMapper(UserRepository.class);
+        recommendRepository = sqlSession.getMapper(RecommendRepository.class);
     }
 
     @Override
@@ -71,6 +80,7 @@ public class FileBoardServiceImpl implements FileBoardService {
 
         if(files != null)
         {
+            List<Attachment> fileList = new ArrayList<>();
             for(var entry: files.entrySet())
             {
                 if(!entry.getKey().startsWith("upfile"))
@@ -83,10 +93,14 @@ public class FileBoardServiceImpl implements FileBoardService {
 
                 if(file != null)
                 {
+                    fileList.add(file);
                     file.setBoard_id(board.getId());
                     attachmentRepository.saveFile(file);
                 }
             }
+            System.out.println(fileList);
+            board.setFiles(fileList);
+            System.out.println(board.getFiles());
         }
     }
 
@@ -263,4 +277,16 @@ public class FileBoardServiceImpl implements FileBoardService {
 
         return result;
     }
+
+    @Override
+    public int recCnt(int cnt) {
+        return fileBoardRepository.recCnt(cnt);
+    }
+
+
+
+
+
+
+
 }

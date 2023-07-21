@@ -14,10 +14,12 @@
 
 </head>
 <body>
+<form th:action="@{/fileboard/list}" method="post">
     <div class="container mt-3">
+
         <div class="row">
             <div class="col-2">
-                <a class="btn btn-outline-dark" th:href="@{/fileboard/write}" >작성</a>
+                <a class="btn btn-outline-dark" th:href="@{|/fileboard/write/${appId}|}" >작성</a>
             </div>
         </div>
 
@@ -55,21 +57,22 @@
                     <td th:text="${fileboard.user.username}" id="username">작성자</td>
                     <td th:utext="${fileboard.content}">게임 설명</td>
                     <td> <li class="list-group-item" th:each="attachment : ${fileboard.files}">   <!-- th:each="attachment : ${board.files}" -->
-                        <a th:href="@{/fileboard/download}(id=${attachment.id})" id="downCnt">다운로드</a>
+                        <a th:href="@{/fileboard/download(id=${attachment.id})}" id="downCnt">[[${attachment.soucename}]]]</a>
                         <!-- (id=${attachment.id}) -->
                     </li></td>
                     <td th:text="${fileboard.regdate}">작성 시간</td>
-                    <td th:text="${fileboard.count}">다운로드 수</td>
+                    <td>다운로드 수</td>
 <!--                    <td id="recCnt" th:value="${recommend.board.count}"></td>-->
-                    <td><button type="button" id="btnRec" class="btn btn-outline-dark">추천</button></td>
-                    <a class="btn btn-outline-dark" th:href="@{'/fileboard/update' + ${board.id}}" >수정</a>
+                    <td th:text="${fileboard.count}" id="rec" > [[${fileboard.count}]</td>
+                    <td><button type="button" id="btnRec" class="btn btn-outline-dark recommend">추천</button></td>
+                    <td><a class="btn btn-outline-dark" th:href="@{'/fileboard/update/' + ${fileboard.id}}" >수정</a></td>
                 </tr>
             </tbody>
         </table>
 
     </div>
-
 <th:block th:insert="~{fileboard/pagination::pagination}"></th:block>
+</form>
 
 </body>
 </html>

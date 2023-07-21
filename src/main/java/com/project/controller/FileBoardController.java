@@ -7,7 +7,6 @@ import com.project.service.FileBoardService;
 import com.project.util.Util;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,15 +27,18 @@ public class FileBoardController {
     @Autowired
     private FileBoardService fileBoardService;
 
+
+
     @Autowired
     private ApiServiceImpl apiService;
 
-    @GetMapping("/write")
-    public void write(){
-
+    @GetMapping("/write/{appId}")
+    public String write(@PathVariable String appId, Model model){
+        model.addAttribute("appId", appId);
+        return "fileboard/write";
     }
 
-    @PostMapping("/write")
+    @PostMapping("/write/{appId}")
     public String writeCheck(
             @RequestParam Map<String, MultipartFile> files,
             @ModelAttribute("board")
@@ -45,6 +47,7 @@ public class FileBoardController {
             , BindingResult result
             , Model model
             , RedirectAttributes redirectAttributes
+            ,@PathVariable String appId
     ){
 
 //        if(result.hasErrors())
@@ -61,6 +64,7 @@ public class FileBoardController {
 
         int write =fileBoardService.write(board,files);
         model.addAttribute("result",write);
+        model.addAttribute("appId", appId);
 
         return "fileboard/writeCheck";
     }
@@ -74,6 +78,12 @@ public class FileBoardController {
         model.addAttribute("list",fileBoardService.list(model,page));
 
         return "fileboard/list";
+    }
+
+    @PostMapping("/list")
+    public void recommend(@ModelAttribute("cnt") int cnt)
+    {
+
     }
 
     @GetMapping("/update/{id}")
@@ -123,6 +133,5 @@ public class FileBoardController {
         System.out.println("initBinder() 호출");
         binder.setValidator(new BoardValidator());
     }
-
 
 }

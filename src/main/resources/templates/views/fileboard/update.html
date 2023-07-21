@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<form action="@{/fileboard/update}" method="post" enctype="multipart/form-data">
+<form th:action="@{/fileboard/update}" method="post" enctype="multipart/form-data">
   <div class="my-3">
     <label for="content">게임 설명:</label>
     <textarea class="form-control" rows="5" id="content" placeholder="설명을 입력하세요" name="content" th:utext="${content}"></textarea>

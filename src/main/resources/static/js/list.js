@@ -5,25 +5,28 @@ $(function(){
     form.attr("action","pageRows");
     form.submit();
    });
+    var check = 0;
 
-   let count = 0;
-   var recommend = false;
-   $("#btnRec").click(function(){
+    $("#btnRec").click(function(){
+        let rec = $("#rec").val();
+        if(check == 0)
+        {
+            check = 1;
+            rec = Number(rec) + 1;
 
-      if(!recommend)
-      {
-        recommend = true;
-        count++;
-        var cnt = $("#recommendCnt").val() + count;
-        $("#recommendCnt").text(cnt);
-      }
-      else
-      {
-        recommend = false;
-        count--;
-        var cnt = $("#recommendCnt").val() + count;
-        $("#recommendCnt").text(cnt);
-      }
-   });
+        }
+        else
+        {
+            check = 0;
+            rec = Number(rec) - 1;
+
+        }
+
+        rec = String(rec);
+        $("#rec").text(rec);
+        $("#rec").val(rec);
+
+        alert(rec);
+    });
 
 });

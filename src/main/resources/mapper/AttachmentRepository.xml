@@ -48,9 +48,9 @@
             parameterType="java.util.ArrayList">
         DELETE FROM t_attachment
         WHERE id IN
-            <foreach collection="array" item="e" separator=",">
+            (<foreach collection="array" item="e" separator=",">
                 #{e}
-            </foreach>
+            </foreach>)
     </delete>
 
     <delete id="delete" flushCache="true">

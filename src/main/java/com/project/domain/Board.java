@@ -22,8 +22,7 @@ public class Board {
 
     private User user;
 
-
-    @ToString.Exclude
     @Builder.Default
     private List<Attachment> files = new ArrayList<>();
+
 }
