@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @Builder
 public class Comment {
     private Long id;
+    private String username;
     private String content;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -31,5 +32,5 @@ public class Comment {
     private User user;  // 댓글 작성자(FK)
 
     @JsonIgnore
-    private Long board_id;   //어느글의 댓글(FK) 필요
+    private Long board_id;   //글의 댓글(FK) 필요
 }

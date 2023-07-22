@@ -3,6 +3,7 @@ package com.project.service;
 import com.project.domain.Comment;
 import com.project.domain.QryCommentList;
 import com.project.domain.QryResult;
+import com.project.domain.User;
 import com.project.repository.CommentRepository;
 import com.project.repository.UserRepository;
 import org.apache.ibatis.session.SqlSession;
@@ -39,12 +40,33 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public QryResult write(Long boardId, Long userId, String content) {
-        return null;
+    public QryResult write(Long boardId, String username, String content) {
+        User user = userRepository.findByUsername(username);
+        Comment comment = Comment.builder()
+                .user(user)
+                .content(content)
+                .board_id(boardId)
+                .build();
+        commentRepository.write(comment);
+        QryResult result = QryResult.builder()
+                .count(1)
+                .status("ok")
+                .build();
+        return result;
     }
 
     @Override
     public QryResult delete(Long id) {
-        return null;
+
+        int count = commentRepository.deleteById(id);
+        String status="fail";
+        if(count==1) status = "ok";
+
+        QryResult result = QryResult.builder()
+                .count(count)
+                .status(status)
+                .build();
+
+        return result;
     }
 }

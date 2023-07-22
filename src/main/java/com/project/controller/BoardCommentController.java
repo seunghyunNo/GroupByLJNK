@@ -4,9 +4,7 @@ import com.project.domain.QryCommentList;
 import com.project.domain.QryResult;
 import com.project.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController //data response 함
 @RequestMapping("/comment")
@@ -29,16 +27,25 @@ public class BoardCommentController {
         list.setCount(1);
         list.setStatus("o");
 
-
         return list;
     }
 
-    // 여기서부터 수정
-//    @GetMapping("/list")
-//    public CommentList list(Long id){
-////        return
-//    }
 
-//    @GetMapping("/write")
-//    public
+    @GetMapping("/list")
+    public QryCommentList list(Long id){
+        return commentService.list(id);
+    }
+
+    @PostMapping("/write")
+    public QryResult write(
+            @RequestParam("board_id") Long boardId,
+            @RequestParam("user_name")String username,
+            String content){
+        return commentService.write(boardId,username,content);
+    }
+
+    @PostMapping("/delete")
+    public QryResult delete(Long id){
+        return commentService.delete(id);
+    }
 }

@@ -12,15 +12,21 @@
 
     </insert>
 
+    <update id="viewCnt" flushCache="true">
+        update t_board
+        set count = count +1
+        where id =#{param1}
+    </update>
+
     <sql id="SELECT_BASE">
         SELECT
-            b.id,
-            b.title,
-            b.content,
-            b.count,
-            b.regdate,
-            u.id,
-            u.username
+            b.id "b_id",
+            b.title "b_title",
+            b.content "b_content",
+            b.count "b_count",
+            b.regdate "b_regdate",
+            u.id "u_id",
+            u.username "u_username"
         from
             t_board b, t_user u
         where
@@ -28,18 +34,16 @@
     </sql>
 
     <resultMap id="mapUser" type="com.project.domain.User">
-        <result column="u.id" property="id"/>
-        <result column="u.username" property="username"/>
-        <result column="u.password" property="password"/>
-        <result column="u.email" property="email"/>
+        <result column="u_id" property="id"/>
+        <result column="u_username" property="username"/>
     </resultMap>
 
     <resultMap id="mapBoard" type="com.project.domain.Board">
-        <result column="b.id" property="id"/>
-        <result column="b.title" property="title"/>
-        <result column="b.content" property="content"/>
-        <result column="b.count" property="count"/>
-        <result column="b.regdate" property="regdate"/>
+        <result column="b_id" property="id"/>
+        <result column="b_title" property="title"/>
+        <result column="b_content" property="content"/>
+        <result column="b_count" property="count"/>
+        <result column="b_regdate" property="regdate"/>
         <collection property="user" resultMap="mapUser"/>
     </resultMap>
 

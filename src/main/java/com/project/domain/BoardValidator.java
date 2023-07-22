@@ -1,4 +1,4 @@
-package com.project.controller;
+package com.project.domain;
 
 import com.project.domain.Board;
 import org.springframework.validation.Errors;
@@ -16,7 +16,7 @@ public class BoardValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        Board board = (Board) target;
+        Board board = (Board)target;
 
         String title =  board.getTitle();
         if(title==null|| title.trim().isEmpty()){

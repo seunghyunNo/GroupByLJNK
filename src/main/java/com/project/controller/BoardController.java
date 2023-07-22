@@ -1,6 +1,7 @@
 package com.project.controller;
 
 import com.project.domain.Board;
+import com.project.domain.BoardValidator;
 import com.project.service.ApiService;
 import com.project.service.BoardService;
 import com.project.util.Util;
@@ -79,29 +80,44 @@ public class BoardController {
         model.addAttribute("appId",appId);
 
         var serviceResult = apiService.getData(appId);
-        LinkedHashMap<?,?> body = (LinkedHashMap)((LinkedHashMap) serviceResult.getBody()).get(appId);
+        LinkedHashMap<?,?> body = (LinkedHashMap) ((LinkedHashMap) serviceResult.getBody()).get(appId);
+        String status = serviceResult.getStatusCode().toString();
+
+        model.addAttribute("status", status);
+        if (body.get("success").toString().equals("true")) {
+            model.addAttribute("data", body.get("data"));
+        }
 
         model.addAttribute("list",boardService.list(page, model));
 
         return "board/list";
     }
 
-//    @GetMapping("/list")
-//    public void list(Integer page,Model model){
-//        model.addAttribute("list",boardService.list(page, model));
-//    }
 
 
-
-
-//    @GetMapping("/detail/{appId}")
-//    public String detail(@PathVariable long id,Model model){
+//    @GetMapping("/detail/{Id}")
+//    public String detail(
+//            @PathVariable Long id,
+//            @PathVariable String appId,Model model){
+//        model.addAttribute("appId",appId);
+//
+//        var serviceResult = apiService.getData(appId);
+//        LinkedHashMap<?,?> body = (LinkedHashMap) ((LinkedHashMap) serviceResult.getBody()).get(appId);
+//        String status = serviceResult.getStatusCode().toString();
+//
+//        model.addAttribute("status", status);
+//        if (body.get("success").toString().equals("true")) {
+//            model.addAttribute("data", body.get("data"));
+//        }
+//
 //        model.addAttribute("board",boardService.detail(id));
+//
 //        return "board/detail";
 //    }
 
 
-//
+
+
     @GetMapping("/update/{id}")
     public String update(Long id,Model model){
         model.addAttribute("board",boardService.selectById(id));
