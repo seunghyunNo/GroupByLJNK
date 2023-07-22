@@ -18,6 +18,5 @@ public interface FileBoardRepository {
 
     int countAll();
 
-    int recCnt(int count);
 
 }

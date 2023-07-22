@@ -12,7 +12,7 @@
 
 
     <insert id="saveFile" flushCache="true"
-            parameterType="com.project.domain.Attachment">
+            parameterType="com.project.domain.Attachment"  keyProperty="id" keyColumn="id">
         INSERT INTO t_attachment(sourcename,filename,board_id)
         VALUES
         (#{sourcename}, #{filename}, #{board_id})

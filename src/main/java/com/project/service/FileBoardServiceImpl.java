@@ -49,7 +49,7 @@ public class FileBoardServiceImpl implements FileBoardService {
 
     private FileBoardRepository fileBoardRepository;
     private AttachmentRepository attachmentRepository;
-    private RecommendRepository recommendRepository;
+
 
     private UserRepository userRepository;
 
@@ -59,7 +59,6 @@ public class FileBoardServiceImpl implements FileBoardService {
         fileBoardRepository = sqlSession.getMapper(FileBoardRepository.class);
         attachmentRepository = sqlSession.getMapper(AttachmentRepository.class);
         userRepository = sqlSession.getMapper(UserRepository.class);
-        recommendRepository = sqlSession.getMapper(RecommendRepository.class);
     }
 
     @Override
@@ -277,15 +276,6 @@ public class FileBoardServiceImpl implements FileBoardService {
 
         return result;
     }
-
-    @Override
-    public int recCnt(int cnt) {
-        return fileBoardRepository.recCnt(cnt);
-    }
-
-
-
-
 
 
 

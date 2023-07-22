@@ -64,10 +64,4 @@
         SELECT COUNT(*) FROM t_board
     </select>
 
-    <update id="recCnt" flushCache="true">
-        UPDATE t_board
-        SET count = #{count}
-        WHERE id = #{id} AND user_id = #{user.id}
-    </update>
-
 </mapper>

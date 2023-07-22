@@ -22,6 +22,8 @@ public class Board {
 
     private User user;
 
+    private Boolean check;
+
     @Builder.Default
     private List<Attachment> files = new ArrayList<>();
 

@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Recommend {
+    private Long id;
     private Long userId;
     private Long boardId;
+    private Long recNo;
 
-    private int rec;
 
 }

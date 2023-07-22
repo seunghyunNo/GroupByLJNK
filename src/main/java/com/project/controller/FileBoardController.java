@@ -2,11 +2,18 @@ package com.project.controller;
 
 import com.project.domain.Board;
 import com.project.domain.BoardValidator;
+import com.project.domain.Recommend;
+import com.project.domain.User;
 import com.project.service.ApiServiceImpl;
 import com.project.service.FileBoardService;
+import com.project.service.UserService;
 import com.project.util.Util;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +27,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.springframework.http.ResponseEntity.ok;
+
 @Controller
 @RequestMapping("/fileboard")
 public class FileBoardController {
@@ -27,6 +36,8 @@ public class FileBoardController {
     @Autowired
     private FileBoardService fileBoardService;
 
+    @Autowired
+    private UserService userService;
 
 
     @Autowired
@@ -74,17 +85,20 @@ public class FileBoardController {
     {
 
         model.addAttribute("appId", appId);
+        var serviceResult = apiService.getData(appId);
+        LinkedHashMap<?,?> body = (LinkedHashMap) ((LinkedHashMap) serviceResult.getBody()).get(appId);
+        String status = serviceResult.getStatusCode().toString();
+
+        model.addAttribute("status", status);
+        if (body.get("success").toString().equals("true")) {
+            model.addAttribute("data", body.get("data"));
+        }
 
         model.addAttribute("list",fileBoardService.list(model,page));
 
         return "fileboard/list";
     }
 
-    @PostMapping("/list")
-    public void recommend(@ModelAttribute("cnt") int cnt)
-    {
-
-    }
 
     @GetMapping("/update/{id}")
     public String update(@PathVariable Long id, Model model)
@@ -133,5 +147,6 @@ public class FileBoardController {
         System.out.println("initBinder() 호출");
         binder.setValidator(new BoardValidator());
     }
+
 
 }
