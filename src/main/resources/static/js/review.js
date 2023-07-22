@@ -1,5 +1,5 @@
 $(function(){
-    loadScoreByUser();
+	loadScoreByUser();
     loadScores();
     
     // 평점 글자 수 제한
@@ -29,7 +29,6 @@ $(function(){
         
         const data = {
             "app_id": appId,
-            "user_id": logged_id,
             "score": score,
             "content": content,
         };
@@ -45,11 +44,13 @@ $(function(){
                     return;
                 }
                 alert(data.status);
+                loadScores();
                 loadScoreByUser();
             }
         });
     });
 
+    
 
     
 });
@@ -72,7 +73,7 @@ function loadScores(){
                     return;
                 }
                 buildScore(data);
-                
+                addDelete();
             }
         }
     })
@@ -85,7 +86,8 @@ function buildScore(data){
 
     data.data.forEach(element => {
         let username = element.user.username;
-        let score = element.score;
+        let temp = element.score;
+        let score = "★".repeat(temp) + "☆".repeat(5 - temp);
         let content = element.content;
 
         const delBtn = (logged_id !== element.userId) ? '' : `
@@ -111,29 +113,30 @@ function buildScore(data){
 
 // 로그인 한 유저의 평점
 function loadScoreByUser(){
+    if(logged_id){
+        params = {
+            "app_id": appId,
+        };
 
-    params = {
-        "user_id": logged_id,
-        "app_id": appId,
-    };
-
-    $.ajax({
-        url: "/score/find",
-        type: "POST",
-        data: params,
-        cache: false,
-        success: function(data, status){
-            if(status == "success"){
-                if(data.status == "OK"){
-                    console.log(data);
-                    addScore(data);
-                    $('#inputScore').css("display", "none");
-                }else{
-                    $('#inputScore').css("display", "block");
+        $.ajax({
+            url: "/score/find",
+            type: "POST",
+            data: params,
+            cache: false,
+            success: function(data, status){
+                if(status == "success"){
+                    if(data.status == "OK"){
+                        $('#inputScore').css("display", "none");
+                    }else{
+                        $('#inputScore').css("display", "block");
+                    }
                 }
             }
-        }
-    });
+        });
+    } else {
+        return;
+    }
+
 }
 function addScore(data){
     const obj = data.data[0];
@@ -158,4 +161,37 @@ function addScore(data){
     `;
 
     $('#scoreList').prepend(row);
+
+}
+
+// 삭제 함수
+function addDelete(){
+    $('[data-del-userid]').click(function(){
+        if(!confirm("댓글을 삭제하시겠습니까?")) return;
+
+        const userId = $(this).attr("data-del-userId");
+
+        const params = {
+            "app_id": appId,
+            "user_id": userId,
+        }
+
+        $.ajax({
+            url: "/score/delete",
+            data: params,
+            type: "POST",
+            cache: false,
+            success: function(data, status){
+                if(status == "success"){
+                    if(data.status !== "OK"){
+						alert(data.status);
+						return;
+					}
+                }
+                alert(data.status);
+                loadScores();
+                loadScoreByUser();
+            }
+        });
+    });
 }

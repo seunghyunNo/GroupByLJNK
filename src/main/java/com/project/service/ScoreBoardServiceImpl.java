@@ -15,12 +15,9 @@ public class ScoreBoardServiceImpl implements ScoreBoardService{
 	
 	private ScoreBoardRepository scoreBoardRepository;
 	
-	private UserRepository userRepository;
-	
 	@Autowired
 	public ScoreBoardServiceImpl(SqlSession sqlSession){
 		scoreBoardRepository = sqlSession.getMapper(ScoreBoardRepository.class);
-		userRepository = sqlSession.getMapper(UserRepository.class);
 	}
 	
 	@Override

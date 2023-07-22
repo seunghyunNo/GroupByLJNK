@@ -1,9 +1,12 @@
 package com.project.controller;
 
+import com.project.config.PrincipalDetails;
 import com.project.domain.QryResult;
 import com.project.domain.QryScoreList;
+import com.project.domain.User;
 import com.project.service.ScoreBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,26 +22,31 @@ public class ScoreBoardController {
 	
 	@PostMapping("/find")
 	public QryScoreList find(
-			@RequestParam("app_id") String appId,
-			@RequestParam("user_id") Long userId
+			@RequestParam("app_id") String appId
 	){
-		return scoreBoardService.find(appId, userId);
+		PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = userDetails.getUser();
+		Long id = user.getId();
+		return scoreBoardService.find(appId, id);
 	}
 	
 	@PostMapping("/write")
 	public QryResult write(
 		@RequestParam("app_id") String appId,
-		@RequestParam("user_id") Long userId,
 		@RequestParam("score") Long score,
 		@RequestParam("content") String content
 	){
-		return scoreBoardService.write(appId, userId, score, content);
+		PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = userDetails.getUser();
+		Long id = user.getId();
+		
+		return scoreBoardService.write(appId, id, score, content);
 	}
 	
 	@PostMapping("/delete")
 	public QryResult delete(
-			String appId,
-			Long userId
+			@RequestParam("app_id") String appId,
+			@RequestParam("user_id") Long userId
 	){
 		return scoreBoardService.delete(appId, userId);
 	}

@@ -1,7 +1,10 @@
 package com.project.controller;
 
+import com.project.config.PrincipalDetails;
+import com.project.domain.User;
 import com.project.service.ApiServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +42,15 @@ public class HomeController {
 		}
 		
 		model.addAttribute("src","https://cdn.akamai.steamstatic.com/steam/apps/" + appId + "/header.jpg");
+		
+		try{
+			PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			User user = userDetails.getUser();
+			Long id = user.getId();
+			model.addAttribute("logged_id", id);
+		} catch (Exception e){
+			model.addAttribute("logged_id", null);
+		}
 		
 		return "review";
 	}

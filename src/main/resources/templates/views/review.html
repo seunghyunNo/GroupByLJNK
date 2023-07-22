@@ -2,7 +2,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<th:block th:with="logged_user=${#authentication.principal.user}">
+<th:block>
 <head>
 	<meta charset="UTF-8">
 
@@ -15,7 +15,7 @@
 
 	<script th:inline="javascript">
 		const appId = [[${appId}]];
-		const logged_id = [[${logged_user.id}]]
+		const logged_id = [[${logged_id}]];	
 	</script>
 
 	<script th:src="@{/js/review.js}"></script>
@@ -32,31 +32,31 @@
 			<input type="hidden" name="app_id" th:value="${appId}">
 		</form>
 		<th:block th:if="${data}">
-			<!-- <th:block th:if=""></th:block> -->
-			<div class="card" id="inputScore">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-auto mb-2">
-							<span>추천 점수 : </span>
-							<span class="star">
-								★★★★★
-								<span>★★★★★</span>
-								<input id="rangeScore" type="range" oninput="drawStar(this)" value="6" step="2" min="2" max="10">
-							  </span>
+			<th:block th:if="${logged_id}">
+				<div class="card" id="inputScore">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-auto mb-2">
+								<span>추천 점수 : </span>
+								<span class="star">
+									★★★★★
+									<span>★★★★★</span>
+									<input id="rangeScore" type="range" oninput="drawStar(this)" value="6" step="2" min="2" max="10">
+								  </span>
+							</div>
+							<span id="test"></span>
 						</div>
-						<span id="test"></span>
-					</div>
-					<div class="input-group">
-						<textarea id="textBox" class="form-control" maxlength="100" placeholder="한줄평을 써주세요"></textarea>
-						<button class="btn btn-outline-primary" type="button" id="submitScore">작성</button>
-					</div>
-					<div class="justify-content-end text-muted">
-						<span id="textCount">0</span>
-						<span id="textTotal">/ 100자</span>
+						<div class="input-group">
+							<textarea id="textBox" class="form-control" maxlength="100" placeholder="한줄평을 써주세요"></textarea>
+							<button class="btn btn-outline-primary" type="button" id="submitScore">작성</button>
+						</div>
+						<div class="justify-content-end text-muted">
+							<span id="textCount">0</span>
+							<span id="textTotal">/ 100자</span>
+						</div>
 					</div>
 				</div>
-			</div>
-			<!-- [[${data}]] -->
+			</th:block>
 			<div class="card">
 			<div class="card-body">
 				<label>평점: <span id="scoreCnt"></span> 개</label>
