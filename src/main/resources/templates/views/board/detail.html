@@ -4,10 +4,11 @@
 <!--<th:block th:if="${board}" th:with="logged_user=${#authentication.principal.user}">-->
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/board.css}">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -20,7 +21,7 @@
     <title>detail</title>
 </head>
 <body style="margin-bottom:200px">
-<th:block th:insert="~{header/detail::appDetail}"></th:block>
+<!--<th:block th:insert="~{header/detail::appDetail}"></th:block>-->
     <div>
         <section>
             <form name="frmDelete" th:action="@{/board/delete}" method="post">
@@ -42,10 +43,10 @@
             <!-- 하단 -->
             <div class="d-flex">
 
-                <a class="btn btn-outline-dark" th:href="@{'/board/update/'+ ${board.id}}" th:if="${logged_user.id == board.id}">수정</a>
+                <a class="btn btn-outline-dark" th:href="@{'/board/update/'+ ${board.id}}">수정</a>
                 <a class="btn btn-outline-dark ms-2" th:href="@{/board/list(page=${session.page)}/}">목록</a>
                 <!--수정 필요할 수도 있음 -->
-                <button class="btn btn-outline-danger ms-2" type="button" id="btnDel" th:if="${logged_user_id == board.user_id}">삭제</button>
+                <button class="btn btn-outline-danger ms-2" type="button" id="btnDel">삭제</button>
 
                 <!--권한 설정-->
                 <a class="btn btn-outline-dark ms-2" th:href="@{/board/write}" sec:authorize="hasAnyRole('MEMBER','ADMIN')">작성</a>

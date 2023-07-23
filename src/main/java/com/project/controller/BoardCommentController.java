@@ -13,23 +13,6 @@ public class BoardCommentController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping("/test")
-    public QryResult test(){
-        return QryResult.builder()
-                .count(2)
-                .status("o")
-                .build();
-    }
-
-    @GetMapping("/test1")
-    public QryCommentList test1(){
-        QryCommentList list = new QryCommentList();
-        list.setCount(1);
-        list.setStatus("o");
-
-        return list;
-    }
-
 
     @GetMapping("/list")
     public QryCommentList list(Long id){

@@ -7,6 +7,7 @@ import com.project.service.BoardService;
 import com.project.util.Util;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -95,7 +96,7 @@ public class BoardController {
 
 
 
-//    @GetMapping("/detail/{Id}")
+//    @GetMapping("/detail/{id}")
 //    public String detail(
 //            @PathVariable Long id,
 //            @PathVariable String appId,Model model){
@@ -115,11 +116,19 @@ public class BoardController {
 //        return "board/detail";
 //    }
 
+    @GetMapping("/detail/{appId}/{id}")
+    public String detail(@PathVariable String appId,@PathVariable Long id,Model model){
+        model.addAttribute("appId",appId);
+        model.addAttribute("board",boardService.detail(id));
+        return "board/detail";
+    }
 
 
 
-    @GetMapping("/update/{id}")
-    public String update(Long id,Model model){
+
+    @GetMapping("/update/{appId}/{id}")
+    public String update(@PathVariable String appId, @PathVariable Long id, Model model){
+        model.addAttribute("appId",appId);
         model.addAttribute("board",boardService.selectById(id));
         return "board/update";
     }
@@ -131,6 +140,7 @@ public class BoardController {
             ,Model model
             ,RedirectAttributes redirectAttributes){
         if(result.hasErrors()){
+            redirectAttributes.addFlashAttribute("title",board.getTitle());
             redirectAttributes.addFlashAttribute("content",board.getContent());
             List<FieldError> errorList = result.getFieldErrors();
             for(FieldError error : errorList){
@@ -139,7 +149,7 @@ public class BoardController {
             }
             return "redirect:board/update/" +board.getId();
         }
-        model.addAttribute("board",boardService.update(board));
+        model.addAttribute("result",boardService.update(board));
         return "board/updateOk";
     }
 
