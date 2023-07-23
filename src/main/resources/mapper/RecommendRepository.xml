@@ -3,24 +3,8 @@
 
 <mapper namespace="com.project.repository.RecommendRepository">
 
-    <insert id="updateRecommend">
-        <selectKey keyProperty="id" order="BEFORE" resultType="Long">
-            SELECT seq_recommend.nextval from dual
-        </selectKey>
-
-        INSERT INTO t_recommend(id,recommendNum,user_id,board_id)
-        VALUES(#{id},1,,#{userId},#{boardId})
-    </insert>
-
-    <delete id="deleteRecommend">
-        DELETE FROM t_recommend WHERE board_id = #{boardId} AND user_id = #{userId}
-    </delete>
-
-    <select id="checkRecommend" resultType="com.project.domain.Recommend">
-        SELECT recommendNum,board_id,user_id FROM t_recommend WHERE board_id = #{boardId} AND user_id = #{userId}
-    </select>
-
-    <select id="getRecommend" resultType="Long">
-        SELECT
-    </select>
+    <update id="countCheck" flushCache="true" parameterType="com.project.domain.Recommend">
+        UPDATE t_recommend
+        SET userId = #{userId} AND boardId = #{boardId}
+    </update>
 </mapper>

@@ -50,6 +50,8 @@ public class FileBoardServiceImpl implements FileBoardService {
     private FileBoardRepository fileBoardRepository;
     private AttachmentRepository attachmentRepository;
 
+    private RecommendRepository recommendRepository;
+
 
     private UserRepository userRepository;
 
@@ -59,16 +61,17 @@ public class FileBoardServiceImpl implements FileBoardService {
         fileBoardRepository = sqlSession.getMapper(FileBoardRepository.class);
         attachmentRepository = sqlSession.getMapper(AttachmentRepository.class);
         userRepository = sqlSession.getMapper(UserRepository.class);
+        recommendRepository = sqlSession.getMapper(RecommendRepository.class);
     }
 
     @Override
-    public int write(Board board, Map<String, MultipartFile> files) {
+    public int write(Board board, Map<String, MultipartFile> files,String appId) {
         User user = Util.getLoggedUser();
 
         user = userRepository.findByUsername(user.getUsername());
         board.setUser(user);
 
-        int result = fileBoardRepository.write(board);
+        int result = fileBoardRepository.write(board,appId);
         insertFiles(files, board);
 
         return result;
@@ -156,7 +159,7 @@ public class FileBoardServiceImpl implements FileBoardService {
     }
 
     @Override
-    public List<Board> list(Model model, Integer page) {
+    public List<Board> list(Model model, Integer page,String appId) {
 
         if(page == null || page < 1)
         {
@@ -202,7 +205,7 @@ public class FileBoardServiceImpl implements FileBoardService {
         model.addAttribute("start",start);
         model.addAttribute("end",end);
 
-        List<Board> list = fileBoardRepository.selectByPage(fromRow,pageRows);
+        List<Board> list = fileBoardRepository.selectByPage(fromRow,pageRows,appId);
         model.addAttribute("list",list);
         System.out.println(list);
         return list;
@@ -216,7 +219,6 @@ public class FileBoardServiceImpl implements FileBoardService {
             List<Attachment> files = attachmentRepository.findByFileBoard(board.getId());
             board.setFiles(files);
         }
-
         return board;
     }
 
@@ -246,16 +248,20 @@ public class FileBoardServiceImpl implements FileBoardService {
     {
         String Directory =new File(uploadDirectory).getAbsolutePath();
 
-        File file = new File(Directory,delFile.getFilename());
+        File f= new File(Directory,delFile.getFilename());
 
-        if(file.exists())
+        if(f.exists())
         {
-            file.delete();
+            if (f.delete()) { // 삭제!
+                System.out.println("삭제 성공");
+            } else {
+                System.out.println("삭제 실패");
+            }
         }
     }
 
     @Override
-    public int delete(Long id) {
+    public int deleteById(Long id) {
         int result = 0;
 
         Board board = fileBoardRepository.searchById(id);
@@ -277,6 +283,13 @@ public class FileBoardServiceImpl implements FileBoardService {
         return result;
     }
 
+    @Override
+    public int countCheck(Long userId, Long boardId, Long count) {
+        int result = fileBoardRepository.setCount(count,boardId);
+        if(result > 0)
+        {return recommendRepository.countCheck(userId,boardId);}
+        return 0;
+    }
 
 
 }

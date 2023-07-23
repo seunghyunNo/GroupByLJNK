@@ -1,5 +1,5 @@
 $(function(){
-    var index = 0;
+    let index = 0;
     $("#btnInsert").click(function(){
         $("#files").append(`
             <div class="input-group mb-3">
@@ -8,7 +8,7 @@ $(function(){
             </div>`);
         index++;
 
-    })
+    });
 
 
     $("#content").summernote({

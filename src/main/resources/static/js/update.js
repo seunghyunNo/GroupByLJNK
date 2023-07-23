@@ -7,11 +7,11 @@ $(function(){
             <button type="button" class="btn btn-outline-danger" onclick="$(this).parent().remove()">삭제</button>
             </div>`);
         index++;
-    })
+    });
 
 
-    $("[fileid-delete]").click(function(){
-        let fileId = $(this).attr("fileid-delete");
+    $("[file-id-delete]").click(function(){
+        let fileId = $(this).attr("file-id-delete");
         deleteByIdFiles(fileId);
         $(this).parent().remove();
     });
@@ -23,5 +23,5 @@ $(function(){
 
 function deleteByIdFiles(fileId)
 {
-    $("#deleteFiles").append(`<input type="hidden" name="deleteFile" value=${fileId}>`);
+    $("#deleteFiles").append(`<input type="hidden" name="deleteFile" value="${fileId}">`);
 }

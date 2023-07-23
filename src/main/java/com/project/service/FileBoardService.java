@@ -9,17 +9,20 @@ import java.util.List;
 import java.util.Map;
 
 public interface FileBoardService{
-    int write(Board board, Map<String, MultipartFile> files);
+    int write(Board board, Map<String, MultipartFile> files,String appId);
 
     List<Board> list();
 
 
-    List<Board> list(Model model, Integer page);
+    List<Board> list(Model model, Integer page, String appId);
 
     Board findById(Long id);
 
     int update(Map<String,MultipartFile> files, Board board,Long[] deletefiles);
 
-    int delete(Long id);
+    int deleteById(Long id);
+
+    int countCheck(Long userId,Long boardId,Long count);
+
 
 }

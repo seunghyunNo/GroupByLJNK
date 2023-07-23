@@ -73,7 +73,7 @@ public class FileBoardController {
 //            return "redirect:/fileboard/write";
 //        }
 
-        int write =fileBoardService.write(board,files);
+        int write =fileBoardService.write(board,files,appId);
         model.addAttribute("result",write);
         model.addAttribute("appId", appId);
 
@@ -94,46 +94,68 @@ public class FileBoardController {
             model.addAttribute("data", body.get("data"));
         }
 
-        model.addAttribute("list",fileBoardService.list(model,page));
+        model.addAttribute("list",fileBoardService.list(model,page,appId));
 
         return "fileboard/list";
     }
-
-
-    @GetMapping("/update/{id}")
-    public String update(@PathVariable Long id, Model model)
+    @PostMapping("/list/recommend")
+    public @ResponseBody int recommend(@RequestParam String userId,@RequestParam String boardId,@RequestParam String count)
     {
+        System.out.println(userId);
+        System.out.println(boardId);
+        System.out.println(count);
+        Long user_Id = Long.parseLong(userId);
+        Long board_id = Long.parseLong(boardId);
+        Long cnt = Long.parseLong(count);
+        return fileBoardService.countCheck(user_Id,board_id,cnt);
+    }
+
+
+    @GetMapping("/update/{appId}/{id}")
+    public String update(@PathVariable String appId,@PathVariable Long id, Model model)
+    {
+        model.addAttribute("appId", appId);
         model.addAttribute("board",fileBoardService.findById(id));
         return "fileboard/update";
     }
 
 
-    @PostMapping("/update")
+    @PostMapping("/update/{appId}")
     public String updateCheck(
+            Board board,
             @RequestParam Map<String,MultipartFile> files,
-            @Valid Board board,
             Long[] deleteFile,
             BindingResult result,
             Model model,
-            RedirectAttributes redirectAttributes)
+            RedirectAttributes redirectAttributes,
+            @PathVariable String appId
+    )
     {
-        if(result.hasErrors()){
-            // redirect 시 기좀에 입력했던 값들은 보이게 하기
-            redirectAttributes.addFlashAttribute("content", board.getContent());
+//            if(result.hasErrors()){
+//            // redirect 시 기좀에 입력했던 값들은 보이게 하기
+//            redirectAttributes.addFlashAttribute("content", board.getContent());
+//
+//            List<FieldError> errList = result.getFieldErrors();
+//            for(FieldError err : errList){
+//                System.out.println(err.getField() + " : " + err.getCode());
+//                redirectAttributes.addFlashAttribute("error_" + err.getField(), err.getCode());
+//             }
+//            return "redirect:/fileboard/update/" + board.getId();   // GET
+//
+//
+//            }
 
-            List<FieldError> errList = result.getFieldErrors();
-            for(FieldError err : errList){
-                System.out.println(err.getField() + " : " + err.getCode());
-                redirectAttributes.addFlashAttribute("error_" + err.getField(), err.getCode());
-            }
-
-            return "redirect:/fileboard/update/" + board.getId();   // GET
-        }
-
-
+        model.addAttribute("appId", appId);
         model.addAttribute("result",fileBoardService.update(files,board,deleteFile));
         return "fileboard/updateCheck";
     }
+
+    @PostMapping("/delete")
+    public String deleteOk(Long id, Model model){
+        model.addAttribute("result", fileBoardService.deleteById(id));
+        return "fileboard/deleteCheck";
+    }
+
 
     @PostMapping("/pageRows")
     public String pageRows(Integer page,Integer pageRows)

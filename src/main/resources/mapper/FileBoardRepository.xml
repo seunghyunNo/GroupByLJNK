@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.repository.FileBoardRepository">
-    <insert id="write" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
+    <insert id="write" flushCache="true" useGeneratedKeys="true" keyColumn="board.id" keyProperty="board.id"
      parameterType="com.project.domain.Board">
         INSERT INTO t_board (title,content,user_id,game_id,is_file)
-        VALUES ("title",#{content},#{user.id},"gameId",true)
+        VALUES ("title",#{board.content},#{board.user.id},#{param2},true)
     </insert>
 
     <sql id="SELECT_BASE">
@@ -14,6 +14,7 @@
             b.regdate "b_regdate",
             b.count "b_count",
             b.content "b_content",
+            b.game_id "b_gameId",
             u.id "u_id",
             u.username "u_username"
         FROM t_board b,t_user u
@@ -31,6 +32,7 @@
         <result column="b_regdate" property="regdate"/>
         <result column="b_count" property="count"/>
         <result column="b_content" property="content"/>
+        <result column="b_gameId" property="game_id"/>
         <collection property="user" resultMap="mapUser"/>
     </resultMap>
 
@@ -56,6 +58,7 @@
 
     <select id="selectByPage" resultMap="mapBoard">
         <include refid="SELECT_BASE"/>
+        AND b.game_id = #{param3}
         ORDER BY b.id DESC
         LIMIT #{param1}, #{param2}
     </select>
@@ -63,5 +66,11 @@
     <select id="countAll" resultType="int">
         SELECT COUNT(*) FROM t_board
     </select>
+
+    <update id="setCount" flushCache="true" parameterType="com.project.domain.Board">
+        UPDATE t_board
+        SET count = #{param1}
+        WHERE id = #{param2}
+    </update>
 
 </mapper>
