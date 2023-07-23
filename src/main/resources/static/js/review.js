@@ -25,7 +25,7 @@ $(function(){
     // ScoreBoard 등록
     $('#submitScore').click(function(){
         const score = $("#rangeScore").val() / 2;
-        const content = $("#textBox").val().trim();
+        const content = $("#textBox").val().trim().replaceAll('\n','<br>');
         
         const data = {
             "app_id": appId,
