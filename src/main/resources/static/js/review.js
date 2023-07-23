@@ -1,6 +1,7 @@
 $(function(){
-	loadScoreByUser();
-    loadScores();
+	loadScoreByUser();  // 평점 입력창을 로딩할지 말지 결정한다.
+    loadScoreList();    // 평점 목록을 로딩한다.
+	loadWishList();		// 찜 아이콘을 결정한다.
     
     // 평점 글자 수 제한
     $('#textBox').keyup(function (e) {
@@ -44,14 +45,39 @@ $(function(){
                     return;
                 }
                 alert(data.status);
-                loadScores();
+                loadScoreList();
                 loadScoreByUser();
             }
         });
     });
 
-    
-
+    // wishList Icon 클릭시
+    $("#wishIcon").click(function(){
+        const params = {
+            "user_id": logged_id,
+            "app_id": appId
+        };
+        if(logged_id){
+            $.ajax({
+                url: "/wishlist/check",
+                type: "POST",
+                data: params,
+                cache: false,
+                success: function(data, status){
+                    if(status == 'success'){
+                        if(data.count){
+                            deleteWishList();
+                        } else {
+                            writeWishList();
+                        }
+                    }
+                }
+            });
+        } else {
+            alert("로그인 후 이용가능합니다")
+        }
+        
+    });
     
 });
 
@@ -61,7 +87,7 @@ const drawStar = (target) => {
 }
 
 // 평점 목록 불러오기
-function loadScores(){
+function loadScoreList(){
     $.ajax({
         url: "/score/list/" + appId,
         type: "POST",
@@ -114,7 +140,7 @@ function buildScore(data){
 // 로그인 한 유저의 평점
 function loadScoreByUser(){
     if(logged_id){
-        params = {
+        const params = {
             "app_id": appId,
         };
 
@@ -189,9 +215,79 @@ function addDelete(){
 					}
                 }
                 alert(data.status);
-                loadScores();
+                loadScoreList();
                 loadScoreByUser();
             }
         });
+    });
+}
+
+//
+function loadWishList(){
+
+    const params = {
+        "user_id": logged_id,
+        "app_id": appId
+    };
+
+	$.ajax({
+		url: "/wishlist/check",
+        type: "POST",
+        data: params,
+        cache: false,
+        success: function(data, status){
+            if(status == "success"){
+                if(data.count == 0){
+                    $('#wishIcon').removeClass('bi-clipboard-heart-fill');
+                    $('#wishIcon').addClass('bi-clipboard-heart');
+                    return false;
+                } else {
+                    $('#wishIcon').removeClass('bi-clipboard-heart');
+                    $('#wishIcon').addClass('bi-clipboard-heart-fill');
+                    return true;
+                }
+            }
+        }
+	});
+}
+
+function writeWishList(){
+
+    const params = {
+        "user_id": logged_id,
+        "app_id": appId
+    };
+
+    $.ajax({
+        url: "/wishlist/write",
+        type: "POST",
+        data: params,
+        cache:false,
+        success: function(data, status){
+            if(status == "success"){
+                loadWishList();
+                alert("찜 목록에 추가되었습니다")
+            }
+        }
+    });
+}
+
+function deleteWishList(){
+    const params = {
+        "user_id": logged_id,
+        "app_id": appId
+    }
+
+    $.ajax({
+        url: "/wishlist/delete",
+        type: "POST",
+        data: params,
+        cache:false,
+        success: function(data, status){
+            if(status == "success"){
+                loadWishList();
+                alert("찜 목록에서 삭제되었습니다")
+            }
+        }
     });
 }
