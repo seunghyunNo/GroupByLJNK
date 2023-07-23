@@ -12,7 +12,7 @@
     public class PrincipalDetailsService implements UserDetailsService {
 
         @Autowired
-        private UserService userService;;
+        private UserService userService;
 
         @Override
         public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

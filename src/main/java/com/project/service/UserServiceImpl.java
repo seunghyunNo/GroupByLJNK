@@ -1,11 +1,13 @@
 package com.project.service;
 
+import com.project.config.PrincipalDetails;
 import com.project.domain.Authority;
 import com.project.domain.User;
 import com.project.repository.AuthorityRepository;
 import com.project.repository.UserRepository;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -104,8 +106,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean pwCheck(User user) {
+        String encodePassword = userRepository.getEncodePassword(user);
+        return passwordEncoder.matches(user.getPassword(), encodePassword);
+    }
+
+    @Override
+    public int delete(Long id) {
+       return userRepository.deleteUser(id);
+    }
+
+    @Override
     public List<Authority> findAuthorityById(Long id) {
         // id 값으로 해당 유저의 Authority 를 List 에 담아 return
         return authorityRepository.findAuthorityById(id);
+    }
+
+    @Override
+    public List<String> findWishListById(Long id) {
+        return userRepository.findWishListById(id);
     }
 }

@@ -28,7 +28,7 @@
     <insert id="signup" flushCache="true" parameterType="com.project.domain.User"
             keyProperty="id" useGeneratedKeys="true" keyColumn="id">
         INSERT INTO t_user(username, password, email)
-        VALUE(#{username}, #{password}, #{email})
+        VALUES (#{username}, #{password}, #{email})
     </insert>
 
     <select id="userCheck" parameterType="String" resultType="int">
@@ -52,7 +52,7 @@
     <select id="findPw" parameterType="String" resultType="int">
         SELECT count(*)
         FROM t_user
-        WHERE username = #{param1} AND email = #{param2}
+        WHERE username = #{username} AND email = #{email}
     </select>
 
     <update id="updatePw" flushCache="true" parameterType="com.project.domain.User">
@@ -60,4 +60,22 @@
         SET password = #{password}
         WHERE email = #{email} AND username = #{username}
     </update>
+
+    <select id="getEncodePassword" parameterType="com.project.domain.User" resultType="String">
+        SELECT password
+        FROM t_user
+        WHERE username = #{username} AND email = #{email}
+    </select>
+
+    <delete id="deleteUser">
+        DELETE
+        FROM t_user
+        WHERE id = #{id}
+    </delete>
+
+    <select id="findWishListById" parameterType="com.project.config.PrincipalDetails" resultType="String">
+        SELECT game_id
+        FROM t_wishlist
+        WHERE user_id = #{param1}
+    </select>
 </mapper>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:fragment="myPageInfo" th:with="logged_user=${#authentication.principal.user}">
+  <div class="card mt-4">
+    <div class="row justify-content-start align-item-center m-3">
+      <div class="card-body align-center">
+        <h2 class="col-auto" >[[${username}]] 님 안녕하세요.</h2>
+        <nav class="navbar navbar-expand-md">
+        <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a th:href="@{/user/pwCheck}" class="nav-link">회원정보 수정</a></a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link disabled">ㅣ</a></a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/user/delete}" class="nav-link">회원 탈퇴</a></a>
+          </li>
+        </ul>
+        </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-md navbar-light bg-light mt-2">
+    <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{/user/myPage}">찜 목록</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/user/myBoard}">게시판</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/user/myFileBoard}">자료실</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</th:block>
+</html>

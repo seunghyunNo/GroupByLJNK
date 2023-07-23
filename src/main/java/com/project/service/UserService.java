@@ -1,7 +1,9 @@
 package com.project.service;
 
+import com.project.config.PrincipalDetails;
 import com.project.domain.Authority;
 import com.project.domain.User;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +36,13 @@ public interface UserService {
 
     int updatePw(User user);
 
+    boolean pwCheck(User user);
+
+    int delete(Long id);
 
     // 로그인 유저의 Id(pk)로 해당 유저의 authority(들) 가져오기
     List<Authority> findAuthorityById(Long id);
+
+    List<String> findWishListById(Long id);
+
 }

@@ -3,6 +3,8 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+
+
 <th:block th:fragment="header">
 
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -16,7 +18,7 @@
       <!-- 로그인 했을때는 username, mypage 와 로그아웃 form 보여주기 -->
         <form th:action="@{/user/logout}" method="POST" sec:authorize="Authenticated" th:with="user=${#authentication.getPrincipal().getUser()}">
           <span class="text-light p-2">[[${user.username}]] 님 환영합니다 </span>
-          <a class="btn btn-light" th:href="@{/user/mypage}">MyPage</a>
+          <a class="btn btn-light" th:href="@{/user/myPage}">MyPage</a>
           <span><button class="btn btn-danger" type="submit">Logout</button></span>
         </form>
   </div>

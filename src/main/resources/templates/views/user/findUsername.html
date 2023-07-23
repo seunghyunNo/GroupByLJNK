@@ -24,17 +24,12 @@
         <div class="form-group col-6 container-sm mt-3">
           <label for="email">이메일</label>
           <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
-          <div class="btn btn-primary" id="authButton">인증번호받기</div>
-          <input type="hidden" id="authCodeInput" value="ABCDEFG">
-          <div id="codeDiv" style="display: none;">
-            <input type="text" id="code" name="code" placeholder="인증번호">
-            <div class="btn btn-primary" id="myButton">확인</div>
-          </div>
-          <div id="code_feedback"></div>
+          <div class="btn btn-primary" id="findIdButton">아이디찾기</div>
           <div class="text-xl text-center mt-5 mb-5" id="username_feedback"></div>
-          <a class="w-100 btn btn-sm btn-primary mt-3" id="goPw" style="display: none;" th:href="@{/user/login}">비밀번호 찾기</a>
-          <a class="w-100 btn btn-sm btn-primary mt-3" id="goLogin" style="display: none;" th:href="@{/user/login}">로그인</a>
-          <a class="w-100 btn btn-sm btn-primary mt-3" id="goSignup" style="display: none;" th:href="@{/user/signup}">회원가입</a>
+          <div class="w-100 btn btn-primary mt-3" style="display: none;" id="findFullId">이메일로 아이디 전체 찾기</div>
+          <a class="w-100 btn btn-primary mt-3" id="goPw" th:href="@{/user/findPw}">비밀번호 찾기</a>
+          <a class="w-100 btn btn-primary mt-3" id="goLogin" th:href="@{/user/login}">로그인</a>
+          <a class="w-100 btn btn-primary mt-3" id="goSignup" th:href="@{/user/signup}">회원가입</a>
         </div>
     </div>
   </div>

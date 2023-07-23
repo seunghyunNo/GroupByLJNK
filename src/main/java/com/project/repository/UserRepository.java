@@ -1,7 +1,9 @@
 package com.project.repository;
 
+import com.project.config.PrincipalDetails;
 import com.project.domain.Authority;
 import com.project.domain.User;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -22,4 +24,10 @@ public interface UserRepository {
     int findPw(String username, String email);
 
     int updatePw(User user);
+
+    String getEncodePassword(User user);
+
+    int deleteUser(Long id);
+
+    List<String> findWishListById(Long id);
 }
