@@ -23,7 +23,7 @@
 <!--작성-->
     <div class="container mt-3">
         <div>
-            <a class="btn btn-outline-dark" th:href="@{/board/write}">작성</a>
+            <a class="btn btn-outline-dark" th:href="@{'/board/write/' + ${appId}}">작성</a>
 <!--            쓸지 말지 정해야됨 sec:authorize="hasAnyRole('ADMIN','MEMBER')"-->
         </div>
     </div>
@@ -56,7 +56,7 @@
         <tbody>
             <tr th:each="board : ${list}">
                 <td th:text="${board.user.username}">ddd</td>
-                <td><a th:href="@{'/board/detail/'+${board.id}}" th:text="${board.title}"></a></td>
+                <td><a th:href="@{'/board/detail/'+${appId}+'/'+${board.id}}" th:text="${board.title}"></a></td>
                 <td th:text="${board.regdate}"></td>
                 <td th:text="${board.count}"></td>
                 <td id="vieCnt" th:text="${board.count}"></td>

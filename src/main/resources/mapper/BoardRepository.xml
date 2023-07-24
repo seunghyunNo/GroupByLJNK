@@ -6,9 +6,9 @@
 <mapper namespace="com.project.repository.BoardRepository">
     <insert id="write" flushCache="true" parameterType="com.project.domain.Board" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into t_board
-            (title,content, user_id)
+            (title,content, user_id,game_id,is_file)
         values
-            (#{title},#{content},#{user.id})
+            (#{title},#{content},#{user.id},#{game_id},#{is_file})
 
     </insert>
 
@@ -67,7 +67,11 @@
     </update>
 
     <delete id="delete" flushCache="true" parameterType="com.project.domain.Board">
-        DELETE FROM t_board WHERE id =#{id}
+        DELETE
+        FROM
+            t_board
+        WHERE
+            id =#{id}
     </delete>
 
     <select id="countAll" resultType="int">

@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Board {
+public class MainBoard {
     private Long id;
     private LocalDateTime regdate;
     private Long count;
@@ -22,5 +22,4 @@ public class Board {
 
     private User user;
 
-    
 }

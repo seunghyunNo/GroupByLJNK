@@ -30,8 +30,12 @@ public class BoardController {
     @Autowired
     private ApiService apiService;
 //
-    @GetMapping("/write")
-    public void write(){}
+    @GetMapping("/write/{appId}")
+    public String write(@PathVariable String appId
+                        ,Model model){
+        model.addAttribute("appId",appId);
+        return "board/write";
+    }
 
 
     @PostMapping("/write")
@@ -43,10 +47,9 @@ public class BoardController {
             ,RedirectAttributes redirectAttributes
 
     ){
-
+        board.setIs_file(false);
         int write = boardService.write(board);
         model.addAttribute("result",write);
-
         return "board/writeOk";
     }
 
@@ -118,8 +121,8 @@ public class BoardController {
 
     @GetMapping("/detail/{appId}/{id}")
     public String detail(@PathVariable String appId,@PathVariable Long id,Model model){
-        model.addAttribute("appId",appId);
-        model.addAttribute("board",boardService.detail(id));
+        model.addAttribute("appId", appId);
+        model.addAttribute("board", boardService.detail(id));
         return "board/detail";
     }
 
@@ -133,28 +136,31 @@ public class BoardController {
         return "board/update";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/update/{appId}")
     public String updateOk(
+            @PathVariable String appId,
             @Valid Board board
             ,BindingResult result
             ,Model model
             ,RedirectAttributes redirectAttributes){
-        if(result.hasErrors()){
-            redirectAttributes.addFlashAttribute("title",board.getTitle());
-            redirectAttributes.addFlashAttribute("content",board.getContent());
-            List<FieldError> errorList = result.getFieldErrors();
-            for(FieldError error : errorList){
-                System.out.println(error.getField()+":"+error.getCode());
-                redirectAttributes.addAttribute("error_"+error.getField(),error.getCode());
-            }
-            return "redirect:board/update/" +board.getId();
-        }
+//        if(result.hasErrors()){
+//            redirectAttributes.addFlashAttribute("title",board.getTitle());
+//            redirectAttributes.addFlashAttribute("content",board.getContent());
+//            List<FieldError> errorList = result.getFieldErrors();
+//            for(FieldError error : errorList){
+//                System.out.println(error.getField()+":"+error.getCode());
+//                redirectAttributes.addAttribute("error_"+error.getField(),error.getCode());
+//            }
+//            return "redirect:/board/update/{appId}"+board.getId();
+//        }
+        model.addAttribute("appId",appId);
         model.addAttribute("result",boardService.update(board));
         return "board/updateOk";
     }
 
     @PostMapping("/delete")
-    public String deleteOk(Long id,Model model){
+    public String deleteOk(
+            Long id,Model model){
         model.addAttribute("result",boardService.deleteById(id));
         return "board/deleteOk";
     }
