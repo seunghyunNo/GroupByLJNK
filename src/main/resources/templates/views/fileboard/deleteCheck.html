@@ -5,7 +5,7 @@
     history.back();
   </script>
 
-<script th:if="${result > 0}" th:inline="javascript">
+<script th:if="${result > 0}">
     alert("삭제 성공");
     location.href ="fileboard/list/[[${appId}]]";  // 삭제후에는 list 로 이동
   </script>

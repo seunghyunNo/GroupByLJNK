@@ -181,8 +181,12 @@ public class FileBoardServiceImpl implements FileBoardService {
         {
             page = totalPage;
         }
+        int fromRow = (page - 1) * pageRows;;
 
-        int fromRow = (page - 1) * pageRows;
+       if(page == 0)
+        {
+            fromRow = 0;
+        }
 
         int start = (((page -1)/ writePage)*writePage)+1;
         int end = start + writePage - 1;

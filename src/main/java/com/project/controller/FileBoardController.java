@@ -93,15 +93,15 @@ public class FileBoardController {
         return "fileboard/list";
     }
     @PostMapping("/list/recommend")
-    public @ResponseBody int recommend(@RequestParam String userId,@RequestParam String boardId,@RequestParam String count)
+    public @ResponseBody int recommend(@RequestParam Long userId,@RequestParam String boardId,@RequestParam String count)
     {
         System.out.println(userId);
         System.out.println(boardId);
         System.out.println(count);
-        Long user_Id = Long.parseLong(userId);
+//        Long user_Id = Long.parseLong(userId);
         Long board_id = Long.parseLong(boardId);
         Long cnt = Long.parseLong(count);
-        return fileBoardService.countCheck(user_Id,board_id,cnt);
+        return fileBoardService.countCheck(userId,board_id,cnt);
     }
 
 
