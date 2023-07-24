@@ -5,9 +5,10 @@ $(function(){
      form.attr("action","pageRows");
      form.submit();
     });
-        let userId = $("#loginUser").text();
 
+        let userId = $("#loginUser").text();
         var check = 0;
+
         $("[data-recommend-btn]").click(function(){
          let btn = $(this).attr("data-recommend-btn");
          let boardId = $(this).parent().siblings().children("span").attr("data-fileboard-recommend");
@@ -25,8 +26,9 @@ $(function(){
                       rec = Number(rec) - 1;
                   }
                       rec = String(rec);
-                     $(this).parent().siblings().children("span").text(rec);
-                     input.val(rec);
+                  $(this).parent().siblings().children("span").text(rec);
+                  input.val(rec);
+                  let count = input.val();
 
               $.ajax({
                          url: '/fileboard/list/recommend',
@@ -56,7 +58,8 @@ $(function(){
           });
 
           $("[data-delete-btn]").click(function(){
-                let delForm = $(this).parent().siblings("form");
+                let delForm = $(this).parent().siblings("div").children("form");
+                alert(delForm);
                 let answer = confirm("삭제하시겠습니까?");
                 if(answer){
                     delForm.submit();

@@ -4,14 +4,14 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 // Validator 는 Controller 에 등록되어 있어야 동작한다.
-public class BoardValidator implements Validator {
+public class FileBoardValidator implements Validator {
     // 이 Validator가 제공된 Class의 인스턴스(clazz)를 유효성검사할 수 있는가?
     @Override
     public boolean supports(Class<?> clazz) {
         System.out.println("supports(" + clazz.getName() + ")");
 
         // ↓ 검증할 객체의 클래스 타입인지 확인 : Post = clazz; 가능 여부
-        boolean result = Board.class.isAssignableFrom(clazz);
+        boolean result = FileBoard.class.isAssignableFrom(clazz);
         System.out.println(result);
         return result;
     }
@@ -23,12 +23,12 @@ public class BoardValidator implements Validator {
     // target 에는 binding 이 완료한 커맨드 객체가 전달된다.
     @Override
     public void validate(Object target, Errors errors) {
-        Board board = (Board)target;
-        System.out.println("validate() 호출: " + board);
+        FileBoard fileBoard = (FileBoard)target;
+        System.out.println("validate() 호출: " + fileBoard);
 
         // 바인딩한 객체에 대한 검증 수행
 
-        String content = board.getContent();
+        String content = fileBoard.getContent();
         if(content == null || content.trim().isEmpty()){
             errors.rejectValue("content", "글 제목은 필수입니다");
         }

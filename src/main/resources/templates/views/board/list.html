@@ -10,7 +10,7 @@
 <!--작성-->
     <div>
         <div>
-            <a th:href="@{/board/write}">작성</a>
+            <a th:href="@{/fileBoard/write}">작성</a>
         </div>
     </div>
 
@@ -41,12 +41,12 @@
         </thead>
 
         <tbody>
-            <tr th:each="board : ${list}">
-                <td th:text="${board.user_id}"></td>
-                <td><a th:href="@{'/board/detail/'+${board.id}}" th:text="${board.title}"/></td>
-                <td th:text="${board.regdate}"></td>
-                <td th:text="${board.count}">추천수</td>
-                <td th:text="${board.count}">조회수</td>
+            <tr th:each="fileBoard : ${list}">
+                <td th:text="${fileBoard.user_id}"></td>
+                <td><a th:href="@{'/fileBoard/detail/'+${fileBoard.id}}" th:text="${fileBoard.title}"/></td>
+                <td th:text="${fileBoard.regdate}"></td>
+                <td th:text="${fileBoard.count}">추천수</td>
+                <td th:text="${fileBoard.count}">조회수</td>
             </tr>
         </tbody>
     </table>

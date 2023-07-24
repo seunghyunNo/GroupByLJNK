@@ -6,7 +6,7 @@
 <mapper namespace="com.project.repository.BoardRepository">
 
     <insert id="write" flushCache="true"
-        parameterType="com.project.domain.Board"
+        parameterType="com.project.domain.FileBoard"
         useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into t_board
             (user_id,title,content,game_id,count)

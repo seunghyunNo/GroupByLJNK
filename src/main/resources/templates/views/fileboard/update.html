@@ -17,14 +17,14 @@
 <form th:action="@{|/fileboard/update/${appId}|}" method="post" enctype="multipart/form-data">
   <div class="my-3">
     <label for="content">게임 설명:</label>
-    <textarea class="form-control" rows="5" id="content" placeholder="설명을 입력하세요" name="content" th:utext="${content} ? ${content} : ${board.content}"></textarea>
+    <textarea class="form-control" rows="5" id="content" placeholder="설명을 입력하세요" name="content" th:utext="${content} ? ${content} : ${fileBoard.content}"></textarea>
   </div>
 
   <div class="container mt-3 mb-3 border rounded" >
     <div id="deleteFiles"></div>
     <div class="mb-3 mt-3">
       <label>첨부파일:</label>
-      <div class="input-group mb-3" th:each="attachment : ${board.files}">
+      <div class="input-group mb-3" th:each="attachment : ${fileBoard.files}">
         <input class="form-control col-xs-3" type="text" readonly th:value="${attachment.sourcename}"/>
         <button type="button" class="btn btn-outline-danger" th:file-id-delete="${attachment.id}">삭제</button>
       </div>

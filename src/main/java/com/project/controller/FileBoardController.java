@@ -1,19 +1,13 @@
 package com.project.controller;
 
-import com.project.domain.Board;
-import com.project.domain.BoardValidator;
-import com.project.domain.Recommend;
-import com.project.domain.User;
+import com.project.domain.FileBoard;
+import com.project.domain.FileBoardValidator;
 import com.project.service.ApiServiceImpl;
 import com.project.service.FileBoardService;
 import com.project.service.UserService;
 import com.project.util.Util;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,9 +46,9 @@ public class FileBoardController {
     @PostMapping("/write/{appId}")
     public String writeCheck(
             @RequestParam Map<String, MultipartFile> files,
-            @ModelAttribute("board")
+            @ModelAttribute("fileBoard")
             @Valid
-            Board board
+            FileBoard fileBoard
             , BindingResult result
             , Model model
             , RedirectAttributes redirectAttributes
@@ -73,7 +67,7 @@ public class FileBoardController {
 //            return "redirect:/fileboard/write";
 //        }
 
-        int write =fileBoardService.write(board,files,appId);
+        int write =fileBoardService.write(fileBoard,files,appId);
         model.addAttribute("result",write);
         model.addAttribute("appId", appId);
 
@@ -115,14 +109,14 @@ public class FileBoardController {
     public String update(@PathVariable String appId,@PathVariable Long id, Model model)
     {
         model.addAttribute("appId", appId);
-        model.addAttribute("board",fileBoardService.findById(id));
+        model.addAttribute("fileBoard",fileBoardService.findById(id));
         return "fileboard/update";
     }
 
 
     @PostMapping("/update/{appId}")
     public String updateCheck(
-            Board board,
+            @Valid FileBoard fileBoard,
             @RequestParam Map<String,MultipartFile> files,
             Long[] deleteFile,
             BindingResult result,
@@ -131,22 +125,22 @@ public class FileBoardController {
             @PathVariable String appId
     )
     {
-//            if(result.hasErrors()){
-//            // redirect 시 기좀에 입력했던 값들은 보이게 하기
-//            redirectAttributes.addFlashAttribute("content", board.getContent());
-//
-//            List<FieldError> errList = result.getFieldErrors();
-//            for(FieldError err : errList){
-//                System.out.println(err.getField() + " : " + err.getCode());
-//                redirectAttributes.addFlashAttribute("error_" + err.getField(), err.getCode());
-//             }
-//            return "redirect:/fileboard/update/" + board.getId();   // GET
-//
-//
-//            }
+            if(result.hasErrors()){
+            // redirect 시 기좀에 입력했던 값들은 보이게 하기
+            redirectAttributes.addFlashAttribute("content", fileBoard.getContent());
+
+            List<FieldError> errList = result.getFieldErrors();
+            for(FieldError err : errList){
+                System.out.println(err.getField() + " : " + err.getCode());
+                redirectAttributes.addFlashAttribute("error_" + err.getField(), err.getCode());
+            }
+            return "redirect:/fileboard/update/" + fileBoard.getId();   // GET
+
+
+            }
 
         model.addAttribute("appId", appId);
-        model.addAttribute("result",fileBoardService.update(files,board,deleteFile));
+        model.addAttribute("result",fileBoardService.update(files, fileBoard, deleteFile));
         return "fileboard/updateCheck";
     }
 
@@ -167,7 +161,7 @@ public class FileBoardController {
     @InitBinder  // 이 컨트롤러 클래스의 handler 에서 폼 데이터를 바인딩 할때 검증하는 Validator 객체 지정
     public void initBinder(WebDataBinder binder){
         System.out.println("initBinder() 호출");
-        binder.setValidator(new BoardValidator());
+        binder.setValidator(new FileBoardValidator());
     }
 
 

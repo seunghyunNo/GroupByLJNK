@@ -43,7 +43,7 @@
                 <option value="20" th:selected="${pageRows==20}">20</option>
                 <option value="50" th:selected="${pageRows==50}">50</option>
             </select>
-            </form>
+        </form>
             </span>
         </div>
 
@@ -64,16 +64,18 @@
             </thead>
             <tbody>
                 <tr th:each="fileboard : ${list}" >
-                    <form th:name="${fileboard.id}" th:action="@{/fileboard/delete}" method="post" >
-                        <input type="hidden"  th:value="${fileboard.id}">
-                    </form>
+                    <div>
+                        <form th:name="${fileboard.id}" th:action="@{/fileboard/delete}" method="post" >
+                            <input type="hidden" name="id" th:value="${fileboard.id}">
+                        </form>
+                    </div>
                     <td  th:text="${fileboard.user.username}">작성자</td>
                     <td th:utext="${fileboard.content}">게임 설명</td>
                     <td> <li class="list-group-item" th:each="attachment : ${fileboard.files}">   <!-- th:each="attachment : ${board.files}" -->
-                        <a th:href="@{/fileboard/download(id=${attachment.id})}" id="downCnt">[[${attachment.soucename}]]]</a>
+                        <a th:href="@{/fileboard/download(id=${attachment.id})}" id="downCnt">[[${attachment.sourcename}]]</a>
                         <!-- (id=${attachment.id}) -->
                     </li></td>
-                    <td th:text="${fileboard.regdate}">작성 시간</td>
+                    <td th:text="${#temporals.format(fileboard.regdate, 'yyyy-MM-dd HH:mm:ss')}">작성 시간</td>
                     <td th:text="${fileboard.count}">다운로드 수</td>
                     <td>
                         <span th:text="${fileboard.count}" th:data-fileboard-recommend="${fileboard.id}"></span>
