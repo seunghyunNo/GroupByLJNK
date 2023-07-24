@@ -27,9 +27,9 @@
             b.regdate "b_regdate",
             u.id "u_id",
             u.username "u_username"
-        from
+        FROM
             t_board b, t_user u
-        where
+        WHERE
             b.user_id = u.id
     </sql>
 
@@ -49,33 +49,34 @@
 
     <select id="findById" resultMap="mapBoard">
         <include refid="SELECT_BASE"/>
-        and
+        AND
             b.id=#{id}
     </select>
 
     <select id="list" resultMap="mapBoard">
         <include refid="SELECT_BASE"/>
-            order by b.id desc
+        ORDER BY b.id DESC
+
 
     </select>
 
     <update id="update" flushCache="true" parameterType="com.project.domain.Board">
-        update t_board
-        set title=#{title}, content=#{content}
-        where id=#{id}
+        UPDATE t_board
+        SET title=#{title}, content=#{content}
+        WHERE id=#{id}
     </update>
 
     <delete id="delete" flushCache="true" parameterType="com.project.domain.Board">
-        delete from t_board where id =#{id}
+        DELETE FROM t_board WHERE id =#{id}
     </delete>
 
     <select id="countAll" resultType="int">
-        select count(*) from t_board
+        SELECT count(*) FROM t_board
     </select>
 
     <select id="selectByPage" resultMap="mapBoard">
         <include refid="SELECT_BASE"/>
-        order by b.id desc
-        limit #{param1}, #{param2}
+        ORDER BY b.id DESC
+        LIMIT #{param1}, #{param2}
     </select>
 </mapper>
