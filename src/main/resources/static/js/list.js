@@ -9,11 +9,32 @@ $(function(){
         const userId = $("#loginUser").text();
         const appId = $("#appId").val().trim();
         let boardId = $("td").children("span").attr("data-fileboard-recommend");
-        loadCount(userId,boardId);
+        $("td").children("span").each(function(){
+             $.ajax({
+                         url: '/recommend/count',
+                         type: 'GET',
+                         data: {
+                         "userId": userId,
+                         "boardId": boardId
+                         },
+                         cache: false,
+                           success: function(data, status,){
+                            if(status == "success"){
+                                console.log(data);
+                                $(this).text(data);
+                            }
+                        },
+                     });
+
+            });
+
+
+
         $("[data-recommend-btn]").click(function(){
          let currentObj = $(this);
          let btn = $(this).attr("data-recommend-btn");
          boardId = $(this).parent().siblings().children("span").attr("data-fileboard-recommend");
+         obj = $(this).parent().siblings().children("span");
               if(btn == boardId)
               {
                   $.ajax({
@@ -34,7 +55,7 @@ $(function(){
                                        currentObj.removeClass("bi bi-hand-thumbs-up");
                                        currentObj.addClass("bi bi-hand-thumbs-up-fill");
                                   }
-                                  loadCount(userId,boardId);
+                                    loadRecommend(userId,boardId,obj);
                               },
                           });
 
@@ -80,22 +101,25 @@ $(function(){
                           },
                       });
           });
- });
+       
 
-function loadCount(userId,boardId)
+});
+
+function loadRecommend(userId,boardId,obj)
 {
-
-      $.ajax({
-                 url: '/recommend/count',
-                 type: 'GET',
-                 data: {
-                 "userId": userId,
-                 "boardId": boardId
-                 },
-                 cache: false,
-                 success: function(count){
-                 $("[data-fileboard-recommend]").text(count);
-                },
-             });
+        $.ajax({
+                         url: '/recommend/count',
+                         type: 'GET',
+                         data: {
+                         "userId": userId,
+                         "boardId": boardId
+                         },
+                         cache: false,
+                           success: function(data, status,){
+                            if(status == "success"){
+                                obj.text(data);
+                            }
+                        },
+                     });
 
 }
