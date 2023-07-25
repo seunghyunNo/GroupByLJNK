@@ -55,17 +55,18 @@ public class FileBoardController {
             ,@PathVariable String appId
     ){
 
-//        if(result.hasErrors())
-//        {
-//            redirectAttributes.addFlashAttribute("content",board.getContent());
-//            List<FieldError> errList = result.getFieldErrors();
-//            for(FieldError err : errList){
-//                System.out.println(err.getField() + " : " + err.getCode());
-//                redirectAttributes.addFlashAttribute("error_" + err.getField(), err.getCode());
-//            }
-//
-//            return "redirect:/fileboard/write";
-//        }
+        if(result.hasErrors())
+        {
+            redirectAttributes.addFlashAttribute("content",fileBoard.getContent());
+            redirectAttributes.addFlashAttribute("fileList",fileBoard.getFileList());
+            List<FieldError> errList = result.getFieldErrors();
+            for(FieldError err : errList){
+                System.out.println(err.getField() + " : " + err.getCode());
+                redirectAttributes.addFlashAttribute("error_" + err.getField(), err.getCode());
+            }
+
+            return "redirect:/fileboard/write/"+appId;
+        }
 
         int write =fileBoardService.write(fileBoard,files,appId);
         model.addAttribute("result",write);
@@ -104,6 +105,12 @@ public class FileBoardController {
         return fileBoardService.countCheck(userId,board_id,cnt);
     }
 
+    @PostMapping("/list/downCount")
+    public @ResponseBody void downCount(Long id)
+    {
+       fileBoardService.donwloadCount(id);
+    }
+
 
     @GetMapping("/update/{appId}/{id}")
     public String update(@PathVariable String appId,@PathVariable Long id, Model model)
@@ -128,15 +135,13 @@ public class FileBoardController {
             if(result.hasErrors()){
             // redirect 시 기좀에 입력했던 값들은 보이게 하기
             redirectAttributes.addFlashAttribute("content", fileBoard.getContent());
-
+            redirectAttributes.addFlashAttribute("fileList",fileBoard.getFileList());
             List<FieldError> errList = result.getFieldErrors();
             for(FieldError err : errList){
                 System.out.println(err.getField() + " : " + err.getCode());
                 redirectAttributes.addFlashAttribute("error_" + err.getField(), err.getCode());
             }
             return "redirect:/fileboard/update/" + fileBoard.getId();   // GET
-
-
             }
 
         model.addAttribute("appId", appId);

@@ -94,8 +94,8 @@ public class FileBoardServiceImpl implements FileBoardService {
                 }
             }
             System.out.println(fileList);
-            fileBoard.setFiles(fileList);
-            System.out.println(fileBoard.getFiles());
+            fileBoard.setFileList(fileList);
+            System.out.println(fileBoard.getFileList());
         }
     }
 
@@ -214,7 +214,7 @@ public class FileBoardServiceImpl implements FileBoardService {
             {
                 List<Attachment> files = attachmentRepository.findByFileBoard(id);
                 System.out.println(files);
-                fileBoard.setFiles(files);
+                fileBoard.setFileList(files);
             }
             list.set(i,fileBoard);
         }
@@ -230,7 +230,7 @@ public class FileBoardServiceImpl implements FileBoardService {
         if(fileBoard != null)
         {
             List<Attachment> files = attachmentRepository.findByFileBoard(fileBoard.getId());
-            fileBoard.setFiles(files);
+            fileBoard.setFileList(files);
         }
         return fileBoard;
     }
@@ -238,6 +238,7 @@ public class FileBoardServiceImpl implements FileBoardService {
     @Override
     public int update(Map<String, MultipartFile> files, FileBoard fileBoard, Long[] deleteFiles) {
         int result = fileBoardRepository.update(fileBoard);
+        System.out.println(result);
 
         insertFiles(files, fileBoard);
 
@@ -302,6 +303,11 @@ public class FileBoardServiceImpl implements FileBoardService {
         if(result > 0)
         {return recommendRepository.countCheck(userId,boardId);}
         return 0;
+    }
+
+    @Override
+    public int donwloadCount(Long id) {
+        return fileBoardRepository.downloadCount(id);
     }
 
 

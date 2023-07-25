@@ -59,8 +59,10 @@ $(function(){
 
           $("[data-delete-btn]").click(function(){
                 let answer = confirm("삭제하시겠습니까?");
-                const boardId =$(this).attr("data-delete-btn");
-                 $.ajax({
+                if(answer)
+                {
+                     const boardId =$(this).attr("data-delete-btn");
+                     $.ajax({
                            url: "/fileboard/delete",
                            type: "POST",
                            cache: false,
@@ -68,33 +70,52 @@ $(function(){
                            success: function(data, status, xhr){
                                if(status == "success"){
                                    if(data.status !== "OK"){
-                                       alert(data.status);
+                                       location.reload();
                                        return;
                                    }
                                }
                            },
                        });
+                }
+          });
+
+          $("[data-download-btn]").click(function(){
+               const boardId = $(this).attr("data-download-btn");
+                 $.ajax({
+                          url: "/fileboard/list/downCount",
+                          type: "POST",
+                          cache: false,
+                          data: {"id": boardId},
+                          success: function(data, status, xhr){
+                              if(status == "success"){
+                                  if(data.status !== "OK"){
+                                      location.reload();
+                                      return;
+                                  }
+                              }
+                          },
+                      });
           });
  });
 
- function loadList(appId)
- {
-    $.ajax({
-        url: "/fileboard/list/" + appId,
-        type: "GET",
-        cache: false,
-        success: function(data, status, xhr){
-            if(status == "success"){
-                //alert(xhr.responseText);   // response 결과 확인용.
-
-                // data 매개변수 : JSON 으로 response 되면 JS object 로 변환되어 받아온다
-                if(data.status !== "OK"){
-                    alert(data.status);
-                    return;
-                }
-                // ★댓글목록을 불러오고 난뒤에 삭제에 대한 이벤트 리스너를 등록해야 한다
-            }
-        }
-
-    });
- }
+// function loadList(appId)
+// {
+//    $.ajax({
+//        url: "/fileboard/list/" + appId,
+//        type: "GET",
+//        cache: false,
+//        success: function(data, status, xhr){
+//            if(status == "success"){
+//                //alert(xhr.responseText);   // response 결과 확인용.
+//
+//                // data 매개변수 : JSON 으로 response 되면 JS object 로 변환되어 받아온다
+//                if(data.status !== "OK"){
+//                    alert(data.status);
+//                    return;
+//                }
+//                // ★댓글목록을 불러오고 난뒤에 삭제에 대한 이벤트 리스너를 등록해야 한다
+//            }
+//        }
+//
+//    });
+// }

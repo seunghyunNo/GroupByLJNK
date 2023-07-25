@@ -23,6 +23,6 @@ public class FileBoard {
     private User user;
 
     @Builder.Default
-    private List<Attachment> files = new ArrayList<>();
+    private List<Attachment> fileList = new ArrayList<>();
 
 }

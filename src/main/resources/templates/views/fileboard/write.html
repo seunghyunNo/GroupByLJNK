@@ -19,6 +19,7 @@
         <div class="my-3">
             <label for="content">게임 설명:</label>
             <textarea class="form-control" rows="5" id="content" placeholder="설명을 입력하세요" name="content" th:utext="${content}"></textarea>
+            <span class="text-danger" th:if="${error_content}" th:utext="${error_content}"></span>
         </div>
 
         <div class="container mt-3 mb-3 border rounded">
@@ -26,6 +27,7 @@
                 <label>첨부파일:</label>
                 <div id="files">
 
+                    <span class="text-danger" th:if="${error_fileList}" th:utext="${error_fileList}"></span>
                 </div>
                 <button type="button" id="btnInsert" class="btn btn-secondary">추가</button>
             </div>

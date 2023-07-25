@@ -23,5 +23,6 @@ public interface FileBoardService{
 
     int countCheck(Long userId,Long boardId,Long count);
 
+    int donwloadCount(Long id);
 
 }

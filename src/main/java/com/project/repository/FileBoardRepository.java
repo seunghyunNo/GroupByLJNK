@@ -19,4 +19,8 @@ public interface FileBoardRepository {
     int countAll(String appId);
 
     int setCount(Long count,Long boardId);
+
+    int downloadCount(Long id);
+
+
 }

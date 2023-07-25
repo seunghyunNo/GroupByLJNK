@@ -27,7 +27,7 @@
         <span th:text="${logged_user.id}" id="loginUser"></span>
         <div class="row">
             <div class="col-2">
-                <a class="btn btn-outline-dark" th:href="@{|/fileboard/write/${appId}|}" >작성</a>
+                <a class="btn btn-outline-dark" th:href="@{|/fileboard/write/${appId}|}" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')" >작성</a>
             </div>
         </div>
 
@@ -65,15 +65,10 @@
             </thead>
             <tbody>
                 <tr th:each="fileboard : ${list}" >
-                    <div>
-                        <form th:name="${fileboard.id}" th:action="@{/fileboard/delete}" method="post" >
-                            <input type="hidden" name="id" th:value="${fileboard.id}">
-                        </form>
-                    </div>
                     <td  th:text="${fileboard.user.username}">작성자</td>
                     <td th:utext="${fileboard.content}">게임 설명</td>
-                    <td> <li class="list-group-item" th:each="attachment : ${fileboard.files}">   <!-- th:each="attachment : ${board.files}" -->
-                        <a th:href="@{/fileboard/download(id=${attachment.id})}" id="downCnt">[[${attachment.sourcename}]]</a>
+                    <td> <li class="list-group-item" th:each="attachment : ${fileboard.fileList}">   <!-- th:each="attachment : ${board.files}" -->
+                        <a th:href="@{/fileboard/download(id=${attachment.id})}" th:data-download-btn="${fileboard.id}">[[${attachment.sourcename}]]</a>
                         <!-- (id=${attachment.id}) -->
                     </li></td>
                     <td th:text="${#temporals.format(fileboard.regdate, 'yyyy-MM-dd HH:mm:ss')}">작성 시간</td>
