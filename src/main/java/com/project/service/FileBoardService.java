@@ -21,7 +21,6 @@ public interface FileBoardService{
 
     int deleteById(Long id);
 
-    int countCheck(Long userId,Long boardId,Long count);
 
     int donwloadCount(Long id);
 

@@ -297,13 +297,6 @@ public class FileBoardServiceImpl implements FileBoardService {
         return result;
     }
 
-    @Override
-    public int countCheck(Long userId, Long boardId, Long count) {
-        int result = fileBoardRepository.setCount(count,boardId);
-        if(result > 0)
-        {return recommendRepository.countCheck(userId,boardId);}
-        return 0;
-    }
 
     @Override
     public int donwloadCount(Long id) {

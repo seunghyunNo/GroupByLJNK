@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface UserRepository {
 
+    User findById(Long id);
+
     User findByUsername(String username);
 
     User findByEmail(String email);

@@ -15,7 +15,7 @@
 
 <body>
 <div class="container mt-3">
-    <form th:action="@{|/fileboard/write/${appId}|}" method="post" enctype="multipart/form-data">
+    <form th:action="@{|/fileboard/write/${appId}|}" name="writeFrm" method="post" enctype="multipart/form-data">
         <div class="my-3">
             <label for="content">게임 설명:</label>
             <textarea class="form-control" rows="5" id="content" placeholder="설명을 입력하세요" name="content" th:utext="${content}"></textarea>
@@ -27,13 +27,12 @@
                 <label>첨부파일:</label>
                 <div id="files">
 
-                    <span class="text-danger" th:if="${error_fileList}" th:utext="${error_fileList}"></span>
                 </div>
                 <button type="button" id="btnInsert" class="btn btn-secondary">추가</button>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-outline-dark">작성완료</button>
+        <button type="button" id="writeBtn" class="btn btn-outline-dark">작성완료</button>
         <a class="btn btn-outline-dark" th:href="@{|/fileboard/list/${appId}|}">목록</a>
     </form>
 </div>

@@ -47,18 +47,16 @@ public class FileBoardController {
     public String writeCheck(
             @RequestParam Map<String, MultipartFile> files,
             @ModelAttribute("fileBoard")
-            @Valid
-            FileBoard fileBoard
+            @Valid FileBoard fileBoard
             , BindingResult result
             , Model model
             , RedirectAttributes redirectAttributes
-            ,@PathVariable String appId
+            , @PathVariable String appId
     ){
 
         if(result.hasErrors())
         {
             redirectAttributes.addFlashAttribute("content",fileBoard.getContent());
-            redirectAttributes.addFlashAttribute("fileList",fileBoard.getFileList());
             List<FieldError> errList = result.getFieldErrors();
             for(FieldError err : errList){
                 System.out.println(err.getField() + " : " + err.getCode());
@@ -92,17 +90,6 @@ public class FileBoardController {
         model.addAttribute("list",fileBoardService.list(model,page,appId));
 
         return "fileboard/list";
-    }
-    @PostMapping("/list/recommend")
-    public @ResponseBody int recommend(@RequestParam Long userId,@RequestParam String boardId,@RequestParam String count)
-    {
-        System.out.println(userId);
-        System.out.println(boardId);
-        System.out.println(count);
-//        Long user_Id = Long.parseLong(userId);
-        Long board_id = Long.parseLong(boardId);
-        Long cnt = Long.parseLong(count);
-        return fileBoardService.countCheck(userId,board_id,cnt);
     }
 
     @PostMapping("/list/downCount")
@@ -163,11 +150,12 @@ public class FileBoardController {
         return "redirect:/fileboard/list?page="+page;
     }
 
-    @InitBinder  // 이 컨트롤러 클래스의 handler 에서 폼 데이터를 바인딩 할때 검증하는 Validator 객체 지정
+    @InitBinder
     public void initBinder(WebDataBinder binder){
-        System.out.println("initBinder() 호출");
+        System.out.println("FileBoard initBinder() 호출");
         binder.setValidator(new FileBoardValidator());
     }
+
 
 
 }

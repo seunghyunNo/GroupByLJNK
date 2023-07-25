@@ -2,7 +2,6 @@ package com.project.domain;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
 import java.util.List;
 
 // Validator 는 Controller 에 등록되어 있어야 동작한다.
@@ -31,15 +30,9 @@ public class FileBoardValidator implements Validator {
         // 바인딩한 객체에 대한 검증 수행
 
         String content = fileBoard.getContent();
-//        List<Attachment> fileList = fileBoard.getFileList();
-
         if(content == null || content.trim().isEmpty()){
             errors.rejectValue("content", "게임 설명은 필수입니다");
         }
 
-//        if(fileList.isEmpty())
-//        {
-//            errors.rejectValue("fileList", "첨부 파일을 등록하셔야합니다.");
-//        }
     }
 }
