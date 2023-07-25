@@ -12,19 +12,46 @@ $(function(){
         $("td").children("span").each(function(){
              $.ajax({
                          url: '/recommend/count',
-                         type: 'GET',
+                         type: 'POST',
                          data: {
-                         "userId": userId,
-                         "boardId": boardId
+                             "userId": userId,
+                             "boardId": boardId
                          },
                          cache: false,
-                           success: function(data, status,){
+                           success: function(data, status){
                             if(status == "success"){
-                                console.log(data);
-                                $(this).text(data);
+                                $(this).text(data.count);
                             }
                         },
                      });
+//                console.log($(this).text());
+
+
+            });
+
+            $("td").children("i").each(function(){
+                let currentObj = $(this);
+                 boardId = $(this).parent().siblings().children("span").attr("data-fileboard-recommend");
+                  $.ajax({
+                      url: "/recommend/check",
+                      type: "POST",
+                      cache: false,
+                      data: {
+                            "userId": userId,
+                            "boardId": boardId
+                      },
+                      success: function(data){
+                         if(data.count == 0){
+                                currentObj.removeClass("bi bi-hand-thumbs-up-fill");
+                                currentObj.addClass("bi bi-hand-thumbs-up");
+                          }
+                          else
+                          {
+                                 currentObj.removeClass("bi bi-hand-thumbs-up");
+                                 currentObj.addClass("bi bi-hand-thumbs-up-fill");
+                          }
+                      },
+                  });
 
             });
 
@@ -45,15 +72,17 @@ $(function(){
                                 "userId": userId,
                                 "boardId": boardId
                               },
-                              success: function(response){
-                                 if(response == 1){
+                              success: function(data){
+                                 if(data.count == 1){
                                     currentObj.removeClass("bi bi-hand-thumbs-up-fill");
                                     currentObj.addClass("bi bi-hand-thumbs-up");
+                                    deleteRecommend(userId,boardId)
                                   }
                                   else
                                   {
                                        currentObj.removeClass("bi bi-hand-thumbs-up");
                                        currentObj.addClass("bi bi-hand-thumbs-up-fill");
+                                       writeRecommend(userId,boardId)
                                   }
                                     loadRecommend(userId,boardId,obj);
                               },
@@ -101,6 +130,10 @@ $(function(){
                           },
                       });
           });
+
+
+
+
        
 
 });
@@ -109,7 +142,7 @@ function loadRecommend(userId,boardId,obj)
 {
         $.ajax({
                          url: '/recommend/count',
-                         type: 'GET',
+                         type: 'POST',
                          data: {
                          "userId": userId,
                          "boardId": boardId
@@ -117,9 +150,40 @@ function loadRecommend(userId,boardId,obj)
                          cache: false,
                            success: function(data, status,){
                             if(status == "success"){
-                                obj.text(data);
+                                obj.text(data.count);
                             }
                         },
                      });
 
+}
+
+function writeRecommend(userId,boardId)
+{
+    $.ajax({
+            url: "/recommend/write",
+            type: "POST",
+            cache: false,
+            data: {
+                  "userId": userId,
+                  "boardId": boardId
+            },
+            success: function(data){
+                 loadRecommend(userId,boardId,obj);
+            },
+        });
+}
+function deleteRecommend(userId,boardId)
+{
+    $.ajax({
+            url: "/recommend/delete",
+            type: "POST",
+            cache: false,
+            data: {
+                  "userId": userId,
+                  "boardId": boardId
+            },
+            success: function(data){
+                 loadRecommend(userId,boardId,obj);
+            },
+        });
 }

@@ -25,4 +25,6 @@ public class FileBoard {
     @Builder.Default
     private List<Attachment> fileList = new ArrayList<>();
 
+    private Integer recommend;
+
 }

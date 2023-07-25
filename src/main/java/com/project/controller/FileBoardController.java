@@ -4,6 +4,7 @@ import com.project.domain.FileBoard;
 import com.project.domain.FileBoardValidator;
 import com.project.service.ApiServiceImpl;
 import com.project.service.FileBoardService;
+import com.project.service.RecommendService;
 import com.project.service.UserService;
 import com.project.util.Util;
 import jakarta.validation.Valid;
@@ -32,6 +33,9 @@ public class FileBoardController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RecommendService recommendService;
 
 
     @Autowired

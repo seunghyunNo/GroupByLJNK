@@ -22,32 +22,17 @@ public class RecommendServiceImpl implements RecommendService{
     }
 
     @Override
-    public QryResult save(Long userId, Long boardId) {
+    public Integer save(Long userId, Long boardId) {
 
-        recommendRepository.insertRecommend(userId,boardId);
-
-        QryResult result =QryResult.builder()
-                .count(1)
-                .status("OK")
-                .build();
+        int result = recommendRepository.insertRecommend(userId,boardId);
 
         return result;
     }
     @Override
-    public QryResult delete(Long userId, Long boardId) {
+    public Integer delete(Long userId, Long boardId) {
         int count = recommendRepository.deleteRecommend(userId,boardId);
-        String status ="FAIL";
-        if(count == 1)
-        {
-            status = "OK";
-        }
 
-        QryResult result = QryResult.builder()
-                .count(count)
-                .status(status)
-                .build();
-
-        return result;
+        return count;
     }
 
     @Override

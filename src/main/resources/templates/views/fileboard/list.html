@@ -74,7 +74,7 @@
                     <td th:text="${#temporals.format(fileboard.regdate, 'yyyy-MM-dd HH:mm:ss')}">작성 시간</td>
                     <td th:text="${fileboard.count}">다운로드 수</td>
                     <td>
-                        <span  th:data-fileboard-recommend="${fileboard.id}">0</span>
+                        <span  th:text="${fileboard.recommend}" th:data-fileboard-recommend="${fileboard.id}">0</span>
                     </td>
 
                     <td>
@@ -89,7 +89,6 @@
 
     </div>
 <th:block th:insert="~{fileboard/pagination::pagination}"></th:block>
-</form>
 
 </body>
 </th:block>

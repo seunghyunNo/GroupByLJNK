@@ -11,14 +11,14 @@
         DELETE FROM t_recommend WHERE user_id = #{param1} AND board_id = #{param2}
     </delete>
 
-    <select id="selectByUserId" resultType="Integer">
+    <select id="selectByUserId" resultType="int">
         SELECT COUNT(*)
         FROM
             t_recommend
         WHERE user_id = #{param1} AND board_id = #{param2}
     </select>
 
-    <select id="countByBoardId" resultType="Integer">
+    <select id="countByBoardId" resultType="int">
         SELECT COUNT(*)
         FROM t_recommend
         WHERE board_id = #{param1}

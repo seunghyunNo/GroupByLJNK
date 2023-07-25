@@ -208,15 +208,16 @@ public class FileBoardServiceImpl implements FileBoardService {
         for(int i = 0; i < list.size() ; i++)
         {
            Long id = list.get(i).getId();
-            System.out.println(id);
            FileBoard fileBoard = fileBoardRepository.searchById(id);
             if(fileBoard != null)
             {
                 List<Attachment> files = attachmentRepository.findByFileBoard(id);
                 System.out.println(files);
                 fileBoard.setFileList(files);
+                fileBoard.setRecommend(recommendRepository.countByBoardId(id));
             }
             list.set(i,fileBoard);
+
         }
 
         model.addAttribute("list",list);
@@ -238,7 +239,6 @@ public class FileBoardServiceImpl implements FileBoardService {
     @Override
     public int update(Map<String, MultipartFile> files, FileBoard fileBoard, Long[] deleteFiles) {
         int result = fileBoardRepository.update(fileBoard);
-        System.out.println(result);
 
         insertFiles(files, fileBoard);
 

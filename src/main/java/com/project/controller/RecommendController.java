@@ -12,25 +12,48 @@ public class RecommendController {
     @Autowired
     private RecommendService recommendService;
 
-    @GetMapping("/count")
-    public int count(Long boardId)
+    @PostMapping("/count")
+    public QryResult count(Long boardId)
     {
-        return recommendService.countByBoard(boardId);
+        QryResult result = QryResult.builder()
+                .count(recommendService.countByBoard(boardId))
+                .status("OK")
+                .build();
+
+        return result;
     }
 
     @PostMapping("/check")
-    public int check(@RequestParam Long userId,@RequestParam Long boardId)
+    public QryResult check(@RequestParam Long userId,@RequestParam Long boardId)
     {
         System.out.println(userId+":"+boardId);
-        int result =recommendService.findByUserId(userId,boardId);
+        QryResult result = QryResult.builder()
+                .count(recommendService.findByUserId(userId,boardId))
+                .status("OK")
+                .build();
         System.out.println(result);
-        if(result > 0)
-        {
-           recommendService.delete(userId,boardId);
-        }
-        else {
-            recommendService.save(userId,boardId);
-        }
+        return result;
+    }
+
+    @PostMapping("/write")
+    public QryResult write(@RequestParam Long userId,@RequestParam Long boardId)
+    {
+        QryResult result = QryResult.builder()
+                .count(recommendService.save(userId,boardId))
+                .status("OK")
+                .build();
+
+        return result;
+    }
+
+    @PostMapping("/delete")
+    public QryResult delete(@RequestParam Long userId,@RequestParam Long boardId)
+    {
+        QryResult result = QryResult.builder()
+                .count(recommendService.delete(userId,boardId))
+                .status("OK")
+                .build();
+
         return result;
     }
 }
