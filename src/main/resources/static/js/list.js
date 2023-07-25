@@ -7,9 +7,21 @@ $(function(){
    });
 });
 
-function btnRec(){
+//function(){
+//
+//    let recommendationCount =0;
+//
+//    document.getElementById("btnRec").addEventListener("click",function(){
+//        recommendationCount++;
+//
+//        alert("성공");
+//    })
+//
+//
+//}
 
-}
+
+
 
 
 

@@ -54,7 +54,7 @@ $(function(){
 // 글의 댓글 목록 불러오기
 function loadComment(board_id){
   $.ajax({
-      url:"/comment/list/appId=" + board_id,   // 예상 틀린 곳
+      url:"/comment/list   // 예상 틀린 곳
       type:"GET",
       cache:false,
       success:function(data,status,xhr){

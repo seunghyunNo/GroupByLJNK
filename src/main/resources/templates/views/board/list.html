@@ -16,7 +16,16 @@
 
 
 <body style="margin-bottom:200px">
+<script>
+    let recommendationCount =0;
 
+    document.getElementById("btnRec").addEventListener("click",function(){
+        recommendationCount++;
+
+        alert("성공");
+    })
+
+</script>
 
 <th:block th:insert="~{header/detail::appDetail}"></th:block>
 

@@ -15,21 +15,20 @@ public class BoardCommentController {
     private CommentService commentService;
 
 
-    @GetMapping("/list/{appId}/{id}")
-    public QryCommentList list(Long id, Model model,@PathVariable String appId){
-        model.addAttribute("appId",appId);
+
+    // appId 가 들어가야되나???
+    @GetMapping("/list")
+    public QryCommentList list(Long id){
+
         return commentService.list(id);
     }
 
-    @PostMapping("/write/{appId}/{id}")
+    @PostMapping("/write")
     public QryResult write(
-            @PathVariable String appId,
-            Model model,
             @RequestParam("board_id") Long boardId,
-            @RequestParam("user_name")String username,
+            @RequestParam("user_id")String userId,
             String content){
-        model.addAttribute("appId",appId);
-        return commentService.write(boardId,username,content);
+        return commentService.write(boardId,userId,content);
     }
 
     @PostMapping("/delete")
