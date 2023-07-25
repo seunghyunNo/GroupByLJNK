@@ -55,31 +55,6 @@ public class BoardController {
         return "board/writeOk";
     }
 
-//    @PostMapping("/write")
-//    public String writeOk(
-//            @ModelAttribute("board")
-//            @Valid
-//            Board board,
-//            BindingResult result,
-//            Model model,
-//            RedirectAttributes redirectAttributes
-//    ) {
-//        if (result.hasErrors()) {
-//            redirectAttributes.addFlashAttribute("title", board.getTitle());
-//            redirectAttributes.addFlashAttribute("content", board.getContent());
-//
-//            List<FieldError> errorList = result.getFieldErrors();
-//            for(FieldError error : errorList){
-//                redirectAttributes.addFlashAttribute("error_"+ error.getField(),error.getCode());
-//            }
-//        return "redirect:/board/write";
-//        }
-//        int write = boardService.write(board);
-//        model.addAttribute("result",write);
-//
-//        return "board/writeOk";
-//
-//        }
 
     @GetMapping("/list/{appId}")
     public String list(Integer page,Model model,@PathVariable String appId){
@@ -100,25 +75,6 @@ public class BoardController {
 
 
 
-//    @GetMapping("/detail/{id}")
-//    public String detail(
-//            @PathVariable Long id,
-//            @PathVariable String appId,Model model){
-//        model.addAttribute("appId",appId);
-//
-//        var serviceResult = apiService.getData(appId);
-//        LinkedHashMap<?,?> body = (LinkedHashMap) ((LinkedHashMap) serviceResult.getBody()).get(appId);
-//        String status = serviceResult.getStatusCode().toString();
-//
-//        model.addAttribute("status", status);
-//        if (body.get("success").toString().equals("true")) {
-//            model.addAttribute("data", body.get("data"));
-//        }
-//
-//        model.addAttribute("board",boardService.detail(id));
-//
-//        return "board/detail";
-//    }
 
     @GetMapping("/detail/{appId}/{id}")
     public String detail(@PathVariable String appId,@PathVariable Long id,Model model){

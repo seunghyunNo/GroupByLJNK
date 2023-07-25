@@ -51,46 +51,39 @@ $(function(){
       })
   });
 
-  ${"#btnRec"}.click(function(){
+    $("#btnRec").click(function() {
+        console.log(logged_id);
+        console.log(id);
+        const requestData  = {
+            "board_id": id
+        };
 
-         const data={
-             "board_id":id
-         };
+        $.ajax({
+         url: "/recommend/board",
+         type: "GET",
+         data: requestData ,
+         cache: false,
+         success: function(responseData, status, xhr) {
+             if (status === "success") {
 
-
-       $.ajax({
-             url:"/recommend/board/"
-             type:"GET",
-             data:data,
-             cache:false,
-             success:function(data,status,xhr){
-                 if(status =="success"){
-
-
-                 if(data.status !=="ok"){
-                     alert(data.status);
+                 // 이 부분은 서버에서 응답으로 받은 데이터를 어떻게 처리할지에 따라 수정해야 합니다.
+                 // 현재 data에는 서버에서 보낸 데이터가 들어있을 것입니다.
+                 // 아래는 예시로, data 배열을 루프 돌면서 user_id를 확인하고 처리하는 코드입니다.
+                 for (const e of responseData) {
+                     if (e.user_id === logged_id ) {
+                     deleteRecommend(logged_id, id);
                      return;
-                 }
-
-                for(e of status){
-                    if(e.user_id = logged_id){
-                        deleteRecommend(logged_id);
                     }
-                    else{
-                        addRecommend(logged_id);
-                    }
-                }
-                }
-
-
-            }
-
-
-
-
-
-
-  });
+                  }
+                     addRecommend(logged_id, id);
+                 return;
+             }
+         },
+         error: function(xhr, status, error) {
+             console.log("Error:", error);
+         }
+        });
+    });
 });
 
 // 글의 댓글 목록 불러오기
@@ -183,23 +176,23 @@ function addDelete(){
 
 }
 
-function addRecommend(logged_id){
+function addRecommend(logged_id, board_id){
+    console.log("add_logged:"+ logged_id);
+    console.log("add_board:" + board_id);
+
+    const data = {  "user_id": logged_id,
+                    "board_id": board_id };
+
     $.ajax({
-          url:"/comment/list?id=" + board_id,
-          type:"GET",
+          url:"/recommend/addRecommend",
+          type:"POST",
           cache:false,
+          data: data,
+          data: data,
           success:function(data,status,xhr){
-              if(status =="success"){
-
-
               if(data.status !=="ok"){
-                  alert(data.status);
+                  alert("추천하셨습니다.");
                   return;
-              }
-
-              buildComment(data);
-
-              addDelete();
               }
           }
       });
@@ -207,23 +200,20 @@ function addRecommend(logged_id){
 
 }
 
-function deleteRecommend(logged_id){
+function deleteRecommend(logged_id, board_id){
+
+    const data = {  "user_id": logged_id,
+                    "board_id": board_id };
+
     $.ajax({
-          url:"/comment/list?id=" + board_id,
-          type:"GET",
+          url:"/recommend/deleteRecommend",
+          type:"POST",
           cache:false,
+          data: data,
           success:function(data,status,xhr){
-              if(status =="success"){
-
-
               if(data.status !=="ok"){
-                  alert(data.status);
+                  alert("추천을 취소하셨습니다");
                   return;
-              }
-
-              buildComment(data);
-
-              addDelete();
               }
           }
       });

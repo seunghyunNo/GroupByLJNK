@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Recommend {
+public class BoardRecommend {
     private Long user_id;
 
     private Long board_id;

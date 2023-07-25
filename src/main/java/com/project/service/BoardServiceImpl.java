@@ -2,6 +2,7 @@ package com.project.service;
 
 import com.project.domain.Board;
 import com.project.domain.User;
+import com.project.repository.BoardRecommendRepository;
 import com.project.repository.BoardRepository;
 import com.project.repository.UserRepository;
 import com.project.util.Util;
@@ -22,6 +23,8 @@ public class BoardServiceImpl implements BoardService {
     private BoardRepository boardRepository;
     private UserRepository userRepository;
 
+    private BoardRecommendRepository boardRecommendRepository;
+
 
     @Value("${app.pagination.write_pages}")
     private int WRITE_PAGES;
@@ -35,6 +38,7 @@ public class BoardServiceImpl implements BoardService {
 
         boardRepository=sqlSession.getMapper(BoardRepository.class);
         userRepository = sqlSession.getMapper(UserRepository.class);
+
     }
 
     // 글 작성
@@ -102,9 +106,13 @@ public class BoardServiceImpl implements BoardService {
         model.addAttribute("end",end);
 
         List<Board> list = boardRepository.selectByPage(fromRow,pageRows, appId);
+        for(Board board:list){
+            Long id= board.getId();
+            Long recommendCount = boardRepository.recommendCount(id);
+            board.setRecommendCount(recommendCount);
+        }
+
         model.addAttribute("list",list);
-
-
         return list;
     }
 

@@ -37,4 +37,6 @@ public interface BoardRepository {
     // 게시글 출력 갯수
     List<Board> selectByPage(int from, int rows, String appId);
 
+
+    Long recommendCount(Long id);
 }

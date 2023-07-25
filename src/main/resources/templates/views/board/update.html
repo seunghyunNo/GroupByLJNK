@@ -12,6 +12,7 @@
     <script th:src="@{/js/update.js}"></script>
 </head>
 <body>
+<th:block th:insert="~{/header::header}"></th:block>
 <!--<th:block th:insert="~{header/detail::appDetail}"></th:block>-->
     <form th:action="@{'/board/update/'+${appId}}" method="post">
         <input type="hidden" name="id" th:value="${board.id}"/>

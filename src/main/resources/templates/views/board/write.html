@@ -11,6 +11,7 @@
     <title>write</title>
 </head>
 <body>
+<th:block th:insert="~{/header::header}"></th:block>
 <div class="container mt-3">
     <form th:action="@{'/board/write/'+${appId}}" method="post">
         <div class="container mt-3" th:with="user=${#authentication.getPrincipal.getUser()}">

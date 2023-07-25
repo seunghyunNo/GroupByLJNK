@@ -22,5 +22,7 @@ public class Board {
 
     private User user;
 
+    private Long recommendCount;
+
     
 }

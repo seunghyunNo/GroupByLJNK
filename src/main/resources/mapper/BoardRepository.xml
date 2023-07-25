@@ -85,4 +85,9 @@
         ORDER BY b.id DESC
         LIMIT #{param1}, #{param2}
     </select>
+
+    <select id="recommendCount" flushCache="true">
+       SELECT count(*) FROM t_recommend
+        WHERE board_id=#{param1}
+    </select>
 </mapper>
