@@ -58,7 +58,7 @@
                 <td th:text="${board.user.username}">ddd</td>
                 <td><a th:href="@{'/board/detail/'+${appId}+'/'+${board.id}}" th:text="${board.title}"></a></td>
                 <td th:text="${board.regdate}"></td>
-                <td th:text="${board.count}"></td>
+                <td id="btnRec" th:text="${board.count}"></td>
                 <td id="vieCnt" th:text="${board.count}"></td>
 
             </tr>
