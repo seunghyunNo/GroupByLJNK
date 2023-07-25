@@ -68,22 +68,17 @@
                 <tr th:each="fileboard : ${list}" >
                     <td  th:text="${fileboard.user.username}">작성자</td>
                     <td th:utext="${fileboard.content}">게임 설명</td>
-                    <td> <li class="list-group-item" th:each="attachment : ${fileboard.fileList}">   <!-- th:each="attachment : ${board.files}" -->
+                    <td> <li class="list-group-item" th:each="attachment : ${fileboard.fileList}">
                         <a th:href="@{/fileboard/download(id=${attachment.id})}" th:data-download-btn="${fileboard.id}">[[${attachment.sourcename}]]</a>
-                        <!-- (id=${attachment.id}) -->
                     </li></td>
                     <td th:text="${#temporals.format(fileboard.regdate, 'yyyy-MM-dd HH:mm:ss')}">작성 시간</td>
                     <td th:text="${fileboard.count}">다운로드 수</td>
                     <td>
                         <span  th:data-fileboard-recommend="${fileboard.id}">0</span>
-                        <input type="hidden" value="">
                     </td>
 
                     <td>
-                        <input type="hidden" th:value="${fileboard.id}">
-                        <input type="hidden" th:value="${logged_user.id}">
                         <i type="button" id="btnRec" th:data-recommend-btn="${fileboard.id}" class="bi bi-hand-thumbs-up"></i>
-<!--                        <button >추천</button>-->
                     </td>
                     <td><a class="btn btn-outline-dark" th:href="@{|/fileboard/update/${appId}/${fileboard.id}|}" th:if="${logged_user.id} == ${fileboard.user.id}" >수정</a></td>
                     <td><button type="button" class="btn btn-outline-danger ms-2" id="btnDel" th:data-delete-btn="${fileboard.id}" th:if="${logged_user.id} == ${fileboard.user.id}">삭제</button></td>

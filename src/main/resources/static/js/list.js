@@ -8,12 +8,12 @@ $(function(){
 
         const userId = $("#loginUser").text();
         const appId = $("#appId").val().trim();
-
+        let boardId = $("td").children("span").attr("data-fileboard-recommend");
+        loadCount(userId,boardId);
         $("[data-recommend-btn]").click(function(){
-            let currentObj = $(this);
+         let currentObj = $(this);
          let btn = $(this).attr("data-recommend-btn");
-         let boardId = $(this).parent().siblings().children("span").attr("data-fileboard-recommend");
-         alert(btn+":"+boardId);
+         boardId = $(this).parent().siblings().children("span").attr("data-fileboard-recommend");
               if(btn == boardId)
               {
                   $.ajax({
@@ -26,15 +26,15 @@ $(function(){
                               },
                               success: function(response){
                                  if(response == 1){
-                                    currentObj.removeClass("bi bi-hand-thumbs-up");
-                                    currentObj.addClass("bi bi-hand-thumbs-up-fill");
+                                    currentObj.removeClass("bi bi-hand-thumbs-up-fill");
+                                    currentObj.addClass("bi bi-hand-thumbs-up");
                                   }
                                   else
                                   {
-                                      currentObj.removeClass("bi bi-hand-thumbs-up-fill");
-                                      currentObj.addClass("bi bi-hand-thumbs-up");
+                                       currentObj.removeClass("bi bi-hand-thumbs-up");
+                                       currentObj.addClass("bi bi-hand-thumbs-up-fill");
                                   }
-//                                  loadCount(userId,boardId);
+                                  loadCount(userId,boardId);
                               },
                           });
 
@@ -82,21 +82,20 @@ $(function(){
           });
  });
 
-//function loadCount(userId,boardId)
-//{
-//
-//      $.ajax({
-//                 url: '/recommend/count',
-//                 type: 'GET',
-//                 data: {
-//                 "userId": userId,
-//                 "boardId": boardId
-//                 },
-//                 cache: false,
-//                 success: function(count){
-//                 $("[data-recommend-btn]").text(count);
-//                 location.reload();
-//                },
-//             });
-//
-//}
+function loadCount(userId,boardId)
+{
+
+      $.ajax({
+                 url: '/recommend/count',
+                 type: 'GET',
+                 data: {
+                 "userId": userId,
+                 "boardId": boardId
+                 },
+                 cache: false,
+                 success: function(count){
+                 $("[data-fileboard-recommend]").text(count);
+                },
+             });
+
+}
