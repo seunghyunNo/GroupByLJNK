@@ -222,7 +222,7 @@ function addDelete(){
     });
 }
 
-//
+// 찜 목록 아이콘 모양 결정
 function loadWishList(){
 
     const params = {
@@ -251,6 +251,7 @@ function loadWishList(){
 	});
 }
 
+// 찜목록 추가
 function writeWishList(){
 
     const params = {
@@ -272,6 +273,7 @@ function writeWishList(){
     });
 }
 
+// 찜 목록 삭제
 function deleteWishList(){
     const params = {
         "user_id": logged_id,

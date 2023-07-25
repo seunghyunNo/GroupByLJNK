@@ -26,6 +26,14 @@ public class HomeController {
 	
 	@RequestMapping("/home")
 	public void home(Model model){
+		try{
+			PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			User user = userDetails.getUser();
+			Long id = user.getId();
+			model.addAttribute("logged_id", id);
+		} catch (Exception e){
+			model.addAttribute("logged_id", null);
+		}
 	}
 	
 	@RequestMapping("/review/{appId}")

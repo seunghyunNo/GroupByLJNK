@@ -42,7 +42,7 @@ public class ApiServiceImpl implements ApiService {
 			result.put("header", resultMap.getHeaders()); //헤더 정보 확인
 			result.put("body", resultMap.getBody()); //실제 데이터 정보 확인
 			
-			//에러처리해야댐
+			// 에러처리 해야됨
 		} catch (HttpClientErrorException | HttpServerErrorException e) {
 			result.put("statusCode", e.getRawStatusCode());
 			result.put("body"  , e.getStatusText());
