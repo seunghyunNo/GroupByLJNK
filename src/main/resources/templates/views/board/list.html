@@ -16,16 +16,7 @@
 
 
 <body style="margin-bottom:200px">
-<script>
-    let recommendationCount =0;
 
-    document.getElementById("btnRec").addEventListener("click",function(){
-        recommendationCount++;
-
-        alert("성공");
-    })
-
-</script>
 
 <th:block th:insert="~{header/detail::appDetail}"></th:block>
 
@@ -37,7 +28,7 @@
         </div>
     </div>
 
-<!-- 게시물 개수 조절-->
+ 게시물 개수 조절
     <div class="mb-3 mt-3 clearfix">
         <span class="float-end">
             <form name="frmPageRows">
@@ -51,7 +42,8 @@
             </form>
         </span>
     </div>
-    <!--게시물 목록 -->
+    게시물 목록
+
     <table class="table table-hover">
         <thead class="table-success">
         <tr>

@@ -26,7 +26,7 @@ public class BoardCommentController {
     @PostMapping("/write")
     public QryResult write(
             @RequestParam("board_id") Long boardId,
-            @RequestParam("user_id")String userId,
+            @RequestParam("user_id") Long userId,
             String content){
         return commentService.write(boardId,userId,content);
     }

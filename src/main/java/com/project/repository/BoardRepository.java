@@ -35,6 +35,6 @@ public interface BoardRepository {
     int countAll();
 
     // 게시글 출력 갯수
-    List<Board> selectByPage(int from, int rows);
+    List<Board> selectByPage(int from, int rows, String appId);
 
 }

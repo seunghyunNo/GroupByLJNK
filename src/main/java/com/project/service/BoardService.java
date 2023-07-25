@@ -18,7 +18,7 @@ public interface BoardService {
 
     List<Board> list();
 
-    List<Board> list(Integer page, Model model);
+    List<Board> list(Integer page, Model model, String appId);
 
     Board selectById(Long id);
 

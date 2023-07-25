@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         // write, update url로 오는 요청은 MEMBER 혹은 ADMIN 권한이 필요
-                        .requestMatchers("/board/write/**", "/board/update/**", "/fileboard/write/**", "/fileboard/update/**", "/user/update").hasAnyRole("MEMBER", "ADMIN")
+                        .requestMatchers("/board/write/**", "/board/update/**", "/fileboard/write/**", "/fileboard/update/**", "/user/update", "/board/detail/**").hasAnyRole("MEMBER", "ADMIN")
                         // 그외 나머지 요청은 permit
                         .anyRequest().permitAll()
                 )

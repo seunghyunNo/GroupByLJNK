@@ -38,11 +38,12 @@ public class BoardController {
     }
 
 
-    @PostMapping("/write")
+    @PostMapping("/write/{appId}")
     public String writeOk(
             @ModelAttribute("board")
             @Valid
             Board board
+            , @PathVariable String appId
             ,Model model
             ,RedirectAttributes redirectAttributes
 
@@ -50,6 +51,7 @@ public class BoardController {
         board.setIs_file(false);
         int write = boardService.write(board);
         model.addAttribute("result",write);
+        model.addAttribute("appId",appId);
         return "board/writeOk";
     }
 
@@ -92,8 +94,7 @@ public class BoardController {
             model.addAttribute("data", body.get("data"));
         }
 
-        model.addAttribute("list",boardService.list(page, model));
-
+        model.addAttribute("list",boardService.list(page, model, appId));
         return "board/list";
     }
 
@@ -158,9 +159,11 @@ public class BoardController {
         return "board/updateOk";
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/delete/{appId}")
     public String deleteOk(
-            Long id,Model model){
+            Long id,Model model
+            ,@PathVariable String appId){
+        model.addAttribute("appId",appId);
         model.addAttribute("result",boardService.deleteById(id));
         return "board/deleteOk";
     }

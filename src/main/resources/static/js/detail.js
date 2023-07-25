@@ -17,6 +17,7 @@ $(function(){
   $("#btn_comment").click(function(){
         // 입력한 댓글
       const content =$("#input_comment").val().trim();
+      console.log(content);
 
 
       if(!content){
@@ -49,12 +50,53 @@ $(function(){
           }
       })
   });
+
+  ${"#btnRec"}.click(function(){
+
+         const data={
+             "board_id":id
+         };
+
+
+       $.ajax({
+             url:"/recommend/board/"
+             type:"GET",
+             data:data,
+             cache:false,
+             success:function(data,status,xhr){
+                 if(status =="success"){
+
+
+                 if(data.status !=="ok"){
+                     alert(data.status);
+                     return;
+                 }
+
+                for(e of status){
+                    if(e.user_id = logged_id){
+                        deleteRecommend(logged_id);
+                    }
+                    else{
+                        addRecommend(logged_id);
+                    }
+                }
+                }
+
+
+            }
+
+
+
+
+
+
+  });
 });
 
 // 글의 댓글 목록 불러오기
 function loadComment(board_id){
   $.ajax({
-      url:"/comment/list   // 예상 틀린 곳
+      url:"/comment/list?id=" + board_id,
       type:"GET",
       cache:false,
       success:function(data,status,xhr){
@@ -85,7 +127,7 @@ function buildComment(result){
     let content = comment.content;
     let regdate = comment.regdate;
 
-    let user_id = comment.user_id;
+    let user_id = comment.user.id;
     let username = comment.user.username;
     let name = comment.user.name;
 
@@ -98,7 +140,7 @@ function buildComment(result){
     // 수정 필요함
     const row=`
           <tr>
-            <td><span><strong>${username}</strong><br><small class="text-secondary">(${name})</small></span></span></td>
+            <td><span><strong>${username}</strong></span></span></td>
             <td>
               <span>${content}</span>
               ${delBtn}
@@ -139,4 +181,50 @@ function addDelete(){
 
   });
 
+}
+
+function addRecommend(logged_id){
+    $.ajax({
+          url:"/comment/list?id=" + board_id,
+          type:"GET",
+          cache:false,
+          success:function(data,status,xhr){
+              if(status =="success"){
+
+
+              if(data.status !=="ok"){
+                  alert(data.status);
+                  return;
+              }
+
+              buildComment(data);
+
+              addDelete();
+              }
+          }
+      });
+
+
+}
+
+function deleteRecommend(logged_id){
+    $.ajax({
+          url:"/comment/list?id=" + board_id,
+          type:"GET",
+          cache:false,
+          success:function(data,status,xhr){
+              if(status =="success"){
+
+
+              if(data.status !=="ok"){
+                  alert(data.status);
+                  return;
+              }
+
+              buildComment(data);
+
+              addDelete();
+              }
+          }
+      });
 }

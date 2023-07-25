@@ -43,4 +43,10 @@
         WHERE email = #{param1}
     </select>
 
+    <select id="findById" parameterType="Long" resultType="com.project.domain.User">
+        <include refid="SELECT_BASE"/>
+        WHERE
+        id = #{param1}
+    </select>
+
 </mapper>

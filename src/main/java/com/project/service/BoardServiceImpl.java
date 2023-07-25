@@ -62,7 +62,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<Board> list(Integer page, Model model) {
+    public List<Board> list(Integer page, Model model, String appId) {
 
         if(page== null|| page<1){
             page=1;
@@ -101,7 +101,7 @@ public class BoardServiceImpl implements BoardService {
         model.addAttribute("start",start);
         model.addAttribute("end",end);
 
-        List<Board> list = boardRepository.selectByPage(fromRow,pageRows);
+        List<Board> list = boardRepository.selectByPage(fromRow,pageRows, appId);
         model.addAttribute("list",list);
 
 

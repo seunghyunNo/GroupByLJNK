@@ -25,6 +25,7 @@
             b.content "b_content",
             b.count "b_count",
             b.regdate "b_regdate",
+            b.game_id "b_gameId",
             u.id "u_id",
             u.username "u_username"
         FROM
@@ -80,6 +81,7 @@
 
     <select id="selectByPage" resultMap="mapBoard">
         <include refid="SELECT_BASE"/>
+        AND b.game_id = #{appId}
         ORDER BY b.id DESC
         LIMIT #{param1}, #{param2}
     </select>

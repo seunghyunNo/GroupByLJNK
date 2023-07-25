@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container mt-3">
-    <form th:action="@{/board/write}" method="post">
+    <form th:action="@{'/board/write/'+${appId}}" method="post">
         <div class="container mt-3" th:with="user=${#authentication.getPrincipal.getUser()}">
             <label for="title">제목</label>
             <input class="form-control" id="title" type="text" placeholder="제목을 입력하세요" name="title" th:value="${title}">
@@ -26,7 +26,7 @@
             <input type="hidden" name="game_id", th:value="${appId}">
             <input type="hidden" name="user.id" th:value="${user.id}"/>
             <button class="btn btn-outline-dark" type="submit">작성완료</button>
-            <a class="btn btn-outline-dark" th:href="@{/board/list(page=${session.page}}">목록</a>
+            <a class="btn btn-outline-dark" th:href="@{/board/list/${appId}}">목록</a>
         </div>
     </form>
 </div>

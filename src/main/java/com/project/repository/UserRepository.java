@@ -17,5 +17,7 @@ public interface UserRepository {
 
     int mailCheck(String email);
 
+    User findById(Long userId);
+
 
 }
