@@ -125,9 +125,9 @@ public class BoardController {
     }
 
     @PostMapping("/pageRows")
-    public String pageRows(Integer page,Integer pageRows){
+    public String pageRows(Integer page,Integer pageRows,String appId){
         Util.getSession().setAttribute("pageRows",pageRows);
-        return "redirect:/board/list?page="+page;
+        return "redirect:/board/list/" + appId + "?page="+page;
     }
 
     @InitBinder
