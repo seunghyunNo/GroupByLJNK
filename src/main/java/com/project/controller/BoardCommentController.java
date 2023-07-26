@@ -16,7 +16,6 @@ public class BoardCommentController {
 
 
 
-    // appId 가 들어가야되나???
     @GetMapping("/list")
     public QryCommentList list(Long id){
 

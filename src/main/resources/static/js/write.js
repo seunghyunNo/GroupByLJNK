@@ -8,11 +8,11 @@ $(function(){
             </div>`);
         index++;
 
-    })
+    });
 
 
     $("#content").summernote({
-        height:100
+        height:300
     });
 
 });
