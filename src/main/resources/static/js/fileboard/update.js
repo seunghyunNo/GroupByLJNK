@@ -9,7 +9,6 @@ $(function(){
         index++;
     });
 
-
     $("[file-id-delete]").click(function(){
         let fileId = $(this).attr("file-id-delete");
         deleteByIdFiles(fileId);
@@ -17,7 +16,6 @@ $(function(){
     });
 
 });
-
 function deleteByIdFiles(fileId)
 {
     $("#deleteFiles").append(`<input type="hidden" name="deleteFile" value="${fileId}">`);
