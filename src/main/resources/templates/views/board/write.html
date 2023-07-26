@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <script th:src="@{/js/boardWrite.js}"></script>
+    <script th:src="@{/js/write.js}"></script>
     <title>write</title>
 </head>
 <body>
@@ -22,7 +22,7 @@
             <div class="my-3">
                 <label for="content">내용</label>
                 <textarea class="form-control" id="content" rows="5" name="content" placeholder="내용을 입력하세요" th:utext="${content}"></textarea>
-                <span class="text-danger" th:if="${error_content}" th:utext="${error_content}"></span>
+<!--                <span class="text-danger" th:if="${error_content}" th:utext="${error_content}"></span>-->
             </div>
             <input type="hidden" name="game_id", th:value="${appId}">
             <input type="hidden" name="user.id" th:value="${user.id}"/>

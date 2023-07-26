@@ -17,7 +17,7 @@ $(function(){
     });
 
     $("#content").summernote({
-        height:100
+        height:300
     });
 });
 
