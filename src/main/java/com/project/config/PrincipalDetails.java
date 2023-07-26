@@ -53,6 +53,9 @@ public class PrincipalDetails implements UserDetails {
         return collect;
     }
 
+    public String getEmail() {return  user.getEmail();}
+    public long getId() {return  user.getId();}
+
     @Override
     public String getPassword() {
         return user.getPassword();

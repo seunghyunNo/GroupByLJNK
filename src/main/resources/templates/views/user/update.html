@@ -7,9 +7,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <script th:src="@{/js/signup.js}"></script>
-
-    <title>회원가입</title>
+    <title>회원정보수정</title>
 </head>
 <body>
 <th:block th:insert="~{/header::header}"></th:block>
@@ -17,20 +15,19 @@
 <div class="container mt-3 col-6">
     <div class="row mt-5">
         <div class="col-12 text-center">
-            <h1>회원가입</h1>
+            <h1>회원정보수정</h1>
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-12 text-danger" id="error" th:text="${error}">
+        <div class="col-12 text-danger" th:text="${error}">
             <!--/* 에러메세지 */-->
         </div>
     </div>
     <div class="row">
-        <form method="POST" th:action="@{/user/signup}">
+        <form method="POST" th:action="@{/user/update}">
             <div class="form-group mt-3">
                 <label for="username">사용자 아이디</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="사용자아이디" th:value="${username}">
-                <div id="username_feedback"></div>
+                <input type="text" class="form-control bg-light " id="username" name="username" th:value="${username}" readonly>
             </div>
             <div class="form-group mt-3">
                 <label for="password">비밀번호</label>
@@ -39,18 +36,10 @@
             <div class="form-group mt-3">
                 <label for="re_password">비밀번호 확인</label>
                 <input type="password" class="form-control" id="re_password" name="re_password" placeholder="비밀번호 확인">
-                <div id="password_feedback"></div>
             </div>
             <div class="form-group mt-3">
                 <label for="email">이메일</label>
-                <input type="text" class="form-control col-9" id="email" name="email" placeholder="이메일" th:value="${email}">
-                <div class="btn btn-primary" id="authButton">인증번호받기</div>
-                <input type="hidden" id="authCodeInput" name="authCodeInput" th:value="${authCodeInput}">
-                <div id="codeDiv" style="display: none;">
-                    <input type="text" id="code" name="code" placeholder="인증번호" th:value="${code}">
-                    <div class="btn btn-primary" id="myButton">확인</div>
-                </div>
-                    <div id="code_feedback"></div>
+                <input type="text" class="form-control bg-light " id="email" name="email" th:value="${email}" readonly>
             </div>
             <button type="submit" class="w-100 btn btn-lg btn-primary mt-3">등록</button>
         </form>

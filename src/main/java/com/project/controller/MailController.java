@@ -24,6 +24,12 @@ public class MailController {
         return ResponseEntity.ok(authCode);	// Response body 에 값을 반환
     }
 
+    @ResponseBody
+    @PostMapping("/user/findFullUsername")
+    public ResponseEntity<String> findId(@RequestBody EmailCheckReq emailCheckReq) throws Exception{
+        String email = emailService.findUsernameBySendEmail(emailCheckReq.getEmail());
+        return ResponseEntity.ok(email);
+    }
 
 
 
