@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.repository.CommentRepository">
+
+    <resultMap id="mapUser" type="com.project.domain.User">
+        <result column="u_id" property="id"/>
+        <result column="u_username" property="username"/>
+        <result column="u_password" property="password"/>
+        <result column="u_email" property="email"/>
+    </resultMap>
+
+    <resultMap id="mapComment" type="com.project.domain.Comment">
+        <result column="c_id" property="id"/>
+        <result column="c_content" property="content"/>
+        <result column="c_regdate" property="regdate"/>
+        <result column="c_board_id" property="board_id"/>
+        <collection property="user" resultMap="mapUser"/>
+    </resultMap>
+    <select id="findByBoard" resultMap="mapComment">
+        select
+            c.id "c_id",
+            c.content "c_content",
+            c.regdate "c_regdate",
+            c.board_id "c_board_id",
+            u.id "u_id",
+            u.username "u_username",
+            u.password "u_password",
+            u.email "u_email"
+        from t_comment c, t_user u
+        where
+            c.user_id = u.id
+        and c.board_id = #{param1}
+        order by c.id desc
+    </select>
+
+    <insert id="write" flushCache="true"
+        parameterType="com.project.domain.Comment"
+        keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into t_comment(user_id,board_id,content)
+        values(#{user.id},#{board_id},#{content})
+
+    </insert>
+
+    <delete id="deleteById" flushCache="true">
+        delete from t_comment where id =#{id}
+    </delete>
+
+</mapper>

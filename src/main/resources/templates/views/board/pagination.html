@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:fragment="pagination">
+  <div class="container mt-1">
+    <ul class="pagination justify-content-center">
+
+      <li class="page-item" th:if="${page>1}"><a class="page-link" th:href="@{${url}}" title="first"><i class="fas fa-double-left"></i></a></li>
+
+      <li class="page-item" th:if="${startPage>1}"><a class="page-link" th:href="@{{url}(page=${startPage-1})}" class="fas fa-angle-left"></a></li>
+
+      <th:block th:if="${totalPage>1}">
+        <th:block th:each="pagination: ${#numbers.sequence(startPage,endPage)}">
+          <li class="page-item" th:unless="${pagination==page}"><a class="page-link" th:href="@{${url}(page=${pagination})}" th:text="${pagination}"></a></li>
+
+          <li class="page-item active" th:if="${pagination==page}"><a class="page-link" th:href="javascript:void(0);" th:text="${pagination}"></a></li>
+
+      <li class="page-item" th:if="${totalPage>endPage}"><a class="page-link" th:href="@{${url}(page=${endPage+1})}"><i class="fas fa-angle-right"></i></a></li>
+      <li class="page-item" th:if="${totalPage > page}"><a th:href="@{${url}(page=${totalPage})}" class="page-link"><i class="fas fa-angle-double-right"></i></a></li>
+      </th:block>
+      </th:block>
+
+    </ul>
+  </div>
+</th:block>
+</html>

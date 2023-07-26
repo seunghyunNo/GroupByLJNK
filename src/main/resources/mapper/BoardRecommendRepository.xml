@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.repository.BoardRecommendRepository">
+    <select id="findByBoardId" parameterType="Long" resultType="com.project.domain.BoardRecommend">
+        SELECT user_id, board_id
+        FROM t_recommend
+        WHERE board_id = #{param1}
+    </select>
+
+    <insert id="addRecommend" flushCache="true">
+        insert into t_recommend(user_id, board_id)
+        values(#{param1},#{param2})
+    </insert>
+
+    <delete id="deleteRecommend" flushCache="true">
+        delete from t_recommend
+        where user_id = #{param1} and board_id = #{param2}
+    </delete>
+</mapper>

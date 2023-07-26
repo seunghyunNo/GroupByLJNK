@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Board {
+public class MainBoard {
     private Long id;
     private LocalDateTime regdate;
     private Long count;
@@ -21,8 +21,5 @@ public class Board {
     private String game_id;         // NN
 
     private User user;
-
-    private Long recommendCount;
-
 
 }

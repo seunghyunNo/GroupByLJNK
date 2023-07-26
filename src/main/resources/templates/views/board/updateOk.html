@@ -7,6 +7,6 @@
 
 <script th:if="${result>0}" th:inline="javascript">
     alert("성공")
-    location.href = "detail/[[${fileBoard.id}]]";
+    location.href = "/board/detail/" + [[${appId}]] + "/" + [[${board.id}]];
 </script>
 </html>

@@ -49,6 +49,12 @@
         WHERE email = #{param1}
     </select>
 
+    <select id="findById" parameterType="Long" resultType="com.project.domain.User">
+        <include refid="SELECT_BASE"/>
+        WHERE
+        id = #{param1}
+    </select>
+
     <select id="findUsername" parameterType="String" resultType="String">
         SELECT username
         FROM t_user
