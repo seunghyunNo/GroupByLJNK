@@ -14,10 +14,11 @@
 </head>
 
 <body>
+<th:block th:insert="~{/header::header}"></th:block>
 <form th:action="@{|/fileboard/update/${appId}|}" method="post" enctype="multipart/form-data">
-  <div class="my-3">
+  <div class="container my-3 m-5">
     <label for="content">게임 설명:</label>
-    <textarea class="form-control" rows="5" id="content" placeholder="설명을 입력하세요" name="content" th:utext="${content} ? ${content} : ${fileBoard.content}"></textarea>
+    <textarea class="form-control" rows="5" id="content" placeholder="설명을 입력하세요" style="height:50px" maxlength="100" name="content" th:utext="${content} ? ${content} : ${fileBoard.content}"></textarea>
     <span class="text-danger" th:if="${error_content}" th:utext="${error_content}"></span>
   </div>
 
@@ -44,9 +45,10 @@
   </div>
 
   <input type="hidden" name="id" th:value="${fileBoard.id}">
-
-  <button type="submit" class="btn btn-outline-dark">수정 완료</button>
-  <a class="btn btn-outline-dark" th:href="@{|/fileboard/list/${appId}|}">목록</a>
+  <div class="container mt-3 mb-3 m-5">
+    <button type="submit" class="btn btn-outline-dark">수정 완료</button>
+    <a class="btn btn-outline-dark" th:href="@{|/fileboard/list/${appId}|}">목록</a>
+  </div>
 </form>
 </body>
 </html>

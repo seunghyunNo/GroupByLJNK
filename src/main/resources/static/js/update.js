@@ -16,9 +16,6 @@ $(function(){
         $(this).parent().remove();
     });
 
-    $("#content").summernote({
-        height:100
-    });
 });
 
 function deleteByIdFiles(fileId)
