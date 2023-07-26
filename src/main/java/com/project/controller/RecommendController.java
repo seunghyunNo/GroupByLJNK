@@ -26,12 +26,10 @@ public class RecommendController {
     @PostMapping("/check")
     public QryResult check(@RequestParam Long userId,@RequestParam Long boardId)
     {
-        System.out.println(userId+":"+boardId);
         QryResult result = QryResult.builder()
                 .count(recommendService.findByUserId(userId,boardId))
                 .status("OK")
                 .build();
-        System.out.println(result);
         return result;
     }
 

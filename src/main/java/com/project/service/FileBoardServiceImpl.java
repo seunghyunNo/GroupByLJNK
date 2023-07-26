@@ -84,7 +84,6 @@ public class FileBoardServiceImpl implements FileBoardService {
                 }
 
                 Attachment file = uploadFile(entry.getValue());
-                System.out.println(file);
 
                 if(file != null)
                 {
@@ -93,9 +92,7 @@ public class FileBoardServiceImpl implements FileBoardService {
                     attachmentRepository.saveFile(file);
                 }
             }
-            System.out.println(fileList);
             fileBoard.setFileList(fileList);
-            System.out.println(fileBoard.getFileList());
         }
     }
 
@@ -147,8 +144,8 @@ public class FileBoardServiceImpl implements FileBoardService {
     }
 
     @Override
-    public List<FileBoard> list() {
-        return fileBoardRepository.list();
+    public List<FileBoard> list(String appId) {
+        return fileBoardRepository.list(appId);
     }
 
     @Override
@@ -212,7 +209,6 @@ public class FileBoardServiceImpl implements FileBoardService {
             if(fileBoard != null)
             {
                 List<Attachment> files = attachmentRepository.findByFileBoard(id);
-                System.out.println(files);
                 fileBoard.setFileList(files);
                 fileBoard.setRecommend(recommendRepository.countByBoardId(id));
             }
@@ -221,7 +217,6 @@ public class FileBoardServiceImpl implements FileBoardService {
         }
 
         model.addAttribute("list",list);
-        System.out.println(list);
         return list;
     }
 

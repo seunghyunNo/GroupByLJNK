@@ -10,7 +10,7 @@ import java.util.Map;
 public interface FileBoardService{
     int write(FileBoard fileBoard, Map<String, MultipartFile> files, String appId);
 
-    List<FileBoard> list();
+    List<FileBoard> list(String appId);
 
 
     List<FileBoard> list(Model model, Integer page, String appId);

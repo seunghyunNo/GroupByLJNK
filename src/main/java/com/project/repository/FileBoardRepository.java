@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface FileBoardRepository {
     int write(FileBoard fileBoard, String appId);
-    List<FileBoard> list();
+    List<FileBoard> list(String appId);
 
     FileBoard searchById(Long id);
 

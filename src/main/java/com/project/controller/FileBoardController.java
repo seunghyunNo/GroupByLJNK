@@ -148,10 +148,10 @@ public class FileBoardController {
 
 
     @PostMapping("/pageRows")
-    public String pageRows(Integer page,Integer pageRows)
+    public String pageRows(Integer page,Integer pageRows,String appId)
     {
         Util.getSession().setAttribute("pageRows",pageRows);
-        return "redirect:/fileboard/list?page="+page;
+        return "redirect:/fileboard/list/"+appId+ "?page="+page;
     }
 
     @InitBinder

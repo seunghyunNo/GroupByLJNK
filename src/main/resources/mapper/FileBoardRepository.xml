@@ -38,6 +38,7 @@
 
     <select id="list" resultMap="mapBoard">
         <include refid="SELECT_BASE"/>
+        AND b.game_id = #{param1}
         ORDER BY b.id DESC
     </select>
 
