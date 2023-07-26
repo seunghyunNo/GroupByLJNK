@@ -32,29 +32,35 @@ $(function(){
         lastScroll = currentScroll;
     });
 
+    let searchCnt = 0;
+
     $("#searchBtn").click(function(){
         if($("#searchInput").val().trim().length > 0){
-//            let value = $("#searchInput").val().trim().toLowerCase();
-//            $.ajax({
-//                url: "/api/gameList?value=" + value,
-//                type: "GET",
-//                cache: false,
-//                success: function(data, status){
-//                    if(status == "success"){
-//                        parseJSON(data);
-//                        return;
-//                    }
-//                }
-//            });
+            $("#appRow").empty();
+            searchCnt = 1;
+			$.ajax({
+				url: "/api/gameList",
+				type: "GET",
+				cache: false,
+				success: function(data, status){
+					parseJsonFilter(data);
+					return;
+				}
+			});
         }else{
             alert("검색어를 입력해주세요");
+            if(searchCnt != 0) {
+                $("#appRow").empty();
+                loadGameList();
+                searchCnt = 0;
+            }
         }
     });
 });
 
 function loadGameList(startCnt, endCnt){
 	$.ajax({
-		url:"/api/gameList",
+		url: "/api/gameList",
 		type: "GET",
         cache: false,
         success: function(data, status){
@@ -92,4 +98,33 @@ function parseJSON(data, startCnt, endCnt){
 
 	});
 	loadStatus = 0;
+}
+
+function parseJsonFilter(data){
+	const appDataList = JSON.parse(data).applist.apps;
+    	$appList = $("#appList").children()
+    	let result = [];
+    	$("#loading").hide();
+    	let value = $("#searchInput").val().trim().toLowerCase();
+
+    	appDataList.forEach(element => {
+    		result = [];
+    		appId = element.appid;
+    		if(element.name.trim() != ''){
+    		    if(element.name.trim().toLowerCase().indexOf(value) >- 1){
+	                result.push(`
+	                <div class="col-3 mb-3 card">
+	                    <img class="img-thumbnail"
+	                        src="https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}/hero_capsule.jpg"
+	                        alt="thumnail">
+	                    <div class="row justify-content-between">
+	                        <a class="col-auto col-s-8 text-decoration-none" href="/review/${appId}">${element.name}</a>
+	                    </div>
+	                </div>
+	                `);
+    		    }
+    		}
+    		$appList.append(result.join('\n'));
+
+    	});
 }
