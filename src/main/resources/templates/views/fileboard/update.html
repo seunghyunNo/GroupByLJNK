@@ -14,19 +14,21 @@
 </head>
 
 <body>
-<form action="@{/fileboard/update}" method="post" enctype="multipart/form-data">
-  <div class="my-3">
+<th:block th:insert="~{/header::header}"></th:block>
+<form th:action="@{|/fileboard/update/${appId}|}" method="post" enctype="multipart/form-data">
+  <div class="container my-3 m-5">
     <label for="content">게임 설명:</label>
-    <textarea class="form-control" rows="5" id="content" placeholder="설명을 입력하세요" name="content" th:utext="${content}"></textarea>
+    <textarea class="form-control" rows="5" id="content" placeholder="설명을 입력하세요" style="height:50px" maxlength="100" name="content" th:utext="${content} ? ${content} : ${fileBoard.content}"></textarea>
+    <span class="text-danger" th:if="${error_content}" th:utext="${error_content}"></span>
   </div>
 
   <div class="container mt-3 mb-3 border rounded" >
     <div id="deleteFiles"></div>
     <div class="mb-3 mt-3">
       <label>첨부파일:</label>
-      <div class="input-group mb-3" th:each="attachment : ${board.files}">
-        <input class="form-control col-xs-3" type="file" readonly name="${attachment.sourcename}"/>
-        <button type="button" class="btn btn-outline-danger" th:fildid-delete="${attachment.id}">삭제</button>
+      <div class="input-group mb-3" th:each="attachment : ${fileBoard.fileList}">
+        <input class="form-control col-xs-3" type="text" readonly th:value="${attachment.sourcename}"/>
+        <button type="button" class="btn btn-outline-danger" th:file-id-delete="${attachment.id}">삭제</button>
       </div>
     </div>
   </div>
@@ -37,12 +39,16 @@
       <div id="files">
 
       </div>
+      <span class="text-danger" th:if="${error_fileList}" th:utext="${error_fileList}"></span>
       <button type="button" id="btnInsert" class="btn btn-secondary">추가</button>
     </div>
   </div>
 
-  <button type="submit" class="btn btn-outline-dark">수정 완료</button>
-  <a class="btn btn-outline-dark" th:href="@{/fileboard/list(page=${session.page})}">목록</a>
+  <input type="hidden" name="id" th:value="${fileBoard.id}">
+  <div class="container mt-3 mb-3 m-5">
+    <button type="submit" class="btn btn-outline-dark">수정 완료</button>
+    <a class="btn btn-outline-dark" th:href="@{|/fileboard/list/${appId}|}">목록</a>
+  </div>
 </form>
 </body>
 </html>

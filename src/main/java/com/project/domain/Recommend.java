@@ -1,20 +1,15 @@
 package com.project.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Recommend {
-    private Long user_id;
-
-    private Long board_id;
-
-    @ToString.Exclude
-    private User user;
-
-
-    @ToString.Exclude
-    private Board board;
+    private Long userId;
+    private Long boardId;
 }

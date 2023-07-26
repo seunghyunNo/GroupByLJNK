@@ -19,8 +19,9 @@ import java.nio.file.Paths;
 
 @RestController
 public class AttachmentController {
-    @Value("{app.upload.path}")
-    private String uploadDirectory;
+
+    @Value("${app.upload.path}")
+    private String uploadDir;
 
     private AttachmentService attachmentService;
 
@@ -29,48 +30,48 @@ public class AttachmentController {
         this.attachmentService = attachmentService;
     }
 
+    public AttachmentController() {
+        System.out.println(getClass().getName()+"() 생성");
+    }
+
     @RequestMapping("/fileboard/download")
-    public ResponseEntity<Object> fileDownload(Long id)
-    {
-        if(id == null){
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Object> download(Long id){
+
+        if(id == null) return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); // 400
 
         Attachment file = attachmentService.findByFileId(id);
 
-        if(file == null)
-        {
-            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-        }
+        if(file == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); // 404
 
-        String sourceName = file.getSourcename();
-        String fileName = file.getFilename();
+        String sourceName = file.getSourcename(); // 원본 이름
+        String fileName = file.getFilename();   // 저장된 이름
 
-
-        String path = new File(uploadDirectory+ File.separator+fileName).getAbsolutePath();
+        String path = new File(uploadDir + File.separator + fileName).getAbsolutePath();
 
         try {
-            String type = Files.probeContentType(Paths.get(path));
+            // 파일 유형 (Mimetype)추출
+            String mimeType = Files.probeContentType(Paths.get(path));
 
-            if(type == null)
+            // 유형이 지정되지 않는 경우
+            if(mimeType == null)
             {
-                type = "application/octet-stream";
+                mimeType = "application/octet-stream"; // 일련의 8bit 스트림 타입. 유형이 알려지지 않은 파일에 대한 형식 지정
             }
 
             Path filePath = Paths.get(path);
             Resource resource = new InputStreamResource(Files.newInputStream(filePath));
 
-            HttpHeaders header = new HttpHeaders();
+            // response header 세팅
+            HttpHeaders headers = new HttpHeaders();
+            // ↓ 원본 파일 이름(sourceName) 으로 다운로드 하게 하기위한 세팅
+            headers.setContentDisposition(ContentDisposition.builder("attachment").filename(URLEncoder.encode(sourceName,"utf-8")).build());
+            headers.setCacheControl("no-cache");
+            headers.setContentType(MediaType.parseMediaType(mimeType));
 
-            header.setContentType(MediaType.parseMediaType(type));
-            header.setCacheControl("no-cache");
-            header.setContentDisposition(ContentDisposition.builder("attachment").filename(URLEncoder.encode(sourceName,"utf-8")).build());
-
-            return new ResponseEntity<>(resource,header,HttpStatus.OK);
+            // ResponseEntity 리턴 (body, header, status)
+            return new ResponseEntity<>(resource, headers, HttpStatus.OK);  // 200
         } catch (IOException e) {
-            return new ResponseEntity<>(null,HttpStatus.CONFLICT);
+            return new ResponseEntity<>(null,HttpStatus.CONFLICT); // 409
         }
     }
-
-
 }

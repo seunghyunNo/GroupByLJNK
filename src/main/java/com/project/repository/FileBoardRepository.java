@@ -1,22 +1,26 @@
 package com.project.repository;
 
-import com.project.domain.Board;
+import com.project.domain.FileBoard;
 
 import java.util.List;
 
 public interface FileBoardRepository {
-    int write(Board board);
-    List<Board> list();
+    int write(FileBoard fileBoard, String appId);
+    List<FileBoard> list(String appId);
 
-    Board searchById(Long id);
+    FileBoard searchById(Long id);
 
+    int update(FileBoard fileBoard);
 
-    int update(Board board);
+    int delete(FileBoard fileBoard);
 
-    int delete(Board board);
+    List<FileBoard> selectByPage(int from, int row, String appId);
 
-    List<Board> selectByPage(int from,int row);
+    int countAll(String appId);
 
-    int countAll();
+    int setCount(Long count,Long boardId);
+
+    int downloadCount(Long id);
+
 
 }

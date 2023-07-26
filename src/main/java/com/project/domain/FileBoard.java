@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Board {
+public class FileBoard {
     private Long id;
     private LocalDateTime regdate;
     private Long count;
@@ -22,8 +22,9 @@ public class Board {
 
     private User user;
 
-
-    @ToString.Exclude
     @Builder.Default
-    private List<Attachment> files = new ArrayList<>();
+    private List<Attachment> fileList = new ArrayList<>();
+
+    private Integer recommend;
+
 }
