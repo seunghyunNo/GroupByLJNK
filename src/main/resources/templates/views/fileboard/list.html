@@ -78,14 +78,13 @@
                     </td>
 
                     <td>
-                        <i type="button" id="btnRec" th:data-recommend-btn="${fileboard.id}" class="bi bi-hand-thumbs-up"></i>
+                        <i type="button" id="btnRec" th:data-recommend-btn="${fileboard.id}" class="bi bi-hand-thumbs-up" style="font-size:25px"></i>
                     </td>
                     <td><a class="btn btn-outline-dark" th:href="@{|/fileboard/update/${appId}/${fileboard.id}|}" th:if="${logged_user.id} == ${fileboard.user.id}" >수정</a></td>
-                    <td><button type="button" class="btn btn-outline-danger ms-2" id="btnDel" th:data-delete-btn="${fileboard.id}" th:if="${logged_user.id} == ${fileboard.user.id} or ${logged_user.id} == 3">삭제</button></td>
+                    <td><i type="button" class="bi bi-x-square-fill" id="btnDel" th:data-delete-btn="${fileboard.id}" style="font-size:25px; color:red;" th:if="${logged_user.id} == ${fileboard.user.id} or ${logged_user.id} == 3"></i></td>
                 </tr>
             </tbody>
         </table>
-
 
     </div>
 <th:block th:insert="~{fileboard/pagination::pagination}"></th:block>

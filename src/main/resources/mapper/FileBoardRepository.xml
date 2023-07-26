@@ -60,6 +60,7 @@
     <select id="selectByPage" resultMap="mapBoard">
         <include refid="SELECT_BASE"/>
         AND b.game_id = #{param3}
+        AND b.is_file = 1
         ORDER BY b.id DESC
         LIMIT #{param1}, #{param2}
     </select>
