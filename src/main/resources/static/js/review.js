@@ -44,7 +44,7 @@ $(function(){
                     alert(data.status);
                     return;
                 }
-                alert(data.status);
+                alertWrite();
                 loadScoreList();
                 loadScoreByUser();
             }
@@ -67,7 +67,6 @@ function loadScoreList(){
         success: function(data, status){
             if(status == "success"){
                 if(data.status !== "OK"){
-                    alert(data.status);
                     return;
                 }
                 buildScore(data);
@@ -186,11 +185,35 @@ function addDelete(){
 						return;
 					}
                 }
-                alert(data.status);
+				alertDelete();
                 loadScoreList();
                 loadScoreByUser();
             }
         });
     });
+}
+
+function alertWrite(){
+	$("#alertDiv").html(`
+	<div class="alert alert-success alert-dismissible d-flex fade show" role="alert">
+		<i class="bi flex-shrink-0 bi-check-circle me-2" role="img" aria-label="Success:"></i>
+        <div>
+            평가가 등록되었습니다.
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+	`);
+}
+
+function alertDelete(){
+	$('#alertDiv').html(`
+	<div class="alert alert-danger alert-dismissible d-flex fade show" role="alert">
+		<i class="bi flex-shrink-0 bi-trash me-2" role="img" aria-label="Danger:"></i>
+		<div>
+			평가가 삭제되었습니다.
+		</div>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	`);
 }
 

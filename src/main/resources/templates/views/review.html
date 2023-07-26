@@ -30,9 +30,11 @@
 		<th:block th:if="${data}">
 			<th:block th:insert="~{header/detail::appDetail}"></th:block>
 			<form>
-				<!-- [[${status}]] <br> -->
 				<input type="hidden" name="app_id" th:value="${appId}">
 			</form>
+			<div id="alertDiv">
+			
+			</div>
 			<th:block th:if="${logged_id}">
 				<div class="card" id="inputScore">
 					<div class="card-body">
