@@ -2,7 +2,7 @@ package com.project.controller;
 
 import com.project.config.PrincipalDetails;
 import com.project.domain.User;
-import com.project.service.ApiServiceImpl;
+import com.project.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import java.util.LinkedHashMap;
 public class HomeController {
 	
 	@Autowired
-	private ApiServiceImpl apiService;
+	private ApiService apiService;
 	
 	@RequestMapping("/")
 	public String home(){

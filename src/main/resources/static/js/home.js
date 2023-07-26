@@ -20,13 +20,32 @@ $(function(){
             //nowHeight을 통해 현재 화면의 끝이 어디까지 내려왔는지 파악가능
             //즉 전체 문서의 높이에 일정량 근접했을때 글 더 불러오기)
             if(documentHeight < (nowHeight + (documentHeight*0.1))){
-                $("#loading").attr("display", "block");
+                $("#loading").show();
                 loadGameList(lastCnt, lastCnt + elementCnt);
 				lastCnt += elementCnt;
             }
         }
         //현재위치 최신화
         lastScroll = currentScroll;
+    });
+
+    $("#searchBtn").click(function(){
+        if($("#searchInput").val().trim().length > 0){
+//            let value = $("#searchInput").val().trim().toLowerCase();
+//            $.ajax({
+//                url: "/api/gameList?value=" + value,
+//                type: "GET",
+//                cache: false,
+//                success: function(data, status){
+//                    if(status == "success"){
+//                        parseJSON(data);
+//                        return;
+//                    }
+//                }
+//            });
+        }else{
+            alert("검색어를 입력해주세요");
+        }
     });
 });
 
@@ -49,7 +68,7 @@ function parseJSON(data, startCnt, endCnt){
 	const appDataList = JSON.parse(data).applist.apps.slice(startCnt, endCnt);
 	$appList = $("#appList").children()
 	let result = [];
-	$("#loading").attr("display", "none");
+	$("#loading").hide();
 
 	appDataList.forEach(element => {
 		result = [];
@@ -70,31 +89,3 @@ function parseJSON(data, startCnt, endCnt){
 	});
 	
 }
-
-
-//$(function(){
-//	$(document).ready(function () {
-//	    $("#myInput").keyup(function(){
-//	        let value = $(this).val().trim().toLowerCase();
-//
-//	        $("#myTable tr").each(function(){
-//	            if ($(this).text().toLowerCase().indexOf(value) > -1) {
-//	                $(this).show();
-//	            } else {
-//	                $(this).hide();
-//	            }
-//            });
-//        });
-//
-//        ~~~children("span").each(function(){
-//            $.ajax()
-//
-//            if (status == "success"){
-//                $(this).text();
-//            }
-//
-//        })
-//    });
-//
-//
-//})
