@@ -1,3 +1,4 @@
+let loadStatus = 0;
 $(function(){
 	loadGameList(0,50);
 
@@ -16,13 +17,15 @@ $(function(){
 
         //스크롤이 아래로 내려갔을때만 해당 이벤트 진행.
         if(currentScroll > lastScroll){
-
             //nowHeight을 통해 현재 화면의 끝이 어디까지 내려왔는지 파악가능
             //즉 전체 문서의 높이에 일정량 근접했을때 글 더 불러오기)
-            if(documentHeight < (nowHeight + (documentHeight*0.1))){
-                $("#loading").show();
-                loadGameList(lastCnt, lastCnt + elementCnt);
-				lastCnt += elementCnt;
+            if(documentHeight < (nowHeight + (documentHeight*0.05))){
+                if (loadStatus == 0){
+	                $("#loading").show();
+	                loadStatus = 1
+	                loadGameList(lastCnt, lastCnt + elementCnt);
+					lastCnt += elementCnt;
+                }
             }
         }
         //현재위치 최신화
@@ -86,6 +89,7 @@ function parseJSON(data, startCnt, endCnt){
 			`);
 		}
 		$appList.append(result.join('\n'));
+
 	});
-	
+	loadStatus = 0;
 }
