@@ -1,12 +1,15 @@
 package com.project.controller;
 
+import com.project.config.PrincipalDetails;
 import com.project.domain.Board;
 import com.project.domain.BoardValidator;
+import com.project.domain.User;
 import com.project.service.ApiService;
 import com.project.service.BoardService;
 import com.project.util.Util;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,6 +61,7 @@ public class BoardController {
 
     @GetMapping("/list/{appId}")
     public String list(Integer page,Model model,@PathVariable String appId){
+        model.addAttribute("src","https://cdn.akamai.steamstatic.com/steam/apps/" + appId + "/header.jpg");
         model.addAttribute("appId",appId);
 
         var serviceResult = apiService.getData(appId);
@@ -70,6 +74,14 @@ public class BoardController {
         }
 
         model.addAttribute("list",boardService.list(page, model, appId));
+        try{
+            PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userDetails.getUser();
+            Long id = user.getId();
+            model.addAttribute("logged_id", id);
+        } catch (Exception e){
+            model.addAttribute("logged_id", null);
+        }
         return "board/list";
     }
 

@@ -6,9 +6,9 @@
 <mapper namespace="com.project.repository.BoardRepository">
     <insert id="write" flushCache="true" parameterType="com.project.domain.Board" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into t_board
-            (title,content, user_id,game_id,is_file)
+        (title,content, user_id,game_id,is_file)
         values
-            (#{title},#{content},#{user.id},#{game_id},#{is_file})
+        (#{title},#{content},#{user.id},#{game_id},#{is_file})
 
     </insert>
 
@@ -20,18 +20,18 @@
 
     <sql id="SELECT_BASE">
         SELECT
-            b.id "b_id",
-            b.title "b_title",
-            b.content "b_content",
-            b.count "b_count",
-            b.regdate "b_regdate",
-            b.game_id "b_gameId",
-            u.id "u_id",
-            u.username "u_username"
+        b.id "b_id",
+        b.title "b_title",
+        b.content "b_content",
+        b.count "b_count",
+        b.regdate "b_regdate",
+        b.game_id "b_gameId",
+        u.id "u_id",
+        u.username "u_username"
         FROM
-            t_board b, t_user u
+        t_board b, t_user u
         WHERE
-            b.user_id = u.id
+        b.user_id = u.id
     </sql>
 
     <resultMap id="mapUser" type="com.project.domain.User">
@@ -51,7 +51,7 @@
     <select id="findById" resultMap="mapBoard">
         <include refid="SELECT_BASE"/>
         AND
-            b.id=#{id}
+        b.id=#{id}
     </select>
 
     <select id="list" resultMap="mapBoard">
@@ -70,9 +70,9 @@
     <delete id="delete" flushCache="true" parameterType="com.project.domain.Board">
         DELETE
         FROM
-            t_board
+        t_board
         WHERE
-            id =#{id}
+        id =#{id}
     </delete>
 
     <select id="countAll" resultType="int">
@@ -87,7 +87,7 @@
     </select>
 
     <select id="recommendCount" flushCache="true">
-       SELECT count(*) FROM t_recommend
+        SELECT count(*) FROM t_recommend
         WHERE board_id=#{param1}
     </select>
 </mapper>
