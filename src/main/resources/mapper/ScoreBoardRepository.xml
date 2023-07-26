@@ -58,4 +58,10 @@
 			user_id = #{param2}
 	</delete>
 	
+	<select id="avgScore" resultType="Float">
+		SELECT AVG(score)
+		FROM t_score_board
+		WHERE game_id = #{param1};
+	</select>
+	
 </mapper>

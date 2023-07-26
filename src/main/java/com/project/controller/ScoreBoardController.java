@@ -1,6 +1,7 @@
 package com.project.controller;
 
 import com.project.config.PrincipalDetails;
+import com.project.domain.QryAvgScore;
 import com.project.domain.QryResult;
 import com.project.domain.QryScoreList;
 import com.project.domain.User;
@@ -49,5 +50,10 @@ public class ScoreBoardController {
 			@RequestParam("user_id") Long userId
 	){
 		return scoreBoardService.delete(appId, userId);
+	}
+	
+	@PostMapping("/avg")
+	public QryAvgScore avgScore(@RequestParam("app_id") String appId){
+		return scoreBoardService.avgScore(appId);
 	}
 }
