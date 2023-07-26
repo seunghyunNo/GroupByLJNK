@@ -1,7 +1,9 @@
 package com.project.controller;
 
+import com.project.config.PrincipalDetails;
 import com.project.domain.FileBoard;
 import com.project.domain.FileBoardValidator;
+import com.project.domain.User;
 import com.project.service.ApiServiceImpl;
 import com.project.service.FileBoardService;
 import com.project.service.RecommendService;
@@ -9,6 +11,7 @@ import com.project.service.UserService;
 import com.project.util.Util;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -80,6 +83,7 @@ public class FileBoardController {
     @GetMapping("/list/{appId}")
     public String list(Integer page,Model model,@PathVariable String appId)
     {
+        model.addAttribute("src","https://cdn.akamai.steamstatic.com/steam/apps/" + appId + "/header.jpg");
 
         model.addAttribute("appId", appId);
         var serviceResult = apiService.getData(appId);
@@ -92,6 +96,15 @@ public class FileBoardController {
         }
 
         model.addAttribute("list",fileBoardService.list(model,page,appId));
+
+        try{
+            PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userDetails.getUser();
+            Long id = user.getId();
+            model.addAttribute("logged_id", id);
+        } catch (Exception e){
+            model.addAttribute("logged_id", null);
+        }
 
         return "fileboard/list";
     }

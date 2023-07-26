@@ -63,8 +63,9 @@ public class FileBoardServiceImpl implements FileBoardService {
 
         user = userRepository.findByUsername(user.getUsername());
         fileBoard.setUser(user);
+        fileBoard.setGame_id(appId);
 
-        int result = fileBoardRepository.write(fileBoard,appId);
+        int result = fileBoardRepository.write(fileBoard);
         insertFiles(files, fileBoard);
 
         return result;

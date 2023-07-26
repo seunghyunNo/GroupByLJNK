@@ -1,30 +1,29 @@
 $(function(){
     $("[name='pageRows']").change(function(){
-     var form = $("[name='frmPageRows']");
-     form.attr("method","POST");
-     form.attr("action","/fileboard/pageRows");
-     form.submit();
+         var form = $("[name='frmPageRows']");
+         form.attr("method","POST");
+         form.attr("action","/fileboard/pageRows");
+         form.submit();
     });
 
-        const userId = $("#loginUser").text();
-        const appId = $("#appId").val().trim();
-        let boardId = $("td").children("span").attr("data-fileboard-recommend");
-        $("td").children("span").each(function(){
-             $.ajax({
-                         url: '/recommend/count',
-                         type: 'POST',
-                         data: {
-                             "userId": userId,
-                             "boardId": boardId
-                         },
-                         cache: false,
-                           success: function(data, status){
-                            if(status == "success"){
-                                $(this).text(data.count);
-                            }
-                        },
-                     });
-//                console.log($(this).text());
+    const userId = $("#loginUser").text();
+    const appId = $("#appId").val().trim();
+    let boardId = $("td").children("span").attr("data-fileboard-recommend");
+    $("td").children("span").each(function(){
+		$.ajax({
+			url: '/recommend/count',
+			type: 'POST',
+			data: {
+				"userId": userId,
+				"boardId": boardId
+			},
+			cache: false,
+			success: function(data, status){
+				if(status == "success"){
+					$(this).text(data.count);
+				}
+			},
+    });
 
 
             });

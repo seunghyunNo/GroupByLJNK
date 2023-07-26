@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.repository.FileBoardRepository">
-    <insert id="write" flushCache="true" useGeneratedKeys="true" keyColumn="fileBoard.id" keyProperty="fileBoard.id"
+    <insert id="write" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
      parameterType="com.project.domain.FileBoard">
         INSERT INTO t_board (title,content,user_id,game_id,is_file)
-        VALUES ("title",#{fileBoard.content},#{fileBoard.user.id},#{param2},true)
+        VALUES ("title", #{content}, #{user.id}, #{game_id}, true)
     </insert>
 
     <sql id="SELECT_BASE">

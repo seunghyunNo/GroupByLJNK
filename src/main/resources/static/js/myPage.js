@@ -28,7 +28,6 @@ function wishList(callback) {
         success: function(data, status, xhr) {
             if (status === "success") {
                 const myWishList = data; // Parse the JSON data here
-                console.log("myWishList:", myWishList);
                 callback(myWishList); // Pass myWishList to the callback function
             }
         }
@@ -37,8 +36,6 @@ function wishList(callback) {
 
 function parseJSON(data, myWishList) {
     const appDataList = JSON.parse(data).applist.apps;
-    console.log("appDataList:", appDataList); // 추가한 로그
-    console.log("myWishList:", myWishList); // 추가한 로그
     const $appList = $("#appList").children();
     const result = [];
 
@@ -60,8 +57,6 @@ function parseJSON(data, myWishList) {
             }
         });
     });
-
-    console.log("result:", result); // 로그로 result 배열 확인
 
     $("#loading").remove();
     $appList.html(result.join('\n'));
