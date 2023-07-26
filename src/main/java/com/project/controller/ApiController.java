@@ -1,5 +1,7 @@
 package com.project.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -19,13 +23,12 @@ public class ApiController {
 	private final String API_KEY = "FB50E2191E8E06A7CA8BCC63648DEB93";
 	
 	@GetMapping("/gameList")
-	public String callApi() throws IOException {
+	public String callApi(
+			// @RequestParam("value") String value
+	) throws IOException {
 		StringBuilder result = new StringBuilder();
 		
-		String urlStr = "http://api.steampowered.com/ISteamApps/GetAppList/v0002/" +
-				"?key=" + API_KEY +
-				"&format=json"
-				;
+		String urlStr = "http://api.steampowered.com/ISteamApps/GetAppList/v0002/";
 		
 		URL url = new URL(urlStr);
 		
@@ -42,31 +45,27 @@ public class ApiController {
 		}
 		urlConnection.disconnect();
 		
-		return result.toString();
-	} // end callApi() gameList
-	
-	@PostMapping("/getAppData/{appId}")
-	public String getAppData(@PathVariable String appId) throws IOException {
-		// LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, String>>> temp
-		// 		= (LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, String>>>) apiService
-		// 		.getData("https://store.steampowered.com/api/appdetails?appids=" + appId + "&key=" + API_KEY)
-		// 		.getBody()
-		// 		;
-		// System.out.print("body : ");
-		// // System.out.println(temp.getClass());
-		// // System.out.println(temp);
-		// System.out.println("-".repeat(20));
-		// try{
-		// 	if(temp.get(appId).get("success").equals("true")){
-		// 		System.out.println(temp.get(appId).get("data"));
+		// if(value == null || value.isEmpty() || value.trim().length() == 0){
+		// 	return result.toString();
+		// } else {
+		// 	String resultReturn = "[";
+		// 	String apiResult = result.toString();
+		// 	ObjectMapper objectMapper = new ObjectMapper();
+		// 	TypeReference<Map<String, Object>> typeReference = new TypeReference<Map<String, Object>>() {};
+		// 	Map<?,?> resultMap = objectMapper.readValue(apiResult, typeReference);
+		//
+		// 	Map<?, ?> applist = (Map<?, ?>) (resultMap.get("applist"));
+		// 	ArrayList<Map<String, String>> apps = (ArrayList) applist.get("apps");
+		//
+		// 	for(var e : apps){
+		// 		if(e.get("name").indexOf(value) > -1){
+		// 			ObjectMapper mapper = new ObjectMapper();
+		// 			resultReturn += mapper.writeValueAsString(e) + ",";
+		// 		}
 		// 	}
-		// } catch (NullPointerException e){
-		// 	System.out.println("temp is null");
-		// } catch (Exception e){
-		// 	System.out.println("error");
-		// 	e.printStackTrace();
+		// 	return resultReturn + "]";
 		// }
 		
-		return "";
-	} // end getAppData
+		return result.toString();
+	} // end callApi() gameList
 }

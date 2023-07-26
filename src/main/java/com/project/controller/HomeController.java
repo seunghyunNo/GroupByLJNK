@@ -1,13 +1,15 @@
 package com.project.controller;
 
-import com.project.service.ApiServiceImpl;
+import com.project.config.PrincipalDetails;
+import com.project.domain.User;
+import com.project.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 @Controller
@@ -15,7 +17,7 @@ import java.util.LinkedHashMap;
 public class HomeController {
 	
 	@Autowired
-	private ApiServiceImpl apiService;
+	private ApiService apiService;
 	
 	@RequestMapping("/")
 	public String home(){
@@ -24,6 +26,14 @@ public class HomeController {
 	
 	@RequestMapping("/home")
 	public void home(Model model){
+		try{
+			PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			User user = userDetails.getUser();
+			Long id = user.getId();
+			model.addAttribute("logged_id", id);
+		} catch (Exception e){
+			model.addAttribute("logged_id", null);
+		}
 	}
 	
 	@RequestMapping("/review/{appId}")
@@ -37,6 +47,17 @@ public class HomeController {
 		model.addAttribute("status", status);
 		if (body.get("success").toString().equals("true")) {
 			model.addAttribute("data", body.get("data"));
+		}
+		
+		model.addAttribute("src","https://cdn.akamai.steamstatic.com/steam/apps/" + appId + "/header.jpg");
+		
+		try{
+			PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			User user = userDetails.getUser();
+			Long id = user.getId();
+			model.addAttribute("logged_id", id);
+		} catch (Exception e){
+			model.addAttribute("logged_id", null);
 		}
 		
 		return "review";

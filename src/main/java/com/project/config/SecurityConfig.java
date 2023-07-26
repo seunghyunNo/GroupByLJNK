@@ -1,5 +1,6 @@
 package com.project.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Autowired
+    private PrincipalDetailsService principalDetailsService;
+
     // Security 비활성화
 //    @Bean
 //    public WebSecurityCustomizer webSecurityCustomizer(){
@@ -19,11 +23,11 @@ public class SecurityConfig {
 //    }
 
     // PasswordEncoder Bean 등록
-    @Bean
-    public PasswordEncoder encoder(){
-        System.out.println("PasswordEncoder() 생성");
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder encoder(){
+//        System.out.println("PasswordEncoder() 생성");
+//        return new BCryptPasswordEncoder();
+//    }
 
     // Security 설정
     @Bean
@@ -32,8 +36,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         // write, update url로 오는 요청은 MEMBER 혹은 ADMIN 권한이 필요
-                        .requestMatchers("/board/write/**", "/board/update/**", "/fileboard/write/**", "/fileboard/update/**", "/user/update", "/board/detail/**").hasAnyRole("MEMBER", "ADMIN")
+                        .requestMatchers("/board/write/**", "/board/update/**", "/fileboard/write/**", "/fileboard/update/**", "/user/pwCheck", "/user/update", "/user/myPage", "user/myBoard", "user/myFileBoard", "/score/write", "/score/delete", "/board/detail/**").hasAnyRole("MEMBER", "ADMIN")
                         // 그외 나머지 요청은 permit
+                        .requestMatchers("/user/login", "/user/signup", "user/findUsername", "user/findPw").anonymous()
                         .anyRequest().permitAll()
                 )
 
@@ -57,6 +62,20 @@ public class SecurityConfig {
                         .logoutUrl("/user/logout")
                         // 로그아웃 후 실행할 코드
                         .logoutSuccessHandler(new CustomLogoutSuccessHandler())
+                        .invalidateHttpSession(true) // 세션 삭제
+                        .deleteCookies("JSESSIONID") // 쿠키삭제
+                )
+
+                // remember-me 기능 활성화
+                .rememberMe(rememberMe -> rememberMe
+                        // token 생성용 key 값
+                        .key("key")
+                        // rememberMe 파라미터
+                        .rememberMeParameter("rememberMe")
+                        // remember-me 토큰 유효 시간 -> 7일
+                        .tokenValiditySeconds(60*60*24*7)
+                        // 사용자 서비스 설정 (사용자 정보 로드)
+                        .userDetailsService(principalDetailsService)
                 )
 
                 .exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer

@@ -2,6 +2,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block>
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -9,17 +10,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <script th:src="@{/js/list.js}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/list.css}">
+
+    <script th:inline="javascript">
+        const logged_id = [[${logged_id}]];
+        const appId = [[${appId}]];
+    </script>
+
+    <script th:src="@{/js/fileboard/list.js}"></script>
+    <script th:src="@{/js/detail.js}"></script>
     <title>자료게시판</title>
+
 </head>
 <body>
+    <th:block th:insert="~{/header::header}"></th:block>
     <div class="container mt-3">
+        <th:block th:insert="~{header/detail::appDetail}"></th:block>
+
+        <span class="hidden" th:text="${logged_id}" id="loginUser"></span>
         <div class="row">
             <div class="col-2">
-                <a class="btn btn-outline-dark" th:href="@{/fileboard/write}" >작성</a>
+                <a class="btn btn-outline-dark" th:href="@{|/fileboard/write/${appId}|}" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')" >작성</a>
             </div>
         </div>
-
 
         <div class="mb-3 mt-3 clearfix">
             <span class="float-start me-2">총 [[${count}]]개</span>
@@ -27,15 +41,17 @@
             <span class="float-end">
         <form name="frmPageRows">
             <input type="hidden" name="page" th:value="${page}">
+            <input type="hidden" name="appId" th:value="${appId}">
             <select class="form-select" name="pageRows">
                 <option value="10" th:selected="${pageRows==10}">10</option>
-                <option value="15" th:selected="${pageRows==15}">15</option>
                 <option value="20" th:selected="${pageRows==20}">20</option>
                 <option value="50" th:selected="${pageRows==50}">50</option>
             </select>
         </form>
             </span>
         </div>
+
+        <input type="hidden" id="appId" th:value="${appId}">
 
         <table class="table table-hover">
             <thead>
@@ -46,29 +62,34 @@
                     <th>작성 시간</th>
                     <th>다운로드 수</th>
                     <th>추천 수</th>
-                    <th>#</th>
+                    <th>추천</th>
+                    <th> </th>
+                    <th> </th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="fileboard : ${list}">
-<!--                    <td th:text="${board.user.username}">작성자</td>-->
-                    <td>user</td>
-                    <td th:text="${fileboard.content}">게임 설명</td>
-                    <td> <li class="list-group-item">   <!-- th:each="attachment : ${board.files}" -->
-                        <a th:href="@{/fileboard/download}" id="downCnt">다운로드</a>
-                        <!-- (id=${attachment.id}) -->
+                <tr th:each="fileboard : ${list}" >
+                    <td  th:text="${fileboard.user.username}">작성자</td>
+                    <td th:utext="${fileboard.content}">게임 설명</td>
+                    <td> <li class="list-group-item" th:each="attachment : ${fileboard.fileList}">
+                        <a th:href="@{/fileboard/download(id=${attachment.id})}" th:data-download-btn="${fileboard.id}">[[${attachment.sourcename}]]</a>
                     </li></td>
-                    <td th:text="${fileboard.regdate}">작성 시간</td>
+                    <td th:text="${#temporals.format(fileboard.regdate, 'yyyy-MM-dd HH:mm:ss')}">작성 시간</td>
                     <td th:text="${fileboard.count}">다운로드 수</td>
-                    <td>추천 수</td>
-                    <td><button type="button" id="btnRec" class="btn btn-outline-dark">추천</button></td>
+                    <td>
+                        <span  th:text="${fileboard.recommend}" th:data-fileboard-recommend="${fileboard.id}">0</span>
+                    </td>
+
+                    <td>
+                        <i type="button" id="btnRec" th:data-recommend-btn="${fileboard.id}" class="bi bi-hand-thumbs-up" style="font-size:25px"></i>
+                    </td>
+                    <td><a class="btn btn-outline-dark" th:href="@{|/fileboard/update/${appId}/${fileboard.id}|}" th:if="${logged_id} == ${fileboard.user.id}" >수정</a></td>
+                    <td><i type="button" class="bi bi-x-square-fill" id="btnDel" th:data-delete-btn="${fileboard.id}" style="font-size:25px; color:red;" th:if="${logged_id} == ${fileboard.user.id} or ${logged_id} == 3"></i></td>
                 </tr>
             </tbody>
         </table>
-
+        <th:block th:insert="~{fileboard/pagination::pagination}"></th:block>
     </div>
-
-<th:block th:insert="~{fileboard/pagination::pagination}"></th:block>
-
 </body>
+</th:block>
 </html>

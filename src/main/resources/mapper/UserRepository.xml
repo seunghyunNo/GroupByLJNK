@@ -13,6 +13,12 @@
         FROM t_user
     </sql>
 
+    <select id="findByUserId" resultType="com.project.domain.User">
+        <include refid="SELECT_BASE"/>
+        WHERE
+        id = #{param1}
+    </select>
+
     <select id="findByUsername" resultType="com.project.domain.User">
         <include refid="SELECT_BASE"/>
         WHERE
@@ -49,4 +55,39 @@
         id = #{param1}
     </select>
 
+    <select id="findUsername" parameterType="String" resultType="String">
+        SELECT username
+        FROM t_user
+        WHERE email = #{param1}
+    </select>
+
+    <select id="findPw" parameterType="String" resultType="int">
+        SELECT count(*)
+        FROM t_user
+        WHERE username = #{username} AND email = #{email}
+    </select>
+
+    <update id="updatePw" flushCache="true" parameterType="com.project.domain.User">
+        UPDATE t_user
+        SET password = #{password}
+        WHERE email = #{email} AND username = #{username}
+    </update>
+
+    <select id="getEncodePassword" parameterType="com.project.domain.User" resultType="String">
+        SELECT password
+        FROM t_user
+        WHERE username = #{username} AND email = #{email}
+    </select>
+
+    <delete id="deleteUser">
+        DELETE
+        FROM t_user
+        WHERE id = #{id}
+    </delete>
+
+    <select id="findWishListById" parameterType="com.project.config.PrincipalDetails" resultType="String">
+        SELECT game_id
+        FROM t_wishlist
+        WHERE user_id = #{param1}
+    </select>
 </mapper>

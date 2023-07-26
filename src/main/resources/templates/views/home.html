@@ -10,6 +10,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 
+	<script th:inline="javascript">
+		const logged_id = [[${logged_id}]];	
+	</script>
+
 	<script th:src="@{/js/home.js}"></script>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}">
 
@@ -18,15 +22,27 @@
 <body>
 <th:block th:insert="~{/header::header}"></th:block>
 	<div class="container">
-		<h2>SteamHub</h2>
+		<div class="row my-3">
+			<div class="col-4">
+				<h2>SteamHub</h2>
+			</div>
+			<div class="col-8">
+				<div class="input-group">
+					<input id="searchInput" type="text" class="form-control"
+					       placeholder="Search..." aria-label="Recipient's username" aria-describedby="searchBtn">
+					<button class="btn btn-outline-secondary" type="button" id="searchBtn">Button</button>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container" id="appList">
+			<div class="row row-cols-4" id="appRow">
+				
+			</div>
+		</div>
 		<div class="d-flex justify-content-center mt-5" id="loading">
 			<div class="spinner-border" role="status">
 			<span class="visually-hidden">Loading...</span>
-			</div>
-		</div>
-		<div class="container" id="appList">
-			<div class="row row-cols-4">
-				
 			</div>
 		</div>
 	</div>

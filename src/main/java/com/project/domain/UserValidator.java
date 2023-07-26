@@ -31,12 +31,12 @@ public class UserValidator implements Validator {
         }
 
         // email 주소 주어진 형식과 맞지 않으면 errorMessage 등록
-//        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-//        Pattern pattern = Pattern.compile(emailRegex);
-//
-//        if(pattern.matcher(user.getEmail()).matches()){
-//            errors.rejectValue("email", "유효한 이메일 주소를 입력하세요");
-//        }
+        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+
+        if(!pattern.matcher(user.getEmail()).matches()){
+            errors.rejectValue("email", "유효한 이메일 주소를 입력하세요");
+        }
 
     }
 }

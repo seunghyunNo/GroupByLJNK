@@ -1,6 +1,6 @@
 SHOW tables;
 
-SELECT * FROM t_user;
+SELECT * FROM t_user;	
 SELECT * FROM t_authority;
 SELECT * FROM t_user_authorities;
 SELECT * FROM t_board;

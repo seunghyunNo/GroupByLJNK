@@ -1,7 +1,10 @@
 package com.project.util;
 
+import com.project.config.PrincipalDetails;
+import com.project.domain.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -17,5 +20,12 @@ public class Util {
 
     {
         return getRequest().getSession();
+    }
+
+    public static User getLoggedUser()
+    {
+        PrincipalDetails userDetail = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDetail.getUser();
+        return user;
     }
 }

@@ -71,7 +71,9 @@ INSERT INTO t_recommend (user_id, board_id) VALUES
 ;
 
 INSERT INTO t_wishlist (user_id, game_id) VALUES
-(1, '1569040')
+(1, '1569040'),
+(1, '1407350'),
+(1, '1407300')
 ;
 
 
