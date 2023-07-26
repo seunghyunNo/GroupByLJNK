@@ -8,7 +8,7 @@ $(function(){
             </div>`);
         index++;
 
-    })
+    });
 
 
     $("#content").summernote({
