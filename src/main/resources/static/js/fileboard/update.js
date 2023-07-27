@@ -17,13 +17,13 @@ $(function(){
 
    $("#upBtn").click(function(){
 		let frm = $("form[name='updateFrm']");
-		 if($("#fileId").length==0)
+		 if(($("#fileId").length==0) && ($("#existFile").length==0))
 		 {
 			alert("첨부 파일이 없습니다.");
 			$("#fileId").focus();
 			return false;
 		 }
-		 else if($("#fileId").val()=="")
+		 else if(($("#fileId").val()=="") && ($("#existFile").val()==""))
 		 {
 			alert("첨부 파일이 없습니다.");
 			$("#fileId").focus();

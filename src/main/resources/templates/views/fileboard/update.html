@@ -28,7 +28,7 @@
     <div class="mb-3 mt-3">
       <label>첨부파일:</label>
       <div class="input-group mb-3" th:each="attachment : ${fileBoard.fileList}">
-        <input class="form-control col-xs-3" type="text" readonly th:value="${attachment.sourcename}"/>
+        <input class="form-control col-xs-3" id="existFile" type="text" readonly th:value="${attachment.sourcename}"/>
         <button type="button" class="btn btn-outline-danger" th:file-id-delete="${attachment.id}">삭제</button>
       </div>
     </div>
