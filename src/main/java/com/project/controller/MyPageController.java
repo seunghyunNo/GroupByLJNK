@@ -50,11 +50,17 @@ public class MyPageController {
         return "/user/mypage/myFileboard";
     }
 
-    @PostMapping("/pageRows")
-    public String pageRows(Integer page,Integer pageRows)
+    @PostMapping("/FilepageRows")
+    public String filepageRows(Integer page,Integer pageRows)
     {
         Util.getSession().setAttribute("pageRows",pageRows);
         return "redirect:/user/mypage/myFileBoard?page="+page;
+    }
+
+    @PostMapping("/BoardpageRows")
+    public String boardpageRows(Integer page,Integer pageRows){
+        Util.getSession().setAttribute("pageRows",pageRows);
+        return "redirect:/user/mypage/myBoard?page="+page;
     }
 
 

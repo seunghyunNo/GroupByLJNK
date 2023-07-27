@@ -2,7 +2,7 @@ $(function(){
     $("[name='pageRows']").change(function(){
          var form = $("[name='frmPageRows']");
          form.attr("method","POST");
-         form.attr("action","/user/pageRows");
+         form.attr("action","/user/FilepageRows");
          form.submit();
     });
 
