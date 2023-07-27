@@ -50,7 +50,6 @@ function parseJSON(data, myWishList) {
                             alt="thumnail">
                         <div class="row justify-content-between">
                             <a class="col-auto" href="/review/${appId}">${element.name}</a>
-                            <i class="col-2 bi bi-box2-heart fs-3"></i>
                         </div>
                     </div>
                 `);

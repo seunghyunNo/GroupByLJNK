@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.repository.MyPageRepository">
+
+    <sql id="SELECT_FILE_BASE">
+        SELECT
+        b.id "b_id",
+        b.regdate "b_regdate",
+        b.count "b_count",
+        b.content "b_content",
+        b.game_id "b_gameId",
+        u.id "u_id",
+        u.username "u_username"
+        FROM t_board b, t_user u
+        WHERE b.user_id = u.id
+    </sql>
+
+    <resultMap id="mapUser" type="com.project.domain.User">
+        <result column="u_id" property="id"/>
+        <result column="u_username" property="username"/>
+    </resultMap>
+
+    <resultMap id="mapFileBoard" type="com.project.domain.FileBoard">
+        <result column="b_id" property="id"/>
+        <result column="b_regdate" property="regdate"/>
+        <result column="b_count" property="count"/>
+        <result column="b_content" property="content"/>
+        <result column="b_gameId" property="game_id"/>
+        <collection property="user" resultMap="mapUser"/>
+    </resultMap>
+
+    <select id="fileSelectByPage" resultMap="mapFileBoard" resultType="com.project.domain.FileBoard">
+        <include refid="SELECT_FILE_BASE"/>
+        AND u.id = #{param3}
+        AND b.is_file = 1
+        ORDER BY b.id DESC
+        LIMIT #{param1}, #{param2}
+    </select>
+
+    <select id="fileCountAll" resultType="long">
+        SELECT COUNT(*) FROM t_board WHERE user_id = #{param1} AND is_file = 1
+    </select>
+
+    <!-- Board 관련 SQL과 resultMap -->
+    <sql id="SELECT_BOARD_BASE">
+        SELECT
+        b.id "b_id",
+        b.title "b_title",
+        b.content "b_content",
+        b.count "b_count",
+        b.regdate "b_regdate",
+        b.game_id "b_gameId",
+        u.id "u_id",
+        u.username "u_username"
+        FROM t_board b, t_user u
+        WHERE b.user_id = u.id
+    </sql>
+
+    <resultMap id="mapBoard" type="com.project.domain.Board">
+        <result column="b_id" property="id"/>
+        <result column="b_title" property="title"/>
+        <result column="b_content" property="content"/>
+        <result column="b_count" property="count"/>
+        <result column="b_regdate" property="regdate"/>
+        <collection property="user" resultMap="mapUser"/>
+    </resultMap>
+
+    <select id="boardCountAll" resultType="long">
+        SELECT COUNT(*) FROM t_board WHERE user_id = #{param1} AND is_file = 0
+    </select>
+
+    <select id="boardSelectByPage" resultMap="mapBoard" resultType="com.project.domain.Board">
+        <include refid="SELECT_BOARD_BASE"/>
+        AND u.id = #{param3}
+        AND b.is_file = 0
+        ORDER BY b.id DESC
+        LIMIT #{param1}, #{param2}
+    </select>
+
+    <select id="recommendCount" flushCache="true">
+        SELECT count(*) FROM t_recommend
+        WHERE board_id=#{param1}
+    </select>
+</mapper>
