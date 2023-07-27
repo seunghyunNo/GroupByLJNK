@@ -35,7 +35,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Autowired
     public BoardServiceImpl(SqlSession sqlSession){
-
         boardRepository=sqlSession.getMapper(BoardRepository.class);
         userRepository = sqlSession.getMapper(UserRepository.class);
 

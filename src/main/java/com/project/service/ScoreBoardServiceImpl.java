@@ -1,5 +1,6 @@
 package com.project.service;
 
+import com.project.domain.QryAvgScore;
 import com.project.domain.QryResult;
 import com.project.domain.QryScoreList;
 import com.project.domain.Score;
@@ -76,5 +77,26 @@ public class ScoreBoardServiceImpl implements ScoreBoardService{
 				.count(count)
 				.build();
 		return qryResult;
+	}
+	
+	@Override
+	public QryAvgScore avgScore(String appId) {
+		Float avg = scoreBoardRepository.avgScore(appId);
+		String status;
+		int count;
+		if (avg==null){
+			status = "FAIL";
+			count = 0;
+		} else {
+			status = "OK";
+			count = 1;
+		}
+		
+		QryAvgScore qryAvgScore = new QryAvgScore();
+		qryAvgScore.setAvg(avg);
+		qryAvgScore.setStatus(status);
+		qryAvgScore.setCount(count);
+		
+		return qryAvgScore;
 	}
 }

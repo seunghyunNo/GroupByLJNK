@@ -13,4 +13,6 @@ public interface ScoreBoardRepository {
 	
 	int deleteByIds(String appId, Long userId);
 	
+	Float avgScore(String appId);
+	
 }

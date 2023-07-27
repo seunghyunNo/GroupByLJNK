@@ -7,14 +7,19 @@
       <div class="container mt-1">
         <ul class="pagination justify-content-center">
           <li class="page-item" th:if="${page > 1}">
+            <a class="page-link" th:href="${url}" title="처음">
+              <i class='fas fa-angle-double-left'></i>
+            </a>
+          </li>
+
+          <li class="page-item" th:if="${start > 1}">
             <a th:href="@{${url}(page=${start -1})}" class="page-link">
               <i class="fas fa-angle-left"></i>
             </a>
           </li>
 
-
           <th:block th:if="${totalPage > 1}">
-            <th:block th:each="p : ${#numbers.sequence(start,end)}" }>
+            <th:block th:each="p : ${#numbers.sequence(start,end)}">
               <li class="page-item" th:unless="${p == page}">
                 <a th:href="@{${url}(page=${p})}" class="page-link" th:text="${p}"></a>
               </li>
@@ -22,6 +27,7 @@
                 <a href="javascript:void(0);" class="page-link" th:text="${p}"></a>
               </li>
 
+            </th:block>
               <li class="page-item" th:if="${totalPage > end}">
                 <a th:href="@{${url}(page=${end+1})}" class="page-link">
                   <i class="fas fa-angle-right"></i>
@@ -33,12 +39,8 @@
                   <i class="fas fa-angle-double-right"></i>
                 </a>
               </li>
-            </th:block>
           </th:block>
-
-
         </ul>
-
       </div>
 </th:block>
 </html>

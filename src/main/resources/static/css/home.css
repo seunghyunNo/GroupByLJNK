@@ -5,3 +5,16 @@
 img {
     max-width: 100%;
 }
+
+#nav-header{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+
+	z-index: 10;
+}
+
+#home-container{
+	padding-top: 60px;
+}

@@ -1,5 +1,6 @@
 $(function(){
 	loadWishList();
+	loadAvgScore();
 	// wishList Icon 클릭시
 	$("#wishIcon").click(function(){
 		const params = {
@@ -100,4 +101,24 @@ function deleteWishList(){
             }
         }
     });
+}
+
+// 소수점 잡아주는 함수
+const getFloatFixed = (value, fixed) => {
+	return parseFloat(Math.round(value * 100) / 100).toFixed(fixed);
+};
+
+// 평균 구해오는 함수
+function loadAvgScore(){
+	$.ajax({
+		url: "/score/avg",
+		type: "POST",
+		data: {"app_id": appId},
+		cache: false,
+		success: function(data, status){
+			if(status == "success"){
+				$("#score_avg b").text(getFloatFixed(data.avg, 2));
+			}
+		}
+	})
 }
