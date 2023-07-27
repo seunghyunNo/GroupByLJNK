@@ -47,6 +47,7 @@ $(function(){
                 alertWrite();
                 loadScoreList();
                 loadScoreByUser();
+                loadAvgScore();
             }
         });
     });
@@ -188,6 +189,7 @@ function addDelete(){
 				alertDelete();
                 loadScoreList();
                 loadScoreByUser();
+                loadAvgScore();
             }
         });
     });
