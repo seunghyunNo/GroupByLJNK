@@ -3,7 +3,7 @@ $(function(){
     $("#btnInsert").click(function(){
         $("#files").append(`
             <div class="input-group mb-3">
-            <input class="form-control col-xs-3" type="file" name="upfile${index}"/>
+            <input class="form-control col-xs-3" type="file" id="fileId" name="upfile${index}"/>
             <button type="button" class="btn btn-outline-danger" onclick="$(this).parent().remove()">삭제</button>
             </div>`);
         index++;
@@ -14,6 +14,25 @@ $(function(){
         deleteByIdFiles(fileId);
         $(this).parent().remove();
     });
+
+   $("#upBtn").click(function(){
+		let frm = $("form[name='updateFrm']");
+		 if($("#fileId").length==0)
+		 {
+			alert("첨부 파일이 없습니다.");
+			$("#fileId").focus();
+			return false;
+		 }
+		 else if($("#fileId").val()=="")
+		 {
+			alert("첨부 파일이 없습니다.");
+			$("#fileId").focus();
+			return false;
+		 }else
+		 {
+			frm.submit();
+		 }
+	});
 
 });
 function deleteByIdFiles(fileId)
