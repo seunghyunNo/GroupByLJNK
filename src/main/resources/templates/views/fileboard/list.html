@@ -35,7 +35,11 @@
             <div class="col-2">
                 <a class="btn btn-outline-dark" th:href="@{|/fileboard/write/${appId}|}" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')" >작성</a>
             </div>
-            <div class="col">
+
+
+
+            <div class="col-2">
+
                 <span class="float-end">
                     <form name="frmPageRows">
                         <input type="hidden" name="page" th:value="${page}">
@@ -47,10 +51,9 @@
                         </select>
                     </form>
                 </span>
-                <span class="float-end">총 [[${count}]]개</span>
+                <span class="float-end me-2">총 [[${count}]]개</span>
                 <span class="float-end">page [[${page}]]/[[${totalPage}]]</span>
             </div>
-        </div>
 
         <input type="hidden" id="appId" th:value="${appId}">
 
