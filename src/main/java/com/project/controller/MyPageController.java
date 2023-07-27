@@ -3,11 +3,13 @@ package com.project.controller;
 import com.project.config.PrincipalDetails;
 import com.project.domain.User;
 import com.project.service.MyPageService;
+import com.project.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -46,6 +48,13 @@ public class MyPageController {
         model.addAttribute("list",myPageService.fileList(model,page,id));
 
         return "/user/mypage/myFileboard";
+    }
+
+    @PostMapping("/pageRows")
+    public String pageRows(Integer page,Integer pageRows)
+    {
+        Util.getSession().setAttribute("pageRows",pageRows);
+        return "redirect:/user/mypage/myFileBoard?page="+page;
     }
 
 

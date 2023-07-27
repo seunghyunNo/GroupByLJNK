@@ -36,16 +36,19 @@ INSERT INTO t_user_authorities VALUES
 ;
 
 INSERT INTO t_board (user_id, title, content, game_id, is_file) VALUES
-(1, 'title1', 'content1', '2114690', true),
-(1, 'title1', 'content1', '2114690', true),
-(1, 'title1', 'content1', '2114690', true),
-(1, 'title1', 'content1', '2114690', true),
-(1, 'title1', 'content1', '2114690', true),
-(1, 'title1', 'content1', '2114690', true),
-(1, 'title1', 'content1', '2114690', true),
-(1, 'title1', 'content1', '2114690', true),
-(1, 'title1', 'content1', '2114690', true),
-(1, 'title1', 'content1', '2114690', true);
+(1, 'title1', 'content1', '2114690', false),
+(1, 'title1', 'content1', '2114690', false),
+(1, 'title1', 'content1', '2114690', false),
+(1, 'title1', 'content1', '2114690', false),
+(1, 'title1', 'content1', '2114690', false),
+(1, 'title1', 'content1', '2114690', false),
+(1, 'title1', 'content1', '2114690', false),
+(1, 'title1', 'content1', '2114690', false),
+(1, 'title1', 'content1', '2114690', false),
+(1, 'title1', 'content1', '2114690', false),
+(1, 'title1', 'content1', '2114690', false),
+(1, 'title1', 'content1', '2114690', false),
+(1, 'title1', 'content1', '2114690', false);
 
 INSERT INTO t_board (user_id, title, content, game_id, is_file) VALUES
 (1, 'title1', 'content1', '1569040', false),
