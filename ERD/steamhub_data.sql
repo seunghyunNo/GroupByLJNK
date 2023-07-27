@@ -36,6 +36,18 @@ INSERT INTO t_user_authorities VALUES
 ;
 
 INSERT INTO t_board (user_id, title, content, game_id, is_file) VALUES
+(1, 'title1', 'content1', '2114690', true),
+(1, 'title1', 'content1', '2114690', true),
+(1, 'title1', 'content1', '2114690', true),
+(1, 'title1', 'content1', '2114690', true),
+(1, 'title1', 'content1', '2114690', true),
+(1, 'title1', 'content1', '2114690', true),
+(1, 'title1', 'content1', '2114690', true),
+(1, 'title1', 'content1', '2114690', true),
+(1, 'title1', 'content1', '2114690', true),
+(1, 'title1', 'content1', '2114690', true);
+
+INSERT INTO t_board (user_id, title, content, game_id, is_file) VALUES
 (1, 'title1', 'content1', '1569040', false),
 (1, 'title2', 'content2', '1569040', false),
 (2, 'title3', 'content3', '1569040', false),

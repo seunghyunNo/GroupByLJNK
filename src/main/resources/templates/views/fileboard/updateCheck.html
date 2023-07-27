@@ -4,8 +4,14 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <script th:if="${result > 0}">
-    alert("게시글 수정 성공");
-    location.href ="/fileboard/list/[[${appId}]]";
+    var appId = [[${appId}]];
+    if(!appId){
+        alert("게시글 수정 성공");
+        location.href = "/user/mypage/myFileBoard";
+    } else{
+        alert("성공")
+        location.href ="/fileboard/list/[[${appId}]]";
+    }
 </script>
 
 <script th:unless="${result > 0}">

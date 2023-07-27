@@ -6,8 +6,14 @@
   </script>
 
 <script th:if="${result > 0}" th:inline="javascript">
-    alert("삭제 성공");
-    location.href = "/board/list/" + [[${appId}]];
+    var appId = [[${appId}]];
+    if(appId){
+        alert("성공")
+        location.href = "/user/mypage/myBoard";
+    } else{
+      alert("삭제 성공");
+      location.href = "/board/list/" + [[${appId}]];
+    }
   </script>
 
 </html>

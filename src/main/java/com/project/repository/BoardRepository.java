@@ -32,7 +32,7 @@ public interface BoardRepository {
 
 
     // 페이징
-    int countAll();
+    int countAll(String appId);
 
     // 게시글 출력 갯수
     List<Board> selectByPage(int from, int rows, String appId);

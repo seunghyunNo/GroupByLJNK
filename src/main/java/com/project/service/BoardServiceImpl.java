@@ -82,16 +82,19 @@ public class BoardServiceImpl implements BoardService {
         }
         session.setAttribute("page",page);
 
-        long count = boardRepository.countAll();
+        long count = boardRepository.countAll(appId);
         int totalPage=(int) Math.ceil(count/(double)pageRows);
 
         if(page>totalPage){
             page=totalPage;
         }
 
-        int fromRow = (page-1)*pageRows;
+        int fromRow = (page-1) * pageRows ;
+        if(page==0){
+            fromRow=0;
+        }
 
-        int start= (((page-1)/ writePage)*writePage) + 1;
+        int start= (((page-1)/ writePage) * writePage) + 1;
         int end=start+writePage-1;
         if(end >= totalPage)end=totalPage;
 

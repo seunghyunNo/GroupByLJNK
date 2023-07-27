@@ -6,6 +6,7 @@ import com.project.domain.EmailCheckReq;
 import com.project.domain.User;
 import com.project.domain.UserValidator;
 import com.project.service.EmailService;
+import com.project.service.MyPageService;
 import com.project.service.UserService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,6 +39,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MyPageService myPageService;
 
     @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
@@ -251,7 +255,7 @@ public class UserController {
         // 로그인한 사용자 정보를 모델에 추가하여 페이지에 표시
         PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDetails.getUser();
-        model.addAttribute("id",user.getId());
+        model.addAttribute("id", user.getId());
         model.addAttribute("username",user.getUsername());
     }
 
@@ -262,15 +266,6 @@ public class UserController {
         Long id = user.getId();
         return userService.findWishListById(id);
     }
-
-//    @GetMapping("/myBoard")
-//    public List<Board> myBoard(){
-//        PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = userDetails.getUser();
-//        Long id = user.getId();
-//
-//
-//    }
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {binder.setValidator(new UserValidator());}

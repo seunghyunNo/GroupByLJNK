@@ -77,6 +77,8 @@
 
     <select id="countAll" resultType="int">
         SELECT count(*) FROM t_board
+        WHERE
+        game_id = #{param1} and is_file=0
     </select>
 
     <select id="selectByPage" resultMap="mapBoard">

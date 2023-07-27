@@ -9,3 +9,4 @@ SELECT * FROM t_comment;
 SELECT * FROM t_attachment;
 SELECT * FROM t_recommend;
 SELECT * FROM t_wishlist;
+

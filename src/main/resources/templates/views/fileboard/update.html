@@ -47,7 +47,8 @@
   <input type="hidden" name="id" th:value="${fileBoard.id}">
   <div class="container mt-3 mb-3 m-5">
     <button type="submit" class="btn btn-outline-dark">수정 완료</button>
-    <a class="btn btn-outline-dark" th:href="@{|/fileboard/list/${appId}|}">목록</a>
+    <a class="btn btn-outline-dark" th:if="${appId != 'null'}" th:href="@{|/fileboard/list/${appId}|}">목록</a>
+    <a class="btn btn-outline-dark" th:if="${appId == 'null'}" th:href="@{/user/mypage/myFileBoard}">목록</a>
   </div>
 </form>
 </body>

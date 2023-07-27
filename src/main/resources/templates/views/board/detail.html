@@ -48,13 +48,15 @@
             <div class="d-flex">
 
                 <a class="btn btn-outline-dark" th:href="@{'/board/update/' +${appId}+'/'+ ${board.id}}">수정</a>
-                <a class="btn btn-outline-dark ms-2" th:href="@{'/board/list/' + ${appId}}">목록</a>
+                <a class="btn btn-outline-dark ms-2" th:if="${appId != 'null'}" th:href="@{'/board/list/' + ${appId}}">목록</a>
+                <a class="btn btn-outline-dark ms-2" th:if="${appId == 'null'}" th:href="@{/user/mypage/myBoard}">목록</a>
+
                 <!--+ '/?page=' + ${session.page}-->
                 <!--수정 필요할 수도 있음 -->
                 <button class="btn btn-outline-danger ms-2" type="button" id="btnDel">삭제</button>
 
                 <!--권한 설정-->
-                <a class="btn btn-outline-dark ms-2" th:href="@{'/board/write/'+${appId}}" sec:authorize="hasAnyRole('MEMBER','ADMIN')">작성</a>
+                <a th:if="${appId != 'null'}" class="btn btn-outline-dark ms-2" th:href="@{'/board/write/'+${appId}}" sec:authorize="hasAnyRole('MEMBER','ADMIN')">작성</a>
             </div>
 
             <!--댓글 -->
