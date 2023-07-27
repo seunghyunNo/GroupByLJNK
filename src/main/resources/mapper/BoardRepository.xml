@@ -90,4 +90,5 @@
         SELECT count(*) FROM t_recommend
         WHERE board_id=#{param1}
     </select>
+
 </mapper>
