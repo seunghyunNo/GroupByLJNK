@@ -119,13 +119,13 @@ $(function(){
           success: function(data, status, xhr){
               if(status == "success"){
                   if(data.status !== "OK"){
-                      location.reload();
                       return;
                   }
               }
           },
         });
      });
+
 });
 
 function loadRecommend(userId,boardId,obj)
