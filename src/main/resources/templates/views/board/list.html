@@ -29,53 +29,51 @@
 
 <!--작성-->
     <div class="container mt-3">
-<th:block th:insert="~{header/detail::appDetail}"></th:block>
-        <div>
-            <a class="btn btn-outline-dark" th:href="@{'/board/write/' + ${appId}}" sec:authorize="hasAnyRole('ADMIN','MEMBER')">작성</a>
-
-        </div>
-
-
-    <div class="mb-3 mt-3 clearfix">
-        <span class="float-end">
-            <form name="frmPageRows">
-                <input type="hidden" name="page" th:value="${page}">
-                <input type="hidden" name="appId" th:value="${appId}">
-                <select class="form-select" name="pageRows">
-                    <option value="10" th:selected="${pageRows==10}">10</option>
-                    <option value="15" th:selected="${pageRows==15}">15</option>
-                    <option value="20" th:selected="${pageRows==20}">20</option>
-                    <option value="50" th:selected="${pageRows==50}">50</option>
-                </select>
-            </form>
-        </span>
+	<th:block th:insert="~{header/detail::appDetail}"></th:block>
+	    <div class="card">
+	    <div class="card-body">
+	        <div class="row mb-3 mt-3 justify-content-between">
+			    <div class="col-auto">
+		            <a class="btn btn-outline-dark" th:href="@{'/board/write/' + ${appId}}" sec:authorize="hasAnyRole('ADMIN','MEMBER')">작성</a>
+		        </div>
+			    <div class="col-auto clearfix">
+			        <span class="float-end">
+			            <form name="frmPageRows">
+			                <input type="hidden" name="page" th:value="${page}">
+			                <input type="hidden" name="appId" th:value="${appId}">
+			                <select class="form-select" name="pageRows">
+			                    <option value="10" th:selected="${pageRows==10}">10</option>
+			                    <option value="15" th:selected="${pageRows==15}">15</option>
+			                    <option value="20" th:selected="${pageRows==20}">20</option>
+			                    <option value="50" th:selected="${pageRows==50}">50</option>
+			                </select>
+			            </form>
+			        </span>
+			    </div>
+	        </div>
+		    <table class="table table-hover">
+		        <thead class="table-primary">
+			        <tr>
+			            <th>작성자</th>
+			            <th>제목</th>
+			            <th>작성일</th>
+			            <th>추천수</th>
+			            <th>조회수</th>
+			        </tr>
+		        </thead>
+		        <tbody>
+		            <tr th:each="board : ${list}">
+		                <td th:text="${board.user.username}">ddd</td>
+		                <td><a th:href="@{'/board/detail/'+${appId}+'/'+${board.id}}" th:text="${board.title}"></a></td>
+		                <td th:text="${#temporals.format(board.regdate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+		                <td id="btnRec" th:text="${board.recommendCount}"></td>
+		                <td id="vieCnt" th:text="${board.count}"></td>
+		            </tr>
+		        </tbody>
+		    </table>
+		    <th:block th:insert="~{board/pagination::pagination}"></th:block>
+	    </div>
+	    </div>
     </div>
-
-    <table class="table table-hover">
-        <thead class="table-success">
-        <tr>
-            <th>작성자</th>
-            <th>제목</th>
-            <th>작성일</th>
-            <th>추천수</th>
-            <th>조회수</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr th:each="board : ${list}">
-                <td th:text="${board.user.username}">ddd</td>
-                <td><a th:href="@{'/board/detail/'+${appId}+'/'+${board.id}}" th:text="${board.title}"></a></td>
-                <td th:text="${#temporals.format(board.regdate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                <td id="btnRec" th:text="${board.recommendCount}"></td>
-                <td id="vieCnt" th:text="${board.count}"></td>
-
-            </tr>
-
-        </tbody>
-    </table>
-
-
-    </div>
-<th:block th:insert="~{board/pagination::pagination}"></th:block>
 </body>
 </html>

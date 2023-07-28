@@ -8,10 +8,10 @@
     <!-- 댓글 -->
     <div class="container my-3 border rounded">
         <div class="mb-3 mt-3">
-
+			<h6>댓글</h6>
             <!-- ROLE_MEMBER 권한 가진 사용자만 댓글 작성 가능 -->
             <div class="input-group my-2" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')">
-                <input type="text" class="form-control" id="input_comment">
+                <input type="text" class="form-control" id="input_comment" placeholder="댓글을 작성하세요">
                 <button type="button" class="btn btn-outline-primary" id="btn_comment">작성</button>
             </div>
 
