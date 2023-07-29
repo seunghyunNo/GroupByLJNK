@@ -202,7 +202,6 @@ public class FileBoardServiceImpl implements FileBoardService {
 
         List<FileBoard> list = fileBoardRepository.selectByPage(fromRow,pageRows,appId);
 
-
         for(int i = 0; i < list.size() ; i++)
         {
            Long id = list.get(i).getId();
@@ -214,7 +213,6 @@ public class FileBoardServiceImpl implements FileBoardService {
                 fileBoard.setRecommend(recommendRepository.countByBoardId(id));
             }
             list.set(i,fileBoard);
-
         }
 
         model.addAttribute("list",list);
@@ -267,7 +265,7 @@ public class FileBoardServiceImpl implements FileBoardService {
             } else {
                 System.out.println("삭제 실패");
             }
-        }
+       }
     }
 
     @Override

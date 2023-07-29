@@ -134,7 +134,6 @@ function loadRecommend(userId,boardId,obj)
          url: '/recommend/count',
          type: 'POST',
          data: {
-           "userId": userId,
            "boardId": boardId
          },
          cache: false,
