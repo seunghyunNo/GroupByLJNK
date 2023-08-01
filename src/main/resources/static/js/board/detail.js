@@ -219,36 +219,30 @@ function deleteRecommend(logged_id, board_id){
 }
 
 function loadRecBtn(id){
-	let check =0;
 	$.ajax({
 		url: "/recommend/board",
 		type: "GET",
-		data: {"board_id": id} ,
+		data: {"board_id": id},
 		cache: false,
 		success: function(responseData, status, xhr) {
 			if (status === "success") {
 				for (const e of responseData) {
-					if (e.user_id === logged_id ) {
-						check = 1;
-						return;
+					console.log("e.user_id", e.user_id);
+					console.log("logged_id", logged_id);
+					console.log("\n");
+					if (e.user_id == logged_id ) {
+						$('#btnRec').removeClass('btn-outline-primary');
+                        $('#btnRec').addClass('btn-primary');
+                        $('#btnRec i').removeClass('bi-hand-thumbs-up');
+                        $('#btnRec i').addClass('bi-hand-thumbs-up-fill');
+                        return;
 					}
 				}
+				$('#btnRec').removeClass('btn-primary');
+                $('#btnRec').addClass('btn-outline-primary');
+                $('#btnRec i').removeClass('bi-hand-thumbs-up-fill');
+                $('#btnRec i').addClass('bi-hand-thumbs-up');
 			}
-		},
-		error: function(xhr, status, error) {
-			console.log("Error:", error);
 		}
 	});
-	if (check == 1){
-		$('#btnRec').removeClass('btn-primary');
-        $('#btnRec').addClass('btn-outline-primary');
-        $('btnRec i').removeClass('bi-hand-thumbs-up-fill');
-        $('btnRec i').addClass('bi-hand-thumbs-up');
-        return;
-	} else {
-		$('#btnRec').removeClass('btn-outline-primary');
-	    $('#btnRec').addClass('btn-primary');
-	    $('#btnRec i').removeClass('bi-hand-thumbs-up');
-	    $('#btnRec i').addClass('bi-hand-thumbs-up-fill');
-	}
 }
