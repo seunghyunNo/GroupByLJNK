@@ -84,15 +84,17 @@ https://www.youtube.com/watch?v=A9h7gBpfGWM&list=PLedGoSru7949QBblDY0z1k1-UNczq5
 - DataBase(DB): SQL, Oracle, Mysql, DBeaver
 - Project tool: intellij, Visual Studio Code, Git, Github, Maven
 
-![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/b12be9c5-c4ad-4166-a149-0b5349898364)
+![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/39530a98-a32d-473d-9fbc-812517b9b33d)
 
-![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/a8f4935a-f53f-441f-b08c-491ed735ba4e)
+![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/6bdedf1a-3296-4aa0-84b2-a092def4e75c)
 
-![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/07a02665-12b5-4c47-9723-78ea34ac9b1f)
+![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/bf3ec03d-b7b8-485a-90d1-44a706aeda8f)
 
-![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/d74b6fc8-59c7-4c54-b463-a4a52cf43a08)
+![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/08bb02b3-056a-47f1-a048-93652afbe6a0)
 
-![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/45b855d5-acfd-41fd-8467-746450d67bc5)
+![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/78a41754-afa5-4683-a775-851533053fa7)
+
+
 
 
 
