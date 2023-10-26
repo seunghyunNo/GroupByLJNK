@@ -84,6 +84,11 @@ https://www.youtube.com/watch?v=A9h7gBpfGWM&list=PLedGoSru7949QBblDY0z1k1-UNczq5
 - DataBase(DB): SQL, Oracle, Mysql, DBeaver
 - Project tool: intellij, Visual Studio Code, Git, Github, Maven
 
+  
+# 노승현 | Junior Back-End Developer
+
+---
+
 ![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/39530a98-a32d-473d-9fbc-812517b9b33d)
 
 ![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/6bdedf1a-3296-4aa0-84b2-a092def4e75c)
