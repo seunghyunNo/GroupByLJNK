@@ -85,7 +85,7 @@ https://www.youtube.com/watch?v=A9h7gBpfGWM&list=PLedGoSru7949QBblDY0z1k1-UNczq5
 - Project tool: intellij, Visual Studio Code, Git, Github, Maven
 
   
-# 노승현 | Junior Back-End Developer
+# 프로젝트 소개
 
 ---
 
