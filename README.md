@@ -61,7 +61,7 @@ https://github.com/june276/GroupByLJNK
 
 JAVA 17, Spring Boot 3.1.1, HTML5, CSS, JavaScript, Gradle, Lombok, Spring Security, Thymeleaf, MySQL, MyBatis Framework, Spring DevTools, Validation, Java Mail Sender, JSON, Ajax, jQuery, BootStrap
 
-맡은 part :
+맡은 기능 구현 :
 
 게임 별 게시판 목록, 작성, 수정, 삭제 구현, 게시물 별 추천 수 와 조회수 구현, 댓글 기능 구현
 
