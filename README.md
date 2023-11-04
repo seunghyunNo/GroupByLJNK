@@ -57,18 +57,16 @@ https://github.com/june276/GroupByLJNK
 
 개요 : 게임 유통망 Steam의 게임별 커뮤니티. 게임 별 리뷰를 남기고, 자유롭게 의견을 주고 받는 게시판 시스템이 있으며, 게임 별 추가 파일이나 팩을 공유하는 자료실 시스템이 존재하는 웹 어플리케이션입니다.
 
-사용 기술 :
-
-JAVA 17, Spring Boot 3.1.1, HTML5, CSS, JavaScript, Gradle, Lombok, Spring Security, Thymeleaf, MySQL, MyBatis Framework, Spring DevTools, Validation, Java Mail Sender, JSON, Ajax, jQuery, BootStrap
-
 맡은 기능 구현 :
 
 게임 별 게시판 목록, 작성, 수정, 삭제 구현, 게시물 별 추천 수 와 조회수 구현, 댓글 기능 구현
 
 
-시연영상
 
-https://www.youtube.com/watch?v=A9h7gBpfGWM&list=PLedGoSru7949QBblDY0z1k1-UNczq5Dpx&index=2
+사용 기술 :
+
+JAVA 17, Spring Boot 3.1.1, HTML5, CSS, JavaScript, Gradle, Lombok, Spring Security, Thymeleaf, MySQL, MyBatis Framework, Spring DevTools, Validation, Java Mail Sender, JSON, Ajax, jQuery, BootStrap
+
 
 ## Experiences
 
@@ -93,6 +91,12 @@ https://www.youtube.com/watch?v=A9h7gBpfGWM&list=PLedGoSru7949QBblDY0z1k1-UNczq5
 # 프로젝트 소개
 
 ---
+
+ERD
+
+![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/2f55e30b-2210-4aac-8554-ff9a686ca93e)
+
+
 
 ![image](https://github.com/seunghyunNo/GroupByLJNK/assets/138773698/39530a98-a32d-473d-9fbc-812517b9b33d)
 
